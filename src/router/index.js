@@ -8,6 +8,7 @@ import homeuser from '../views/homeuser.vue'
 import userServices from '../views/userServices.vue'
 import userproducts from '../views/userproducts.vue'
 import productstable from '../views/productstable.vue'
+import productcategory from '../views/productcategory.vue'
 
 const routes = [
   {
@@ -45,6 +46,10 @@ const routes = [
   {
     path: '/productstable',
     component: productstable
+  },
+  {
+    path: '/productcategory',
+    component: productcategory
   },
 ]
 
