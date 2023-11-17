@@ -38,8 +38,7 @@
                         <td>{{ info.id}}</td>
                         <td>{{ info.category_name}}</td>
                         <td>
-                          <a href="#" data-id="1" class="btn btn-success btn-sm edit"><i class="fa fa-edit"></i> EDIT</a>
-                          <button class="btn btn-danger btn-sm" @click="deleteRecord(info.id)">Delete</button>
+                          <button @click="editRecord" class="btn btn-success btn-sm edit"> EDIT</button>
                         </td>
                       </tr>
                     </tbody>
@@ -56,10 +55,29 @@
 <div>
       <form @submit.prevent="savecateg">
         <label for="category_name">Category</label>
-        <input type="text" placeholder="category_name" v-model="category_name">
+        <input type="text" placeholder="category_name" v-model="category_name" required>
         <br>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+    </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Success</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Successfully saved!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
     </div>
        
 </template>
@@ -83,8 +101,14 @@ export default {
         const ins = await axios.post("savecateg", {
           category_name: this.category_name,
         });
+
+        this.category_name ="";
+        this.$emit('data-saved');
+        this.getInfo();
+
+        $('successModal').modal('show');
       } catch (error) {
-        
+        console.error(error);
       }
     },
 

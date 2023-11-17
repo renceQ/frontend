@@ -7,6 +7,14 @@
             {{ category.category_name }}
           </option>
         </select>
+
+        <label for="size_id">Size</label>
+          <select v-model="size_id">
+            <option v-for="size in sizes" :key="size.size_id" :value="size.size_id">
+              {{ size.item_size }}
+            </option>
+          </select>
+        
         <br>
         <br>
         <label for="image">Image</label>
@@ -35,12 +43,14 @@
     data() {
       return {
         category_id: "",
-        image: null, // Changed to null to hold the file object
-        imageUrl: "", // To display preview of the selected image
+        size_id: "",
+        image: null, 
+        imageUrl: "", 
         prod_name: "",
         stock: "",
         price: "",
-        categories: [], // Array to hold categories fetched from API
+        categories: [], 
+        sizes: [],
       };
     },
     methods: {
@@ -48,10 +58,12 @@
         try {
           const formData = new FormData();
           formData.append("category_id", this.category_id);
+          formData.append("size_id", this.size_id);
           formData.append("image", this.image);
           formData.append("prod_name", this.prod_name);
           formData.append("stock", this.stock);
           formData.append("price", this.price);
+          formData.append("unit_price", this.unit_price,);
   
           const response = await axios.post("save", formData);
           // Handle response if needed
@@ -67,6 +79,14 @@
           console.error(error);
         }
       },
+      async fetchsizes(){
+        try {
+          const response =await axios.get("getsize");
+          this.sizes = response.data
+        } catch (error) {
+          console.error(error);
+        }
+      },
       onFileChange(event) {
         // Update image and imageUrl when a file is selected
         if (event.target.files && event.target.files[0]) {
@@ -76,7 +96,8 @@
       },
     },
     mounted() {
-      this.fetchCategories(); // Fetch categories when the component is mounted
+      this.fetchCategories();
+      this.fetchsizes(); // Fetch categories when the component is mounted
     },
   };
   </script>
