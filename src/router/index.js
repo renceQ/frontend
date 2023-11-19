@@ -42,7 +42,7 @@ const routes = [
     component: requesttable
   },
   {
-    path: '/userhome',
+    path: '/home',
     component: homeuser
   }, 
   {

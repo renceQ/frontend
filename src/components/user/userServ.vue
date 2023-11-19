@@ -7,25 +7,30 @@
   <br>
   <br>
   <br>
-  <br>
-
-			<h1 class="navbar-brand" href="index.html" style="font-size: 50px; "> Our|<span>Services...</span></h1>
+  <div>
+<div style="margin-left:450px;">
+			<h1 class="navbar-brand" href="index.html" style="font-size: 50px;margin-left:90px; "> Our|<span>Services...</span></h1>
 			<br>
+      <br>
 			<h2 class="navbar-brand" href="index.html" style="font-size: 20px;">
 				"Welcome to QMJ Enterprises! We offer a diverse range of <br>services including sounds and lighting appointments, <br>professional photo and video shoots, album production, <br>invitations, souvenirs, personalized clothing, and bespoke <br>design suggestions."
 			</h2>
             <br>
             <br>
-			<div>
+            <br>
+          </div>
+			<div style="margin-left:320px;">
 				<router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Sounds and Lights</router-link>
                 <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">photo/video production</router-link>
                 <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Items Customization</router-link>
                 <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Tarpaulin Printing </router-link>
 			</div>
-			<br>
+    </div>
+      <br>
+
             <br><br><br><br>
         
-          <div class="row justify-content-end">
+          <div class="row justify-content-end" style="margin-left:450px;">
             <strong class="mb-4" style="margin-right: 300px; font-size: 50px;">What We Do....</strong>
             <div class="col-md-7">
                
@@ -37,7 +42,7 @@
         <div class="container">
           <div class="row d-flex">
             <div class="col-md-6 d-flex">
-              <img src="../../assets/images/soundsandlights.jpg" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 10px;margin-bottom: 100px;">
+              <img :src="require('../../assets/images/soundsandlights.jpg')" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 10px;margin-bottom: 100px;">
             </div>
             <div class="col-md-6 pl-md-5 py-5">    
                 <div class="col-md-12 ">
@@ -71,7 +76,7 @@
             <div class="container">
               <div class="row d-flex">
                 <div class="col-md-6 d-flex">
-                  <img src="../../assets/images/pis2.jpg" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 10px;margin-bottom: 100px;">
+                  <img :src="require('../../assets/images/pis2.jpg')" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 10px;margin-bottom: 100px;">
                 </div>
                 <div class="col-md-6 pl-md-5 py-5">    
                     <div class="col-md-12 ">
@@ -105,7 +110,7 @@
                 <div class="container">
                   <div class="row d-flex">
                     <div class="col-md-6 d-flex">
-                      <img src="../../assets/images/hood.jpg" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 10px;margin-bottom: 100px;">
+                      <img :src="require('../../assets/images/hood.jpg')" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 10px;margin-bottom: 100px;">
                     </div>
                     <div class="col-md-6 pl-md-5 py-5">    
                         <div class="col-md-12 ">
@@ -140,7 +145,7 @@
                 <div class="container">
                   <div class="row d-flex">
                     <div class="col-md-6 d-flex">
-                      <img src="../../assets/images/tarp.jpg" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 10px;margin-bottom: 100px;">
+                      <img :src="require('../../assets/images/tarp.jpg')" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 10px;margin-bottom: 100px;">
                     </div>
                     <div class="col-md-6 pl-md-5 py-5">    
                         <div class="col-md-12 ">

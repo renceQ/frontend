@@ -1,21 +1,34 @@
 <template>
 
- 
+  <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+ <div style="margin-left:450px;">
+    <br>
+   
     <br>
            <h1 class="navbar-brand" href="index.html" style="font-size: 50px; "> Available|<span>Products...</span></h1>
            <br>
            <br>
-           <div>
+           
+          </div>
+           <div style="margin-left:450px;" >
                <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Albums Cover</router-link>
                <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Clothes</router-link>
                <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Mug</router-link>
                <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Cap</router-link>
                <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Pens</router-link>
            </div>
+           <br>
+           <br>
+           <br>
 
-
+           <br>
+           <br>
+           <br>
 <!-- items inputs-->
            <div>
 

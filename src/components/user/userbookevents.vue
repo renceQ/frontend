@@ -3,72 +3,70 @@
     
     <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
       <div style="display: flex; align-items: center; justify-content: flex-end;">
-        <div style="margin-right: 50px; margin-left: 100px; margin-bottom: 140px;">
+        <div style="margin-right: 50px; margin-left: 200px; margin-bottom: 140px;">
           <br>
           <br>
           <br>
           <br>
           <br>
-          <h1 class="navbar-brand" href="index.html" style="font-size: 50px; margin-right: 160px;"> Book|<span>US now...</span></h1>
+          <h1 class="navbar-brand" href="index.html" style="font-size: 50px; margin-left: 110px;"> Book|<span>US now...</span></h1>
           <br>
           <div>
            
-            <form @submit.prevent="saveBooking">
-                <h2>Event Booking</h2>
-                
-                <!-- Event Information -->
-                <div>
-                  <label for="event_title">Event Title:</label>
-                  <input type="text" placeholder="event title" v-model="event_title"  required>
-                </div>
-                
-                <div>
-                  <label for="start_date">Start Date:</label>
-                  <input type="date" placeholder="start date" v-model="start_date" required>
-                </div>
-                
-                <div>
-                  <label for="end_date">End Date:</label>
-                  <input type="date" placeholder="end date" v-model="end_date"  required>
-                </div>
-                
-                <div>
-                  <label for="location">Location:</label>
-                  <input type="text" placeholder=" location" v-model="location"  required>
-                </div>
-                
-                <div>
-                  <label for="event_description">Description:</label>
-                  <textarea v-model="event_description" placeholder=" other description" required></textarea>
-                </div>
-                
-                
-                <!-- Attendee Information -->
-                <h3>Contact Details</h3>
-                
-                <div>
-                  <label for="name">Name:</label>
-                  <input type="text" placeholder="name" v-model="name"  required>
-                </div>
-                
-                <div>
-                  <label for="email">Email:</label>
-                  <input type="email" placeholder="email address" v-model="email"  required>
-                </div>
-                
-                <div>
-                  <label for="phone">Phone:</label>
-                  <input type="tel" placeholder="phone" v-model="phone" required>
-                </div>
-                
-                <button type="submit">Book Event</button>
-              </form>
-
+            <form @submit.prevent="saveBooking" class="container mt-5 p-4 bg-light rounded shadow-lg" style="margin-right:350px;">
+              <h2 class="mb-4">Event Booking</h2>
+              
+              <!-- Event Information -->
+              <div class="form-group">
+                <label for="event_title">Event Title:</label>
+                <input type="text" class="form-control" placeholder="Event Title" v-model="event_title" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" class="form-control" v-model="start_date" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" class="form-control" v-model="end_date" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" class="form-control" placeholder="Location" v-model="location" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="event_description">Description:</label>
+                <textarea class="form-control" v-model="event_description" placeholder="Other Description" required></textarea>
+              </div>
+              
+              <!-- Attendee Information -->
+              <h3>Contact Details</h3>
+              
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" placeholder="Name" v-model="name" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" placeholder="Email Address" v-model="email" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" class="form-control" placeholder="Phone" v-model="phone" required>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Book Event</button>
+            </form>
           </div>
           <br>
     
         </div>
-        <img src="../../assets/images/logo2.jpg" alt="Description of the image" style="border-radius: 10px; width: 450px; margin-right: 100px; margin-top: 80px;margin-bottom: 100px;">
+        <img :src="require('../../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 10px; width: 450px; margin-right: 100px;margin-bottom: 700px;">
       </div>
     </section>
     
@@ -90,7 +88,7 @@
       <div class="container">
         <div class="row d-flex">
           <div class="col-md-6 d-flex">
-            <img src="../../assets/images/log.jpg" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 80px;margin-bottom: 100px;">
+            <img :src="require('../../assets/images/log.jpg')" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 80px;margin-bottom: 100px;">
           </div>
           <div class="col-md-6 pl-md-5 py-5">
             <div class="row justify-content-start pb-3">
@@ -264,6 +262,7 @@
   </script>
   
   <style>
+  @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css';
   @import url('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900');
   @import '../../assets/css/open-iconic-bootstrap.min.css';
   @import '../../assets/css/animate.css';

@@ -3,9 +3,9 @@
   <br>
 	<br>
   
-  <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+  <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: srcurl('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
     <div style="display: flex; align-items: center; justify-content: flex-end;">
-      <div style="margin-right: 50px; margin-left: 100px; margin-bottom: 140px;">
+      <div style="margin-right: 50px; margin-left: 100px; ">
         <br>
         <br>
   
@@ -20,18 +20,13 @@
            they excel in printing tarpaulins, ensuring every event is marked with <br>
            personalized and exceptional touches that leave a lasting impression.
         </h2>
-        <div>
-          <router-link to="#sec1" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none; border-radius: 8px; box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Read More</router-link>
-        </div>
-        <br>
-  
       </div>
-      <img src="../../assets/images/logo2.jpg" alt="Description of the image" style="border-radius: 10px; width: 450px; margin-right: 100px; margin-top: 80px;margin-bottom: 100px;">
+      <img :src="require('../../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 10px; width: 450px; margin-right: 100px; margin-top: 80px;">
     </div>
-  </section>
-  
-
-  <section class="ftco-section d-md-flex bg-light" id="sec1">
+<br>
+<br>
+<br>
+<br>
     <div class="container" >
       <div class="row justify-content-end">
         <div class="col-md-7">
@@ -43,12 +38,12 @@
       </div>
     </div>
   </section>
-
-  <section class="ftco-counter img" id="section-counter">
+  
+  <section class="ftco-counter img" id="section-counter" >
     <div class="container">
       <div class="row d-flex">
         <div class="col-md-6 d-flex">
-          <img src="../../assets/images/log.jpg" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 80px;margin-bottom: 100px;">
+          <img :src="require('../../assets/images/log.jpg')" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 80px;margin-bottom: 100px;">
         </div>
         <div class="col-md-6 pl-md-5 py-5">
           <div class="row justify-content-start pb-3">

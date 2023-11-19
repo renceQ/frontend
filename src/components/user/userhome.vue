@@ -6,7 +6,7 @@
 	<br>
 	<br>
     <div style="display: flex; align-items: center;">
-		<img src="../../assets/images/logo.jpg" alt="Description of the image" style="width: 300px; margin-left: 200px;margin-right: 90px; margin-top: 90px;">
+		<img :src="require('../../assets/images/logo.jpg')" alt="Description of the image" style="width: 300px; margin-left: 200px;margin-right: 90px; margin-top: 90px;">
 		<div style="margin-left:100px;">
 			<br>
 			<br>

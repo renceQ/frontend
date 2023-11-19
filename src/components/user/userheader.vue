@@ -3,7 +3,7 @@
 	<nav class="neumorphic-navbar" :class="{ 'navbar-hidden': isNavbarHidden }">
 				<a class="navbar-brand">Qmj<span>Ent.</span></a>
 				<span style="margin-left:300px;" class="nav-item">
-				  <router-link to="/userhome" class="nav-link">Home</router-link>
+				  <router-link to="/home" class="nav-link">Home</router-link>
 				</span>
 				<span class="nav-item">
 				  <router-link to="/about" class="nav-link">About</router-link>
