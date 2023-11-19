@@ -1,11 +1,14 @@
 <template>
 
- 
-     <br>
-     <br>
-     <br>
-     <br>
-			<br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
 			<h1 class="navbar-brand" href="index.html" style="font-size: 50px; "> Our|<span>Services...</span></h1>
 			<br>
 			<h2 class="navbar-brand" href="index.html" style="font-size: 20px;">

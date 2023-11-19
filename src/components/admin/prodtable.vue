@@ -5,7 +5,6 @@
       <div class="x_panel">
         <div class="x_title">
           <h2>List of Products</h2>
-          <button class="btn btn-primary" @click="openModal">Add Product</button>
           <ul class="nav navbar-right panel_toolbox">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
             <li class="dropdown">

@@ -1,5 +1,7 @@
 <template>
   <br>
+  <br>
+	<br>
   
   <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
     <div style="display: flex; align-items: center; justify-content: flex-end;">

@@ -12,7 +12,7 @@
 				  <a href="/userServices" class="nav-link">Services</a>
 				</span>
 				<span class="nav-item">
-				  <a href="schedule.html" class="nav-link">Schedule</a>
+				  <a href="/bookevents" class="nav-link">Book event</a>
 				</span>
 				<span class="nav-item">
 				  <a href="blog.html" class="nav-link">Blog</a>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+
+
 export default {
   data() {
     return {

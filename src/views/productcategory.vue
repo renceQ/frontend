@@ -2,6 +2,7 @@
     <div id="app">
       <Menu />
       <category /><br><br><br>
+      <AlertDefault :visible="false" variant="success" ></AlertDefault>
 
     </div>
   
@@ -10,6 +11,7 @@
   <script>
   import Menu from '../components/admin/Menu.vue'
   import category from '../components/admin/category.vue'
+
 
   
   export default {

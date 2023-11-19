@@ -9,6 +9,11 @@ import userServices from '../views/userServices.vue'
 import userproducts from '../views/userproducts.vue'
 import productstable from '../views/productstable.vue'
 import productcategory from '../views/productcategory.vue'
+import bookevents from '../views/bookevents.vue'
+import bookingtable from '../views/bookingtable.vue'
+import approved_events from '../views/approved_events.vue'
+
+
 
 const routes = [
   {
@@ -51,6 +56,20 @@ const routes = [
     path: '/productcategory',
     component: productcategory
   },
+  {
+    path: '/bookevents',
+    component: bookevents
+  },
+  {
+    path: '/bookingtable',
+    component: bookingtable
+  },
+  {
+    path: '/approved_events',
+    component: approved_events
+  },
+ 
+
 ]
 
 const router = createRouter({
