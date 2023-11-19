@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import admin from '../views/admin.vue'
-import user from '../views/user.vue'
 import aboutpage from '../views/aboutpage.vue'
 import contactus from '../views/contactus.vue'
 import requesttable from '../views/requesttable.vue'
@@ -12,17 +11,23 @@ import productcategory from '../views/productcategory.vue'
 import bookevents from '../views/bookevents.vue'
 import bookingtable from '../views/bookingtable.vue'
 import approved_events from '../views/approved_events.vue'
+import login from '../views/login.vue'
+import register from '../views/register.vue'
 
 
 
 const routes = [
   {
-    path: '/admin',
-    component: admin
+    path: '/',
+    component: login
   },
   {
-    path: '/',
-    component: user
+    path: '/register',
+    component: register
+  },
+  {
+    path: '/admin',
+    component: admin
   },
   {
     path: '/about',
