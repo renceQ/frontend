@@ -13,6 +13,7 @@ import bookingtable from '../views/bookingtable.vue'
 import approved_events from '../views/approved_events.vue'
 import login from '../views/login.vue'
 import register from '../views/register.vue'
+import userblog from '../views/userblog.vue'
 
 
 
@@ -64,6 +65,10 @@ const routes = [
   {
     path: '/bookevents',
     component: bookevents
+  },
+  {
+    path: '/userblog',
+    component: userblog
   },
   {
     path: '/bookingtable',

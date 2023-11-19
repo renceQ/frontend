@@ -15,7 +15,7 @@
 				  <a href="/bookevents" class="nav-link">Book event</a>
 				</span>
 				<span class="nav-item">
-				  <a href="blog.html" class="nav-link">Blog</a>
+				  <a href="userblog" class="nav-link">Blog</a>
 				</span>
 				<span class="nav-item">
 				  <a href="/userproducts" class="nav-link">Products</a>
