@@ -43,14 +43,22 @@
   
           if (response.data.msg === 'okay') {
             sessionStorage.setItem("jwt", response.data.token);
-            router.push('/home');
-          } else {
+            router.push('/home');  
+            
+          } 
+          else {
             this.message = 'error';
           }
+
         } catch (error) {
           console.error('Error:', error);
           this.message = 'error';
         }
+        
+      //   if (!sessionStorage.getItem("jwt",response.data.token)) {
+      //     router.push('/login'); 
+      // }
+
       }
     }
   }

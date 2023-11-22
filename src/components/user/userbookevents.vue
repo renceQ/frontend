@@ -14,7 +14,7 @@
           <div>
            
             <form @submit.prevent="saveBooking" class="container mt-5 p-4 bg-light rounded shadow-lg" style="margin-right:350px;">
-              <h2 class="mb-4">Event Booking</h2>
+              <h2 class="mb-4">Request for event</h2>
               
               <!-- Event Information -->
               <div class="form-group">

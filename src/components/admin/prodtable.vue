@@ -31,7 +31,9 @@
                 <tbody>
                   <tr v-for="product in info" :key="product.id">
                     <td>{{ getCategoryName(product.category_id) }}</td>
-                    <td><img :src="product.image_path" alt="Product Image" class="img-fluid"></td>
+                    <td v-if="product.image">
+                      <img :src="product.image" alt="image" class="img-fluid" style="max-width: 100px; max-height:100px;">
+                    </td>
                     <td>{{ product.prod_name }}</td>
                     <td>{{ product.stock }}</td>
                     <td>{{ product.price }}</td>
@@ -111,13 +113,6 @@ export default {
       const category = this.categories.find(category => category.id === categoryId);
       return category ? category.category_name : 'Unknown';
     },
-    deleteRecord(id) {
-      // Implement delete logic
-    },
-    openModal() {
-      // Implement openModal logic
-    },
-    // Other methods...
   },
 };
 </script>
