@@ -6,7 +6,7 @@
     <br>
     <br>
     <br>
- <div style="margin-left:450px;">
+ <!-- <div style="margin-left:450px;"> -->
     <br>
    
     <br>
@@ -14,39 +14,55 @@
            <br>
            <br>
            
-          </div>
-           <div style="margin-left:450px;" >
-               <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Albums Cover</router-link>
-               <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Clothes</router-link>
-               <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Mug</router-link>
-               <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Cap</router-link>
-               <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Pens</router-link>
-           </div>
-           <br>
-           <br>
-           <br>
-
-           <br>
-           <br>
-           <br>
-<!-- items inputs-->
            <div>
+            <label for="category_id" class="label">Category</label>
+            <div class="select-wrapper" style="margin-left: 100px;">
+              <select v-model="category_id" @change="filterProducts" class="select">
+                <option value="">All Categories</option>
+                <option v-for="category in categories" :key="category.id" :value="category.id">
+                  {{ category.category_name }}
+                </option>
+              </select>
+              <i class="fas fa-caret-down arrow-icon"></i>
+            </div>
+          </div>
+<!--show products----------------------------------------------------------------->
 
 
-           </div>
+  <!-- Your existing template code here -->
+  <div class="row">
+    <div v-for="(product, index) in info" :key="product.id" class="col-lg-3 col-md-6">
+      <div class="room-item">
+        <img :src="product.image" alt="" style="width: 200px; height: 200px;">
+        <div class="ri-text">
+          <h4>{{ product.prod_name }}</h4>
+          <table>
+            <tbody>
+              <tr>
+                <td class="r-o">Unit Price:</td>
+                <td>{{ product.unit_price }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-outline-danger btn-sm" @click="preOrder(product.id)">Pre order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
            
 
-
+          
+           <br><br><br><br> <br><br>
+           <div>
+           </div>
            <br><br><br><br><br>
-       
          <div class="row justify-content-end">
            <strong class="mb-4" style="margin-right: 100px; font-size: 50px;"></strong>
-           <div class="col-md-7">
-              
+           <div class="col-md-7">   
            </div>
          </div>
-
-   
 
      <footer class="ftco-footer ftco-bg-dark ftco-section">
        <div class="container">
@@ -107,10 +123,130 @@
 
 </template>
 
-<script>
+ <script>
+  import axios from 'axios';
+  
+  export default {
+    data() {
+      return {  
+        categories: [], 
+        info: [],
+      sizes: [],
+      category_id: '',
+      };
+    },
+    created() {
+    this.getData();
+  },
+    methods: {
 
-</script>
+      async filterProducts() {
+      try {
+        if (this.category_id) {
+          const response = await axios.get(`getProductsByCategory/${this.category_id}`);
+          this.info = response.data;
+        } else {
+          this.getInfo(); // Fetch all products if no category selected
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+      async fetchCategories() {
+        try {
+          const response = await axios.get("getcat");
+          this.categories = response.data; // Assuming response.data contains the categories array
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      async getData() {
+      try {
+        await Promise.all([this.getCategories(), this.getInfo(), this.getItemSizes()]);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getInfo() {
+      try {
+        const response = await axios.get('getDatas');
+        this.info = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getCategories() {
+      try {
+        const response = await axios.get('getcat');
+        this.categories = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getItemSizes() {
+      try {
+        const response = await axios.get('getsize');
+        this.sizes = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    getSizeName(sizeId) {
+      const size = this.sizes.find(size => size.size_id === sizeId);
+      return size ? size.item_size : 'Unknown';
+    },
+    getCategoryName(categoryId) {
+      const category = this.categories.find(category => category.id === categoryId);
+      return category ? category.category_name : 'Unknown';
+    },
+      
+    },
+    mounted() {
+      this.fetchCategories(); // Fetch categories when the component is mounted      not finished yet insert products
+    },
+  };
+  </script>
+
+
+
+
+
 
 <style>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+/* Style for the label */
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Style for the select dropdown */
+.select-wrapper {
+  position: relative;
+  width: 200px;
+}
+
+.select {
+  padding: 8px 30px 8px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333333"><path d="M7 10l5 5 5-5z" /></svg>') no-repeat right 8px center/12px;
+}
+
+.arrow-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #333333;
+  pointer-events: none;
+}
 
 </style>
