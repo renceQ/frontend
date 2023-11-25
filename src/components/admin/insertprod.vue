@@ -86,6 +86,7 @@
                 this.price = "";
                 this.unit_price = "";
 
+                this.getInfo();
                 this.$emit("refreshData");
             } catch (error) {
                 console.error("Error saving product:", error);

@@ -14,6 +14,7 @@ import approved_events from '../views/approved_events.vue'
 import login from '../views/login.vue'
 import register from '../views/register.vue'
 import userblog from '../views/userblog.vue'
+import productrequest from '../views/productrequest.vue'
 
 
 
@@ -78,7 +79,12 @@ const routes = [
     path: '/approved_events',
     component: approved_events
   },
- 
+  {
+    path: '/productrequest/:image/:prod_name/:unit_price',
+    name: 'productrequest',
+    component: () => import('../views/productrequest.vue'), // Replace with your actual path and component
+    props: true // Pass route params as props to the component
+  }
 
 ]
 
@@ -86,5 +92,42 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+
+
+router.beforeEach((to, from, next) => {
+  const token = sessionStorage.getItem('jwt');
+
+  if (to.path !== '/' && to.path !== '/register') {
+    if (!token) {
+      next('/');
+    } else {
+      // Check if the user is trying to access the admin route
+      if (to.path === '/admin'  || to.path === '/bookingtable' || to.path === '/productcategory') { //di pa tapos mag add ng path that was not accessible by the non-admin users
+        // Check if the user's credentials match the admin's credentials
+        const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
+
+        if (!isAdmin) {
+          // Clear session and redirect to '/login' for non-admin users accessing '/admin'
+          sessionStorage.clear();
+          next('/login');
+        } else {
+          next();
+        }
+      } else {
+        next();
+      }
+    }
+  } else {
+    if (token && (to.path === '/' || to.path === '/register')) {
+      next('/home');
+    } else {
+      next();
+    }
+  }
+});
+
+
+
 
 export default router

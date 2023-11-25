@@ -1,5 +1,15 @@
 <template>
 
+
+	<form @data-saved="getUserDetails" />
+	<div>
+		<tr v-for="info in info">
+			<td>{{ info.category_name}}</td>
+			<td>
+			  <button @click="editprofile" class="btn btn-success btn-sm edit">Edit profile</button>
+			</td>
+		  </tr>
+	</div>
 	<br>
 	<br>
 	<br>

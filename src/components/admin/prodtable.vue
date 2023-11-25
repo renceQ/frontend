@@ -72,6 +72,7 @@ export default {
   },
   created() {
     this.getData();
+    this.getInfo();
   },
   methods: {
     async getData() {

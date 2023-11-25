@@ -44,7 +44,7 @@
               </tr>
             </tbody>
           </table>
-          <button class="btn btn-outline-danger btn-sm" @click="preOrder(product.id)">Pre order</button>
+          <button class="btn btn-outline-danger btn-sm" @click="preOrder(product)">Pre order</button>
         </div>
       </div>
     </div>
@@ -139,7 +139,21 @@
     this.getData();
   },
     methods: {
+   
+      preOrder(product) {
+  const { image, prod_name, unit_price } = product;
+  this.$router.push({ 
+    name: 'productrequest', 
+    params: { 
+      image,
+      prod_name,
+      unit_price
+      // Add other necessary details you want to pass to the productrequestfields page
+    } 
+  });
+},
 
+      
       async filterProducts() {
       try {
         if (this.category_id) {
