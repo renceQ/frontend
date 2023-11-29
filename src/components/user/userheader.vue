@@ -22,29 +22,78 @@
 				</span>
 				<span class="nav-item cta">
 				  <router-link to="/contacts" class="nav-link">Contact Us</router-link>
-				</span>
+				</span>	
 			  </nav>
-	
-	
+
+
+			  <div style="margin-top: 150px;">
+				<!-- Your HTML table -->
+				<!-- ... -->
+			
+				<!-- Insert component emits 'data-saved' event -->
+				<insert @data-saved="getUserData" />
+			
+				<table id="datatable-responsive" class="table table-bordered table-striped dt-responsive nowrap" cellspacing="0" width="80%" style="margin: 0 auto;">
+				  <!-- Table header -->
+				  <thead>
+					<tr>
+					  <th>Profile Picture</th>
+					  <th>Username</th>
+					  <th>Address</th>
+					  <th>Contact</th>
+					  <th>Other Info</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr v-if="userData">
+					  <!-- Display user data -->
+					  <td v-if="userData.profile_picture">
+						<img :src="userData.profile_picture" alt="" style="width: 200px; height: 200px;">
+					  </td>
+					  <td>{{ userData.username }}</td>
+					  <td>{{ userData.address }}</td>
+					  <td>{{ userData.contact }}</td>
+					  <td>{{ userData.other_info }}</td>
+					</tr>
+					<tr v-else>
+					  <td colspan="5">Loading...</td>
+					</tr>
+				  </tbody>
+				</table>
+			  </div>
 </template>
 
 <script>
+import axios from 'axios';
 
 
 export default {
   data() {
     return {
       isNavbarHidden: false,
-      lastScrollTop: 0
+      lastScrollTop: 0,
+	  info: [],
     };
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+	this.getInfo(); 
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
   },
+  created() {
+    this.getInfo();
+  },
   methods: {
+    async getInfo() {
+      try {
+        const response = await axios.get('getUserData');
+        this.info = response.data; // Assuming response.data is an array of user data
+      } catch (error) {
+        console.error(error);
+      }
+    },
     handleScroll() {
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -58,7 +107,7 @@ export default {
 
       this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }
-  }
+  },
 };
 </script>
 
@@ -117,6 +166,28 @@ body {
 	background-color: #e9e1e1;
 	box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
 	color: #1b1b1b; /* Change text color on hover */
+  }
+  /* Your existing styles */
+
+/* Additional styles for user profile display */
+.user-profile {
+	display: flex;
+	align-items: center;
+  }
+  
+  .profile-picture {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 8px;
+  }
+  
+  .profile-details {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: #333; /* Adjust text color */
+	font-size: 14px;
   }
   
 </style>

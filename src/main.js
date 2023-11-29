@@ -12,6 +12,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 axios.defaults.baseURL="http://backend.test/"
 
 
+
+
 loadFonts()
 
 createApp(App)
