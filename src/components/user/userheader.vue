@@ -26,13 +26,9 @@
 			  </nav>
 
 
+			  
 			  <div style="margin-top: 150px;">
-				<!-- Your HTML table -->
-				<!-- ... -->
-			
-				<!-- Insert component emits 'data-saved' event -->
-				<insert @data-saved="getUserData" />
-			
+				<insert @data-saved="getInfo" />
 				<table id="datatable-responsive" class="table table-bordered table-striped dt-responsive nowrap" cellspacing="0" width="80%" style="margin: 0 auto;">
 				  <!-- Table header -->
 				  <thead>
@@ -45,7 +41,7 @@
 					</tr>
 				  </thead>
 				  <tbody>
-					<tr v-if="userData">
+					<tr v-for="userData in info" :key="userData.id">
 					  <!-- Display user data -->
 					  <td v-if="userData.profile_picture">
 						<img :src="userData.profile_picture" alt="" style="width: 200px; height: 200px;">
@@ -55,17 +51,15 @@
 					  <td>{{ userData.contact }}</td>
 					  <td>{{ userData.other_info }}</td>
 					</tr>
-					<tr v-else>
-					  <td colspan="5">Loading...</td>
-					</tr>
 				  </tbody>
 				</table>
 			  </div>
+
+
 </template>
 
 <script>
 import axios from 'axios';
-
 
 export default {
   data() {

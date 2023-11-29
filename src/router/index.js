@@ -16,8 +16,6 @@ import register from '../views/register.vue'
 import userblog from '../views/userblog.vue'
 import productrequest from '../views/productrequest.vue'
 
-
-
 const routes = [
   {
     path: '/',
@@ -29,61 +27,75 @@ const routes = [
   },
   {
     path: '/admin',
-    component: admin
+    component: admin,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/about',
-    component: aboutpage
+    component: aboutpage,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/contacts',
-    component: contactus
+    component: contactus,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/request/table',
-    component: requesttable
+    component: requesttable,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/home',
-    component: homeuser
+    component: homeuser,
+    meta: { requiresAuth: true } 
   }, 
   {
     path: '/userservices',
-    component: userServices
+    component: userServices,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/userproducts',
-    component: userproducts
+    component: userproducts,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/productstable',
-    component: productstable
+    component: productstable,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/productcategory',
-    component: productcategory
+    component: productcategory,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/bookevents',
-    component: bookevents
+    component: bookevents,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/userblog',
-    component: userblog
+    component: userblog,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/bookingtable',
-    component: bookingtable
+    component: bookingtable,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/approved_events',
-    component: approved_events
+    component: approved_events,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/productrequest/:image/:prod_name/:unit_price',
     name: 'productrequest',
     component: () => import('../views/productrequest.vue'), // Replace with your actual path and component
-    props: true // Pass route params as props to the component
+    props: true, // Pass route params as props to the component
+    meta: { requiresAuth: true } 
   }
 
 ]
@@ -96,38 +108,53 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  const token = sessionStorage.getItem('jwt');
+  const token = localStorage.getItem('jwt');
 
-  if (to.path !== '/' && to.path !== '/register') {
-    if (!token) {
+  // List of routes that require authentication
+  const protectedRoutes = [
+    '/admin',
+    '/bookingtable',
+    '/productcategory'
+    // Add other routes here as needed
+  ];
+
+  if (!token) {
+    // If there's no token, redirect to login for all routes except '/' and '/register'
+    if (to.path !== '/' && to.path !== '/register') {
+      localStorage.clear(); // Clear local storage if no token and accessing unauthorized route
       next('/');
     } else {
-      // Check if the user is trying to access the admin route
-      if (to.path === '/admin'  || to.path === '/bookingtable' || to.path === '/productcategory') { //di pa tapos mag add ng path that was not accessible by the non-admin users
-        // Check if the user's credentials match the admin's credentials
-        const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
+      next();
+    }
+  } else {
+    // If there's a token
+    if (to.path === '/' || to.path === '/register') {
+      // If trying to access login or register page with token, redirect to home
+      next('/home');
+    } else {
+      if (protectedRoutes.includes(to.path)) {
+        // For protected routes
+        const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
         if (!isAdmin) {
-          // Clear session and redirect to '/login' for non-admin users accessing '/admin'
-          sessionStorage.clear();
-          next('/login');
+          // If not an admin, clear storage and redirect to login
+          localStorage.clear();
+          next('/');
         } else {
+          // If an admin, proceed to the route
           next();
         }
       } else {
+        // For routes that don't require authentication
         next();
       }
-    }
-  } else {
-    if (token && (to.path === '/' || to.path === '/register')) {
-      next('/home');
-    } else {
-      next();
     }
   }
 });
 
 
+// kulang pa security : if the url was copied in other site redirect to login
 
+// next task get user data
 
-export default router
+export default router;

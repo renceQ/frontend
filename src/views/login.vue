@@ -33,43 +33,42 @@ export default {
   
   methods: {
     async login() {
-  if (!this.username || !this.password) {
-    this.message = 'Please fill in both the username and password';
-    return;
-  }
-  
-  try {
-    const response = await axios.post('api/login', {
-      username: this.username,
-      password: this.password,
-    });
-
-    if (response.data.msg === 'okay') {
-      sessionStorage.setItem('jwt', response.data.token);
-
-      // Check if the entered credentials match the specified admin credentials
-      if (this.username === 'admin' && this.password === 'guitarLord26') {
-        // Set isAdmin flag for admin users
-        sessionStorage.setItem('isAdmin', 'true');
-        router.push('/admin'); // Redirect to '/admin' if admin credentials match
-      } else {
-        router.push('/home'); // Redirect to '/home' if non-admin credentials
+      if (!this.username || !this.password) {
+        this.message = 'Please fill in both the username and password';
+        return;
       }
-    } else {
-      // Differentiate between invalid password and non-existent account
-      if (response.data.msg === 'error') {
-        this.message = 'Invalid password';
-      } else {
-        this.message = 'Account does not exist';
-      }
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    // Handle network errors or unexpected errors
-    this.message = 'Error occurred while logging in';
-  }
-},
+      
+      try {
+        const response = await axios.post('api/login', {
+          username: this.username,
+          password: this.password,
+        });
 
+        if (response.data.msg === 'okay') {
+          localStorage.setItem('jwt', response.data.token);
+
+          // Check if the entered credentials match the specified admin credentials
+          if (this.username === 'admin' && this.password === 'guitarLord26') {
+            // Set isAdmin flag for admin users
+            localStorage.setItem('isAdmin', 'true');
+            router.push('/admin'); // Redirect to '/admin' if admin credentials match
+          } else {
+            router.push('/home'); // Redirect to '/home' if non-admin credentials
+          }
+        } else {
+          // Differentiate between invalid password and non-existent account
+          if (response.data.msg === 'error') {
+            this.message = 'Invalid password';
+          } else {
+            this.message = 'Account does not exist';
+          }
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle network errors or unexpected errors
+        this.message = 'Error occurred while logging in';
+      }
+    },
   },
 };
 </script>
