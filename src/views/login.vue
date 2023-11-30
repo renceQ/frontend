@@ -46,12 +46,13 @@ export default {
         });
 
         if (response.data.msg === 'okay') {
-          localStorage.setItem('jwt', response.data.token);
+          sessionStorage.setItem('jwt', response.data.token);
+          console.log('Stored Token:', sessionStorage.getItem('jwt'));
 
           // Check if the entered credentials match the specified admin credentials
           if (this.username === 'admin' && this.password === 'guitarLord26') {
             // Set isAdmin flag for admin users
-            localStorage.setItem('isAdmin', 'true');
+            sessionStorage.setItem('isAdmin', 'true');
             router.push('/admin'); // Redirect to '/admin' if admin credentials match
           } else {
             router.push('/home'); // Redirect to '/home' if non-admin credentials

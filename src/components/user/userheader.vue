@@ -28,7 +28,7 @@
 
 
 			  
-			  <!-- <div style="margin-top: 150px;">
+			  <div style="margin-top: 150px;">
 				<insert @data-saved="getInfo" />
 				<table id="datatable-responsive" class="table table-bordered table-striped dt-responsive nowrap" cellspacing="0" width="80%" style="margin: 0 auto;">
 				
@@ -55,7 +55,7 @@
 				  </tbody>
 				</table>
 			  </div>
- -->
+
 
 </template>
 
@@ -78,17 +78,25 @@ export default {
     window.removeEventListener('scroll', this.handleScroll);
   },
   created() {
+	this.token = sessionStorage.getItem('jwt');
+  if (this.token) {
     this.getInfo();
-  },
+  } else {
+    // Handle the case where token is not available in local storage
+    console.error('JWT token not found in local storage');
+  }
+},
+  
   methods: {
     async getInfo() {
-      try {
-        const response = await axios.get('getUserData');
-        this.info = response.data; // Assuming response.data is an array of user data
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    try {
+      const response = await axios.get(`getUserData/${this.token}`);
+      this.info = response.data; // Assuming response.data is an object/array of user data
+    } catch (error) {
+      console.error(error);
+      // Handle the error case, such as showing a message to the user
+    }
+  },
     handleScroll() {
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
