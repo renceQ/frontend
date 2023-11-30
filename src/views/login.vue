@@ -2,10 +2,13 @@
 <template>
   <div style="margin-right: 500px;">
     <div>
-      <h5 style="margin-left: 650px;">Login</h5>
+      <h5 style="margin-left: 650px;"></h5>
       <v-sheet>
         <v-form @submit.prevent="login" class="login-form">
-          <div v-if="message" class="error-message">{{ message }}</div>
+          <div v-if="message" class="error-message-box">
+            <div class="error-message">{{ message }}</div>
+          </div>
+          <br>
 
           <v-text-field v-model="username" label="Username" type="username" outlined></v-text-field>
           <v-text-field v-model="password" label="Password" type="password" outlined></v-text-field>
@@ -78,8 +81,14 @@ export default {
 
 <style>
 /* Add CSS style to display the error message */
-.error-message {
-  color: red;
+.error-message-box {
+  background-color: rgba(255, 0, 0, 0.1); /* Red color with low opacity */
+  padding: 10px;
+  border-radius: 5px;
   margin-top: 10px;
+}
+
+.error-message {
+  color: rgb(5, 0, 0);
 }
 </style>

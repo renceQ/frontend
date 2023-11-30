@@ -3,6 +3,8 @@
 
 	<nav class="neumorphic-navbar" :class="{ 'navbar-hidden': isNavbarHidden }">
 				<a class="navbar-brand">Qmj<span>Ent.</span></a>
+				<!--profile picture-->
+				<img style="width:50px; height:50px;"  v-if="info.length > 0" :src="info[0].profile_picture" alt="Profile" class="profile-picture-navbar">
 				<span style="margin-left:300px;" class="nav-item">
 				  <router-link to="/home" class="nav-link">Home</router-link>
 				</span>
@@ -24,39 +26,30 @@
 				<span class="nav-item cta">
 				  <router-link to="/contacts" class="nav-link">Contact Us</router-link>
 				</span>	
+
+				
 			  </nav>
 
 
-			  
 			  <!-- <div style="margin-top: 150px;">
-				<insert @data-saved="getInfo" />
-				<table id="datatable-responsive" class="table table-bordered table-striped dt-responsive nowrap" cellspacing="0" width="80%" style="margin: 0 auto;">
-				
-				  <thead>
-					<tr>
-					  <th>Profile Picture</th>
-					  <th>Username</th>
-					  <th>Address</th>
-					  <th>Contact</th>
-					  <th>Other Info</th>
-					</tr>
-				  </thead>
+				Your form or insert component
 				  <tbody>
 					<tr v-for="userData in info" :key="userData.id">
-					
-					  <td v-if="userData.profile_picture">
-						<img :src="userData.profile_picture" alt="" style="width: 200px; height: 200px;">
+					  <td>
+						<div class="user-profile">
+						  <img :src="userData.profile_picture" alt="" class="profile-picture">
+						  <div class="profile-details">
+							<div>{{ userData.username }}</div>
+							<div>{{ userData.address }}</div>
+							<div>{{ userData.contact }}</div>
+							<div>{{ userData.other_info }}</div>
+						  </div>
+						</div>
 					  </td>
-					  <td>{{ userData.username }}</td>
-					  <td>{{ userData.address }}</td>
-					  <td>{{ userData.contact }}</td>
-					  <td>{{ userData.other_info }}</td>
 					</tr>
 				  </tbody>
-				</table>
+	
 			  </div> -->
-
-
 </template>
 
 <script>
@@ -151,7 +144,13 @@ body {
 	margin-top: 35px;
 	margin-left: 120px;
   }
-  
+  .profile-picture-navbar {
+	width: 30px; /* Adjust size as needed */
+	height: 30px; /* Adjust size as needed */
+	border-radius: 50%;
+	margin-left: 10px; /* Adjust spacing between logo and picture */
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
   /* Hide the navbar when scrolled down */
   .navbar-hidden {
 	top: -100px; /* Adjust based on the height of your navbar */
@@ -175,15 +174,19 @@ body {
 /* Additional styles for user profile display */
 .user-profile {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
+	justify-content: center;
+	text-align: center;
   }
   
   .profile-picture {
-	width: 40px;
-	height: 40px;
+	width: 80px;
+	height: 80px;
 	border-radius: 50%;
-	margin-right: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
+    
   
   .profile-details {
 	display: flex;
@@ -192,5 +195,44 @@ body {
 	color: #333; /* Adjust text color */
 	font-size: 14px;
   }
+  /* Additional styles for circular profile picture and user details */
+.profile-picture {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+  }
   
+  .user-profile {
+	display: flex;
+	align-items: center;
+  }
+  
+  .profile-details {
+	margin-left: 20px;
+	display: flex;
+	flex-direction: column;
+  }
+  .username {
+	margin-top: 10px; /* Adjust the margin between picture and username */
+	font-weight: bold;
+	font-size: 16px;
+	color: #333; /* Adjust the text color */
+  }
+  @media screen and (max-width: 768px) {
+	.neumorphic-navbar {
+	  width: 100%; /* Adjust width for smaller screens */
+	  margin: 0; /* Remove margins for smaller screens */
+	  border-radius: 0; /* Remove border radius */
+	  padding: 10px; /* Adjust padding */
+	}
+	.profile-picture-navbar {
+	  width: 40px; /* Adjust profile picture size */
+	  height: 40px; /* Adjust profile picture size */
+	}
+	.neumorphic-navbar a {
+	  padding: 5px 10px; /* Adjust padding for links */
+	}
+	/* Add more styles for smaller screens as needed */
+  }
 </style>

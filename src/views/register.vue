@@ -1,7 +1,7 @@
 <template>
     <div style="margin-right: 500px;">
       <div>
-        <h5 style="margin-left: 630px;">Register</h5>
+        <h5 style="margin-left: 630px;"></h5>
         <v-sheet>
           <v-form @submit.prevent="register">
             <div v-if="message" style="color: red;">{{ message }}</div>
