@@ -1,3 +1,4 @@
+
 import { createRouter, createWebHistory } from 'vue-router'
 import admin from '../views/admin.vue'
 import aboutpage from '../views/aboutpage.vue'

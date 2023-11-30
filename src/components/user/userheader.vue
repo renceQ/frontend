@@ -1,3 +1,4 @@
+
 <template>
 
 	<nav class="neumorphic-navbar" :class="{ 'navbar-hidden': isNavbarHidden }">
@@ -27,10 +28,10 @@
 
 
 			  
-			  <div style="margin-top: 150px;">
+			  <!-- <div style="margin-top: 150px;">
 				<insert @data-saved="getInfo" />
 				<table id="datatable-responsive" class="table table-bordered table-striped dt-responsive nowrap" cellspacing="0" width="80%" style="margin: 0 auto;">
-				  <!-- Table header -->
+				
 				  <thead>
 					<tr>
 					  <th>Profile Picture</th>
@@ -42,7 +43,7 @@
 				  </thead>
 				  <tbody>
 					<tr v-for="userData in info" :key="userData.id">
-					  <!-- Display user data -->
+					
 					  <td v-if="userData.profile_picture">
 						<img :src="userData.profile_picture" alt="" style="width: 200px; height: 200px;">
 					  </td>
@@ -54,7 +55,7 @@
 				  </tbody>
 				</table>
 			  </div>
-
+ -->
 
 </template>
 
