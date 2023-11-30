@@ -28,7 +28,7 @@
 
 
 			  
-			  <div style="margin-top: 150px;">
+			  <!-- <div style="margin-top: 150px;">
 				<insert @data-saved="getInfo" />
 				<table id="datatable-responsive" class="table table-bordered table-striped dt-responsive nowrap" cellspacing="0" width="80%" style="margin: 0 auto;">
 				
@@ -54,7 +54,7 @@
 					</tr>
 				  </tbody>
 				</table>
-			  </div>
+			  </div> -->
 
 
 </template>
