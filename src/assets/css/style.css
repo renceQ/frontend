@@ -8807,8 +8807,32 @@ textarea.form-control {
   .categories li.active a, .sidelink li.active a {
     color: #000000;
     font-style: italic; }
+   /*-------------------------------------
+        Alternative-Blog CSS
+--------------------------------------*/
+
+.welcome-hero-txt { padding-top: 155px;}
+
+.welcome-hero-txt h2 {
+  font-size: 48px;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.4px;
+  line-height: 1.4;
+  text-align: center;
+}
+.welcome-hero-txt h5 {
+  font-size: 18px;
+  color: #fcfcfc;
+  margin-top: 25px;
+  
+
+}
+  
+
  /*-------------------------------------
-        10. Blog
+        Blog
 --------------------------------------*/
 
 .center-text {
@@ -8818,6 +8842,8 @@ textarea.form-control {
   justify-content: center;
   align-items: center;
   height: 20vh; /* Optional: Adjust this value based on your layout */
+  opacity: 0; /* Set initial opacity to 0 for fade-in effect */
+  animation: fade-up 0.8s ease-out forwards;
 }
 .blog{padding:120px 0 90px;}
 .blog-content{margin-top: 80px;}
@@ -8841,6 +8867,33 @@ textarea.form-control {
     -ms-transition:.3s; 
     -o-transition:.3s;
     transition: .3s;
+    opacity: 0; /* Set initial opacity to 0 for fade-in effect */
+  animation: fade-up .8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+.single-blog-item2{
+  margin-bottom: 30px;
+  box-shadow: 0 0px 5px rgba(71,71,71,.2);
+  -webkit-transition: .3s; 
+  -moz-transition:.3s; 
+  -ms-transition:.3s; 
+  -o-transition:.3s;
+  transition: .3s;
+  opacity: 0; /* Set initial opacity to 0 for fade-in effect */
+animation: fade-up .8s ease-out forwards;
+animation-delay: 0.4s;
+}
+.single-blog-item3{
+  margin-bottom: 30px;
+  box-shadow: 0 0px 5px rgba(71,71,71,.2);
+  -webkit-transition: .3s; 
+  -moz-transition:.3s; 
+  -ms-transition:.3s; 
+  -o-transition:.3s;
+  transition: .3s;
+  opacity: 0; /* Set initial opacity to 0 for fade-in effect */
+animation: fade-up .8s ease-out forwards;
+animation-delay: 0.5s;
 }
 .single-blog-item-txt {padding:  25px 28px 27px;}
 .single-blog-item-txt h2 a {text-transform:  initial;line-height: 1.8;}
@@ -8849,6 +8902,9 @@ textarea.form-control {
     color:  #8f949d;
     font-weight:  400;
     margin: 12px 0 20px;
+    opacity: 0; /* Set initial opacity to 0 for fade-in effect */
+    animation: fade-up .8s ease-out forwards;
+    
 }
 .single-blog-item-txt h4 a {
     font-size:  14px;
@@ -8856,13 +8912,164 @@ textarea.form-control {
     border-right: 1px solid #dde0e4;
     margin-right:  15px;
     text-transform: uppercase;
+    
 }
 
 .single-blog-item:hover h2 a {color:#ff545a;}
 .single-blog-item:hover{
     box-shadow: 0 10px 20px rgba(21,19,19,.4);
 }
+.single-blog-item2:hover h2 a {color:#ff545a;}
+.single-blog-item2:hover{
+    box-shadow: 0 10px 20px rgba(21,19,19,.4);
+}
+.single-blog-item3:hover h2 a {color:#ff545a;}
+.single-blog-item3:hover{
+    box-shadow: 0 10px 20px rgba(21,19,19,.4);
+}
 
+ /*-------------------------------------
+        Key Frames
+--------------------------------------*/
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.7); /* Optional: Add a scale effect for the "pop" effect */
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0px) scale(1);
+  }
+}
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Optional: Adjust the initial vertical position */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /*-------------------------------------
+       Update Blog
+--------------------------------------*/
+
+}
+.update1 {
+  position: relative;
+  background:url(../../assets/images/blog/update1.jpg)no-repeat;
+  background-position:center;
+  background-size:cover;
+  text-align: center;
+  height:650px;
+  z-index: 1;
+  animation: fade-up 1s;
+}
+.update1:before{
+  position: absolute;
+  content: " ";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:rgba(65,73,89,.65);
+  z-index: -1;
+}
+
+.update2 {
+  position: relative;
+  background:url(../../assets/images/blog/update2.jpg)no-repeat;
+  background-position:center;
+  background-size:cover;
+  text-align: center;
+  height:650px;
+  z-index: 1;
+  animation: fade-up 1s;
+}
+.update2:before{
+  position: absolute;
+  content: " ";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:rgba(65,73,89,.65);
+  z-index: -1;
+}
+
+.update5 {
+  position: relative;
+  background:url(../../assets/images/blog/update5.jpg)no-repeat;
+  background-position:center;
+  background-size:cover;
+  text-align: center;
+  height:650px;
+  z-index: 1;
+  animation: fade-up 1s;
+}
+.update5:before{
+  position: absolute;
+  content: " ";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:rgba(65,73,89,.65);
+  z-index: -1;
+}
+
+.update4 {
+  position: relative;
+  background:url(../../assets/images/blog/update4.jpg)no-repeat;
+  background-position:center;
+  background-size:cover;
+  text-align: center;
+  height:650px;
+  z-index: 1;
+  animation: fade-up 1s;
+}
+.update4:before{
+  position: absolute;
+  content: " ";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:rgba(65,73,89,.65);
+  z-index: -1;
+}
+/*-------------------------------------
+      responsive navbar
+--------------------------------------*/
+
+
+
+
+
+/*-------------------------------------
+      ANIMATION
+--------------------------------------*/
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+  a {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
+
+/* CSS Animation for Glowing Effect */
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 5px rgba(42, 43, 54, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(42, 43, 54, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(42, 43, 54, 0.8);
+  }
+}
 
 #ftco-loader {
   position: fixed;
