@@ -29,6 +29,7 @@
           <div class="ri-text">
             <h4>{{ product.prod_name }}</h4>
             <p>Unit Price: {{ product.unit_price }}</p>
+            <p>Available Size: {{ getSizeName(product.size_id) }}</p>
             <button class="btn btn-outline-danger btn-sm" @click="preOrder(product)">Pre order</button>
           </div>
         </div>
@@ -56,6 +57,7 @@
         info: [],
       sizes: [],
       category_id: '',
+      size_id: '',
       };
     },
     created() {
@@ -64,17 +66,19 @@
     methods: {
    
       preOrder(product) {
-  const { image, prod_name, unit_price } = product;
-  this.$router.push({ 
-    name: 'productrequest', 
-    params: { 
+  const { image, prod_name, unit_price, size_id, stock } = product;
+  this.$router.push({
+    name: 'productrequest',
+    params: {
       image,
       prod_name,
-      unit_price
-      // Add other necessary details you want to pass to the productrequestfields page
-    } 
+      unit_price,
+      size_id,
+      stock // Include stock parameter
+    }
   });
 },
+
 
       
       async filterProducts() {

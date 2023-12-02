@@ -81,7 +81,7 @@ const routes = [
     component: approved_events
   },
   {
-    path: '/productrequest/:image/:prod_name/:unit_price',
+    path: '/productrequest/:image/:prod_name/:unit_price/:size_id/:stock',
     name: 'productrequest',
     component: () => import('../views/productrequest.vue'), // Replace with your actual path and component
     props: true // Pass route params as props to the component
