@@ -1,66 +1,39 @@
 <template>
 
 
-  
-    <section class="ftco-section contact-section">
-      <div class="container">
-        <div class="row d-flex mb-5 contact-info">
-          <div class="col-md-12 mb-4">
-            <h2 class="h3">Contact Information</h2>
-          </div>
-          <div class="w-100"></div>
-          <div class="col-md-3">
-            <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
-          </div>
-          <div class="col-md-3">
-            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
-          </div>
-          <div class="col-md-3">
-            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
-          </div>
-          <div class="col-md-3">
-            <p><span>Website</span> <a href="#">yoursite.com</a></p>
-          </div>
-        </div>
-  
-        <div class="row block-9">
-            <div class="col-md-6 order-md-last d-flex">
-              <form @submit.prevent="save" class="bg-light p-5 contact-form">
-                <div class="form-group">
-                  <label for="trackcode">Track Code</label>
-                  <input type="text" class="form-control" placeholder="trackcode" v-model="trackcode" id="trackcode">
-                </div>
-                <div class="form-group">
-                  <label for="firstname">Firstname</label>
-                  <input type="text" class="form-control" placeholder="firstname" v-model="firstname" id="firstname">
-                </div>
-                <div class="form-group">
-                  <label for="middlename">Middle Name</label>
-                  <input type="text" class="form-control" placeholder="middlename" v-model="middlename" id="middlename">
-                </div>
-                <div class="form-group">
-                  <label for="lastname">Last Name</label>
-                  <input type="text" class="form-control" placeholder="lastname" v-model="lastname" id="lastname">
-                </div>
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="text" class="form-control" placeholder="email" v-model="email" id="email">
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary py-3 px-5">Send Request</button>
-                </div>
-              </form>
-            </div>
-          </div>
 
-          <!-- ulit lay out ng fields at save functions sa script -->
-  
-        <div class="col-md-6 d-flex">
-          <div id="map" class="bg-white"></div>
-        </div>
+<section class="ftco-section contact-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="mb-5">
+        <h2 class="h3">Contact Info</h2>
+        <p>242 Bacer Street Brgy Commonwealth Quezon City, Philippines,1121</p>
       </div>
-    </section>
-  
+      <div class="w-100">Philippines</div>
+      <ul class="list-unstyled mb-5">
+        <li class="">
+          <span class="mr-3"><span class="icon-map"></span></span> 242 Bracer, Quezon City, Phillipines
+        </li>
+        <li class=""><span class="mr-3"><span class="icon-phone"></span></span> +639616451996</li>
+        <li class=""><span class="mr-3"><span class="icon-envelope-o"></span></span> qmjenterprise14@gmail.com </li>
+      </ul>
+      <div class="row align-items-center">
+        <p>Basic Info</p>
+      </div>
+      <div class="row align-items-center">
+        <p>Open Hours</p>
+      </div>
+      <div class="row align-items-center">
+        <p>Delivery Takeout Dine-in</p>
+      </div>
+      <div class="col-md-3">
+        <div class="icon"></div>
+        <p></p>
+      </div>
+    </div>
+  </div>
+</section>
+
     <section class="ftco-section-parallax">
       <div class="parallax-img d-flex align-items-center">
         <div class="container">
@@ -125,9 +98,9 @@
               <h2 class="ftco-heading-2">Have a Questions?</h2>
               <div class="block-23 mb-3">
                 <ul>
-                  <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                  <li><span class="icon icon-map-marker"></span><span class="text">242 Bacer Street Brgy Commonwealth Quezon City,Philippines</span></li>
+                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+ 639616451996 </span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">qmjenterprise14@gmail.com</span></a></li>
                 </ul>
               </div>
             </div>
@@ -195,4 +168,19 @@ export default{
 @import '../../assets/css/flaticon.css';
 @import '../../assets/css/icomoon.css';
 @import '../../assets/css/style.css';
+</style>
+<style>
+@media (max-width: 767px) {
+  .contact-info .col-md-3 {
+    margin-bottom: 20px;
+  }
+
+  .contact-form {
+    margin-top: 20px;
+  }
+
+  #map {
+    width: 100%;
+  }
+}
 </style>
