@@ -1,3 +1,4 @@
+User
 
 <template>
   <div style="margin-right: 500px;">
@@ -11,10 +12,30 @@
           <br>
 
           <v-text-field v-model="username" label="Username" type="username" outlined></v-text-field>
-          <v-text-field v-model="password" label="Password" type="password" outlined></v-text-field>
+          <v-text-field
+          v-model="password"
+          :type="showPassword ? 'text' : 'password'"
+          label="Password"
+          class="password-field"
+          outlined
+          hide-details="auto"
+        ></v-text-field>
+
+          <v-checkbox style="font-weight: 5px; font-size:10px;" v-model="showPassword" label="Show Password" ></v-checkbox>
+
 
           <v-btn type="submit" class="mt-4 custom-login-btn" color="#000000" block>Login</v-btn>
-          <router-link to="/register" style="color: black; margin-left: 150px;">Register</router-link>
+          <div class="line-with-text">
+            <div class="line"></div>
+            <div class="text">or</div>
+            <div class="line"></div>
+          </div>
+          
+          
+          
+          <v-btn type="button" href="/register" class="mt-4 custom-login-btn" color="#000000" block>Create New Account</v-btn>
+          <router-link to="/forgotpass" style="color: black; margin-left: 110px;">Forgot Password?</router-link>
+
         </v-form>
       </v-sheet>
     </div>
@@ -31,9 +52,13 @@ export default {
     return {
       username: '',
       password: '',
-      message: '', // Initially, message is empty
+      message: '',
+      showPassword: false,
+      mouseHover: false,  // Initially, message is empty
     };
+    
   },
+  
   
   methods: {
     async login() {
@@ -78,17 +103,58 @@ export default {
 };
 </script>
 
-
 <style>
-/* Add CSS style to display the error message */
+.line-with-text {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.line {
+  flex: 1;
+  border-bottom: 1px solid #000; /* Adjust the border properties as needed */
+}
+
+.text {
+  padding: 0 10px; /* Adjust padding as needed */
+}
 .error-message-box {
-  background-color: rgba(255, 0, 0, 0.1); /* Red color with low opacity */
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
+  background-color: rgba(255, 0, 0, 0.05);
+  padding: 8px;
+  border-radius: 8px;
 }
 
 .error-message {
-  color: rgb(5, 0, 0);
+  color: rgb(60, 60, 60);
+  font-size: 14px;
 }
+
+.custom-login-btn {
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.password-field .v-text-field__details {
+  display: none; /* Hide the password toggle button */
+}
+input[type="text"] {
+  width: 250px;
+  padding: 8px;
+  margin-bottom: 10px;
+
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.active input {
+  margin-top: 10px;
+  opacity: 1;
+}
+a[href="/register"]:hover {
+  text-decoration: none; /* Remove underline on hover */
+}
+a[href="/forgotpass"]:hover {
+  text-decoration: none;
+}
+
 </style>

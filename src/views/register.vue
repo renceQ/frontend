@@ -1,6 +1,8 @@
 <template>
     <div style="margin-right: 500px;">
       <div>
+        <br>
+        <h4 style="margin-left:550px">Register New Account</h4>
         <h5 style="margin-left: 630px;"></h5>
         <v-sheet>
           <v-form @submit.prevent="register">
