@@ -6,7 +6,10 @@
         <h5 style="margin-left: 630px;"></h5>
         <v-sheet>
           <v-form @submit.prevent="register">
-            <div v-if="message" style="color: red;">{{ message }}</div>
+            <div v-if="message" class="error-message-box">
+              <div class="error-message">{{ message }}</div>
+            </div>
+<br>
   
             <v-text-field v-model="username" label="Username" type="username" outlined dense required></v-text-field>
             <v-text-field v-model="password" label="Password" type="password" outlined dense required></v-text-field>
@@ -74,4 +77,18 @@
     },
   };
   </script>
+
+  <style>
+  .error-message-box {
+    background-color: rgba(255, 0, 0, 0.05);
+    padding: 8px;
+    border-radius: 8px;
+  }
+  
+  .error-message {
+    color: rgb(60, 60, 60);
+    font-size: 14px;
+  }
+
+  </style>
   

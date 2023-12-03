@@ -16,6 +16,7 @@ import login from '../views/login.vue'
 import register from '../views/register.vue'
 import userblog from '../views/userblog.vue'
 import productrequest from '../views/productrequest.vue'
+import forgotpass from '../views/forgotpass.vue'
 
 
 
@@ -81,11 +82,15 @@ const routes = [
     component: approved_events
   },
   {
+    path: '/forgotpass',
+    component: forgotpass
+  },
+  {
     path: '/productrequest/:image/:prod_name/:unit_price/:size_id/:stock',
     name: 'productrequest',
     component: () => import('../views/productrequest.vue'), // Replace with your actual path and component
     props: true // Pass route params as props to the component
-  }
+  },
 
 ]
 
@@ -99,7 +104,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const token = sessionStorage.getItem('jwt');
 
-  if (to.path !== '/' && to.path !== '/register') {
+  if (to.path !== '/' && to.path !== '/register' && to.path !== '/forgotpass') {
     if (!token) {
       next('/');
     } else {

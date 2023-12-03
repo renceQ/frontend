@@ -18,6 +18,7 @@
               <table id="datatable-responsive" class="table table-bordered table-striped table-hover">
                 <thead class="thead-dark">
                   <tr>
+                    <th>UPC</th>
                     <th>Category</th>
                     <th>Item Image</th>
                     <th>Product</th>
@@ -31,6 +32,8 @@
                 </thead>
                 <tbody>
                   <tr v-for="product in paginatedData" :key="product.id">
+                    <td>{{ product.UPC }}</td>
+
                     <td>{{ getCategoryName(product.category_id) }}</td>
                     <td v-if="product.image">
                       <img :src="product.image" alt="image" class="img-fluid" style="max-width: 100px; max-height:100px;">

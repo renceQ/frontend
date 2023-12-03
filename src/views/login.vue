@@ -34,7 +34,7 @@ User
           
           
           <v-btn type="button" href="/register" class="mt-4 custom-login-btn" color="#000000" block>Create New Account</v-btn>
-          <router-link to="/forgotpass" style="color: black; margin-left: 110px;">Forgot Password?</router-link>
+          <a href="/forgotpass" style="color: black; margin-left: 110px;">Forgot Password?</a>
 
         </v-form>
       </v-sheet>
