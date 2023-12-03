@@ -1,6 +1,7 @@
 <template>
   <div style="margin-right:100px;">
   <div>
+    
     <form @submit.prevent="save">
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -35,14 +36,16 @@
       </div>
 
       <div class="form-row">
+        <!-- Stock Input Field -->
         <div class="form-group col-md-6">
           <label for="stock">Stock</label>
-          <input type="number" class="form-control form-control-sm" placeholder="Stock" v-model="stock" @input="calculateTotalPrice">
+          <input type="number" class="form-control form-control-sm" placeholder="Stock" v-model="stock" @input="handleStockChange">
         </div>
-
+      
+        <!-- Unit Price Input Field -->
         <div class="form-group col-md-6">
           <label for="unit_price">Unit Price</label>
-          <input type="number" class="form-control form-control-sm" placeholder="Unit Price" v-model="unit_price" @input="calculateTotalPrice">
+          <input type="number" class="form-control form-control-sm" placeholder="Unit Price" v-model="unit_price" @input="handleUnitPriceChange">
         </div>
       </div>
 
@@ -50,6 +53,14 @@
         <label for="price">Total Price</label>
         <input type="text" class="form-control form-control-sm" placeholder="Total Price" v-model="price" disabled>
       </div>
+
+      <canvas id="upcCanvas"></canvas>
+
+<!-- Display the UPC -->
+<div class="form-group">
+  <label for="upc">UPC</label>
+  <input type="text" class="form-control form-control-sm" placeholder="UPC" v-model="upc" disabled>
+</div>
 
       <button type="submit" class="btn btn-primary btn-sm">Submit</button>
     </form>
@@ -59,6 +70,8 @@
 
 <script>
 import axios from 'axios';
+import JsBarcode from 'jsbarcode'; 
+import { sha256 } from 'js-sha256';
 
 export default {
   data() {
@@ -70,16 +83,57 @@ export default {
       stock: "",
       price: "",
       unit_price: "",
+      upc: '',
       imageUrl: null, 
       categories: [], 
       sizes: [],
       prods: [],
     };
   },
+  computed: {
+    shouldGenerateBarcode() {
+      return (
+        this.category_id &&
+        this.size_id &&
+        this.prod_name &&
+        this.unit_price &&
+        this.stock
+      );
+    },
+  },
+  watch: {
+    shouldGenerateBarcode() {
+      this.generateUPC();
+    },
+    category_id() {
+      this.generateUPC();
+    },
+    size_id() {
+      this.generateUPC();
+    },
+    prod_name() {
+      this.generateUPC();
+    },
+    unit_price() {
+      this.generateUPC();
+    },
+    stock() {
+      this.generateUPC();
+    },
+  },
   created() {
     this.refreshData();
   },
   methods: {
+    handleStockChange() {
+    this.calculateTotalPrice();
+    this.generateUPC();
+  },
+
+  handleUnitPriceChange() {
+    this.calculateTotalPrice();
+    this.generateUPC();
+  },
     calculateTotalPrice() {
       if (this.stock && this.unit_price) {
         this.price = (parseInt(this.stock) * parseInt(this.unit_price)).toString();
@@ -87,6 +141,28 @@ export default {
         this.price = "";
       }
     },
+    generateUPC() {
+      const uniqueIdentifier = `${this.category_id}${this.size_id}${this.prod_name}${this.unit_price}`;
+      const hashedUPC = sha256(uniqueIdentifier);
+      const numericUPC = hashedUPC.replace(/\D/g, '').substring(0, 12);
+
+      this.upc = numericUPC;
+
+      JsBarcode("#upcCanvas", numericUPC, {
+        format: "EAN13",
+        width: 2,
+        height: 30,
+        displayValue: false,
+      });
+    },
+    clearUPC() {
+      this.upc = '';
+      const canvas = document.getElementById('upcCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    },
+
+
     async save() {
       try {
         const formData = new FormData();
