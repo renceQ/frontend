@@ -223,7 +223,7 @@
             <v-col cols="6">
               <div class="form-group">
                 <label for="edit_image">Image</label>
-                <input type="file" class="form-control-file form-control-sm" accept="image/*" @change="handleEditImageUpload">
+                <input type="file" class="form-control-file form-control-sm" accept="image/*" @change="updateEditImage">
               </div>
             </v-col>
             <v-col cols="6">
@@ -588,6 +588,19 @@ export default {
     handleImageUpload(event) {
       this.image = event.target.files[0];
     },
+    updateEditImage(event) {
+    const file = event.target.files[0]; // Get the selected file
+    if (file) {
+      // Assuming you want to display the selected image in the edit modal
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.edit_image = e.target.result; // Set the edit_image data property to the image URL
+      };
+      reader.readAsDataURL(file); // Convert the file to a data URL
+    } else {
+      this.edit_image = null; // Reset edit_image if no file is selected
+    }
+  },
     async fetchCategories() {
       try {
         const response = await axios.get("getcat");
