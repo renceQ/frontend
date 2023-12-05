@@ -54,9 +54,9 @@
                           <td>{{ product.unit_price }}</td>
                           <td>
                             <td>
-                              <a href="#" @click="openedit(product.id)" class="neumorphic-edit">
+                              <btn @click="openEditModal(product.id)" class="neumorphic-edit">
                                 <i class="fa fa-edit"></i> EDIT
-                              </a>
+                              </btn>                
                             </td>
                           </td>
                         </tr>
@@ -185,105 +185,111 @@
     </v-card>
   </v-dialog>
 
-  <!-- edit modal -->
-<v-dialog v-model="editmodal" max-width="600">
-  <v-card>
-    <v-card-title>Edit Product</v-card-title>
-    <v-card-text>
-      <v-container>
-        <!-- Category and Size Selection -->
-        <v-row>
-          <v-col cols="6">
-            <div class="form-group">
-              <label for="edit_category_id">Category</label>
-              <select class="form-control form-control-sm" v-model="edit_category_id" @change="updateCategory" required>
-                <option v-for="category in categories" :key="category.id" :value="category.id">
-                  {{ category.category_name }}
-                </option>
-              </select>
-            </div>
-          </v-col>
-          <v-col cols="6">
-            <div class="form-group">
-              <label for="edit_size_id">Size</label>
-              <select class="form-control form-control-sm" v-model="edit_size_id" @change="updateSize" required>
-                <option v-for="size in sizes" :key="size.size_id" :value="size.size_id">
-                  {{ size.item_size }}
-                </option>
-              </select>
-            </div>
-          </v-col>
-        </v-row>
 
-        <!-- Image Upload and Product Name -->
-        <v-row>
-          <v-col cols="6">
-            <div class="form-group">
-              <label for="edit_image">Image</label>
-              <input type="file" class="form-control-file form-control-sm" accept="image/*" @change="handleEditImageUpload">
-              <img v-if="editImageUrl" :src="editImageUrl" alt="Selected Image" style="max-width: 200px; max-height: 200px;">
-            </div>
-          </v-col>
-          <v-col cols="6">
-            <div class="form-group">
-              <label for="edit_prod_name">Product</label>
-              <input type="text" class="form-control form-control-sm" placeholder="Product Name" v-model="edit_prod_name" required>
-            </div>
-          </v-col>
-        </v-row>
 
-        <!-- Stock and Unit Price -->
-        <v-row>
-          <v-col cols="6">
-            <div class="form-group">
-              <label for="edit_stock">Stock</label>
-              <input type="number" class="form-control form-control-sm" placeholder="Stock" v-model="edit_stock" @input="handleEditStockChange" required>
-            </div>
-          </v-col>
-          <v-col cols="6">
-            <div class="form-group">
-              <label for="edit_unit_price">Unit Price</label>
-              <input type="number" class="form-control form-control-sm" placeholder="Unit Price" v-model="edit_unit_price" @input="handleEditUnitPriceChange" required>
-            </div>
-          </v-col>
-        </v-row>
 
-        <!-- Total Price and UPC -->
-        <v-row>
-          <v-col cols="6">
-            <div class="form-group">
-              <label for="edit_price">Total Price</label>
-              <input type="text" class="form-control form-control-sm" placeholder="Total Price" v-model="edit_price" disabled>
-            </div>
-          </v-col>
-          <v-col cols="6">
-            <div class="form-group">
-              <label for="edit_UPC">UPC</label>
-              <input type="text" class="form-control form-control-sm" placeholder="UPC" v-model="edit_UPC" disabled>
-            </div>
-          </v-col>
-        </v-row>
-
-        <!-- Product Description -->
-        <v-row>
-          <v-col cols="12">
-            <div class="form-group">
-              <label for="edit_product_description">Product Description</label>
-              <input type="text" class="form-control form-control-sm" placeholder="Product Description" v-model="edit_product_description" required>
-            </div>
-          </v-col>
-        </v-row>
-
-        <!-- Submit Button -->
-        <v-row>
-          <v-col cols="12">
-            <v-btn type="submit" color="primary" small @click="updateProduct">Update</v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
-  </v-card>
-</v-dialog>
+  <!--edit-->
+  <v-dialog v-model="editmodal" max-width="600">
+    <v-card>
+      <v-card-title>Edit Product</v-card-title>
+      <v-card-text>
+        <v-container>
+          <!-- Category and Size Selection -->
+          <v-row>
+            <v-col cols="6">
+              <div class="form-group">
+                <label for="edit_category_id">Category</label>
+                <select class="form-control form-control-sm" v-model="edit_category_id" @change="updateCategory" required>
+                  <option v-for="category in categories" :key="category.id" :value="category.id">
+                    {{ category.category_name }}
+                  </option>
+                </select>
+              </div>
+            </v-col>
+            <v-col cols="6">
+              <div class="form-group">
+                <label for="edit_size_id">Size</label>
+                <select class="form-control form-control-sm" v-model="edit_size_id" @change="updateSize" required>
+                  <option v-for="size in sizes" :key="size.size_id" :value="size.size_id">
+                    {{ size.item_size }}
+                  </option>
+                </select>
+              </div>
+            </v-col>
+          </v-row>
+  
+          <!-- Image Upload and Product Name -->
+          <v-row>
+            <v-col cols="6">
+              <div class="form-group">
+                <label for="edit_image">Image</label>
+                <input type="file" class="form-control-file form-control-sm" accept="image/*" @change="handleEditImageUpload">
+              </div>
+            </v-col>
+            <v-col cols="6">
+              <div class="form-group">
+                <label for="edit_prod_name">Product</label>
+                <input type="text" class="form-control form-control-sm" placeholder="Product Name" v-model="edit_prod_name" required>
+              </div>
+            </v-col>
+          </v-row>
+  
+          <br>
+                <a>Product Image:</a>
+                <br>
+               <img v-if="edit_image" :src="edit_image" alt="Selected Image" style="max-width: 200px; max-height: 200px;">
+          <!-- Stock and Unit Price -->
+          <v-row>
+            <v-col cols="6">
+              <div class="form-group">
+                <label for="edit_stock">Stock</label>
+                <input type="number" class="form-control form-control-sm" placeholder="Stock" v-model="edit_stock" @input="handleEditStockChange" required>
+              </div>
+            </v-col>
+            <v-col cols="6">
+              <div class="form-group">
+                <label for="edit_unit_price">Unit Price</label>
+                <input type="number" class="form-control form-control-sm" placeholder="Unit Price" v-model="edit_unit_price" @input="handleEditUnitPriceChange" required>
+              </div>
+            </v-col>
+          </v-row>
+  
+          <!-- Total Price and UPC -->
+          <v-row>
+            <v-col cols="6">
+              <div class="form-group">
+                <label for="edit_price">Total Price</label>
+                <input type="text" class="form-control form-control-sm" placeholder="Total Price" v-model="edit_price" disabled>
+              </div>
+            </v-col>
+            <v-col cols="6">
+              <div class="form-group">
+                <label for="edit_UPC">UPC</label>
+                <input type="text" class="form-control form-control-sm" placeholder="UPC" v-model="edit_UPC" disabled>
+              </div>
+            </v-col>
+          </v-row>
+  
+          <!-- Product Description -->
+          <v-row>
+            <v-col cols="12">
+              <div class="form-group">
+                <label for="edit_product_description">Product Description</label>
+                <input type="text" class="form-control form-control-sm" placeholder="Product Description" v-model="edit_product_description" required>
+              </div>
+            </v-col>
+          </v-row>
+  
+          <!-- Submit Button -->
+          <v-row>
+            <v-col cols="12">
+              <v-btn type="submit" color="primary" small @click="updateProduct">Update</v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 
 
 
@@ -319,7 +325,20 @@ export default {
       product_description: '',
       imageUrl: null, 
       prods: [],
+
+      //edit
       editmodal: false,
+    edit_category_id: "",
+    edit_size_id: "",
+    edit_image: null,
+    edit_prod_name: "",
+    edit_stock: "",
+    edit_price: "",
+    edit_unit_price: "",
+    edit_UPC: "",
+    edit_product_description: "",
+    editImageUrl: null,
+
     };
   },
   computed: 
@@ -365,34 +384,25 @@ export default {
     this.getInfo();
   },
   methods: {
-    openEditModal(productId) {
-  try {
-    const product = this.info.find(item => item.id === productId);
-
-    if (product) {
-      this.edit_category_id = product.category_id;
-      this.edit_size_id = product.size_id;
-      this.edit_prod_name = product.prod_name;
-      this.edit_stock = product.stock;
-      this.edit_unit_price = product.unit_price;
-      this.edit_product_description = product.product_description;
-
-      // Populate other fields as needed
-
-      // Open the edit modal without closing it
-      this.editmodal = true;
-    } else {
-      console.error('Product not found');
-    }
-  } catch (error) {
-    console.error('Error retrieving product:', error);
-  }
-},
-
-    async closeEditModal() {
-      this.editmodal = false; // Close the edit modal
-    },
     
+    openEditModal(productId) {
+    // Find the product details using its ID
+    const selectedProduct = this.info.find(product => product.id === productId);
+
+    // Populate the fields in the edit modal with the selected product's data
+    this.edit_category_id = selectedProduct.category_id;
+    this.edit_size_id = selectedProduct.size_id;
+    this.edit_image = selectedProduct.image;
+    this.edit_prod_name = selectedProduct.prod_name;
+    this.edit_stock = selectedProduct.stock;
+    this.edit_price = selectedProduct.price;
+    this.edit_unit_price = selectedProduct.unit_price;
+    this.edit_UPC = selectedProduct.UPC;
+    this.edit_product_description = selectedProduct.product_description;
+
+    // Open the edit modal
+    this.editmodal = true;
+  },
     openModal() {
       this.modalOpen = true; // Open the modal
     },
