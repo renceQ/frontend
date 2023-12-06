@@ -391,6 +391,7 @@ export default {
     this.getInfo();
   },
   methods: {
+    
 
     handleEditStockChange() {
       this.calculateEditTotalPrice(); // Calculate total price
@@ -408,35 +409,35 @@ export default {
       this.edit_price = "";
     }
   },
-    async updateProduct() {
-      try {
-        const response = await axios.post(`/updateItem/${this.selectedProductId}`, {
-          edit_category_id: this.edit_category_id,
-          edit_size_id: this.edit_size_id,
-          edit_image: this.edit_image, // Handle image uploading if necessary
-          edit_prod_name: this.edit_prod_name,
-          edit_stock: this.edit_stock,
-          edit_price: this.edit_price,
-          edit_unit_price: this.edit_unit_price,
-          edit_UPC: this.edit_UPC,
-          edit_product_description: this.edit_product_description,
-        });
+  async updateProduct() {
+  try {
+    const response = await axios.post(`/updateItem/${this.selectedProductId}`, {
+      edit_category_id: this.edit_category_id,
+      edit_size_id: this.edit_size_id,
+      edit_image: this.edit_image, // Handle image uploading if necessary
+      edit_prod_name: this.edit_prod_name,
+      edit_stock: this.edit_stock,
+      edit_price: this.edit_price,
+      edit_unit_price: this.edit_unit_price,
+      edit_UPC: this.edit_UPC,
+      edit_product_description: this.edit_product_description,
+    });
 
-        if (response.status === 200) {
-          // Handle success, close the edit modal or show a success message
-          this.editmodal = false; // Close the edit modal
-          this.successModalOpen = true; // Show success modal or message
-          // Reset the form fields or update the product list
-          this.refreshData(); // Function to refresh product list after update
-        } else {
-          // Handle error cases, show error message or handle as per your requirement
-          console.error('Error updating product');
-        }
-      } catch (error) {
-        // Handle network errors or other exceptions
-        console.error('Error updating product:', error);
-      }
-    },
+    if (response.status === 200) {
+      // Handle success, close the edit modal or show a success message
+      this.editmodal = false; // Close the edit modal
+      this.successModalOpen = true; // Show success modal or message
+      // Reset the form fields or update the product list
+      this.refreshData(); // Function to refresh product list after update
+    } else {
+      // Handle error cases, show error message or handle as per your requirement
+      console.error('Error updating product');
+    }
+  } catch (error) {
+    // Handle network errors or other exceptions
+    console.error('Error updating product:', error);
+  }
+},
 
     openEditModal(productId) {
       // Store the selected product ID in the data property
