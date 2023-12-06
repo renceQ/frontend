@@ -384,25 +384,57 @@ export default {
     this.getInfo();
   },
   methods: {
-    
+    async updateProduct() {
+      try {
+        const response = await axios.post(`/updateItem/${this.selectedProductId}`, {
+          edit_category_id: this.edit_category_id,
+          edit_size_id: this.edit_size_id,
+          edit_image: this.edit_image, // Handle image uploading if necessary
+          edit_prod_name: this.edit_prod_name,
+          edit_stock: this.edit_stock,
+          edit_price: this.edit_price,
+          edit_unit_price: this.edit_unit_price,
+          edit_UPC: this.edit_UPC,
+          edit_product_description: this.edit_product_description,
+        });
+
+        if (response.status === 200) {
+          // Handle success, close the edit modal or show a success message
+          this.editmodal = false; // Close the edit modal
+          this.successModalOpen = true; // Show success modal or message
+          // Reset the form fields or update the product list
+          this.refreshData(); // Function to refresh product list after update
+        } else {
+          // Handle error cases, show error message or handle as per your requirement
+          console.error('Error updating product');
+        }
+      } catch (error) {
+        // Handle network errors or other exceptions
+        console.error('Error updating product:', error);
+      }
+    },
+
     openEditModal(productId) {
-    // Find the product details using its ID
-    const selectedProduct = this.info.find(product => product.id === productId);
+      // Store the selected product ID in the data property
+      this.selectedProductId = productId;
 
-    // Populate the fields in the edit modal with the selected product's data
-    this.edit_category_id = selectedProduct.category_id;
-    this.edit_size_id = selectedProduct.size_id;
-    this.edit_image = selectedProduct.image;
-    this.edit_prod_name = selectedProduct.prod_name;
-    this.edit_stock = selectedProduct.stock;
-    this.edit_price = selectedProduct.price;
-    this.edit_unit_price = selectedProduct.unit_price;
-    this.edit_UPC = selectedProduct.UPC;
-    this.edit_product_description = selectedProduct.product_description;
+      // Find the product details using its ID
+      const selectedProduct = this.info.find(product => product.id === productId);
 
-    // Open the edit modal
-    this.editmodal = true;
-  },
+      // Populate the fields in the edit modal with the selected product's data
+      this.edit_category_id = selectedProduct.category_id;
+      this.edit_size_id = selectedProduct.size_id;
+      this.edit_image = selectedProduct.image;
+      this.edit_prod_name = selectedProduct.prod_name;
+      this.edit_stock = selectedProduct.stock;
+      this.edit_price = selectedProduct.price;
+      this.edit_unit_price = selectedProduct.unit_price;
+      this.edit_UPC = selectedProduct.UPC;
+      this.edit_product_description = selectedProduct.product_description;
+
+      // Open the edit modal
+      this.editmodal = true;
+    },
     openModal() {
       this.modalOpen = true; // Open the modal
     },
@@ -517,7 +549,7 @@ export default {
 
 
     async save() {
-  // Check if any required field is empty
+  // Check if any required field is empty...
   if (
     !this.category_id ||
     !this.size_id ||
@@ -546,6 +578,9 @@ export default {
     formData.append("UPC", this.UPC);
     formData.append("product_description", this.product_description);
 
+    // Add barcode_image to formData
+    formData.append("barcode_image", this.saveBarcodeImage());
+
     const product = await axios.post("save", formData);
 
     console.log("Product saved successfully:", product);
@@ -572,6 +607,26 @@ export default {
   } catch (error) {
     console.error("Error saving product:", error);
   }
+},
+
+
+
+saveBarcodeImage() {
+  const numericUPC = this.generateUPC();
+
+  // Save barcode image to canvas
+  JsBarcode("#upcCanvas", numericUPC, {
+    format: "EAN13",
+    width: 2,
+    height: 30,
+    displayValue: false,
+  });
+
+  // Convert canvas to image URL
+  const canvas = document.getElementById('upcCanvas');
+  const barcodeImageUrl = canvas.toDataURL("image/png");
+
+  return barcodeImageUrl;
 },
     async refreshData() {
       try {
@@ -732,4 +787,3 @@ export default {
   color: #000; /* Change text color on hover if needed */
 }
 </style>
-
