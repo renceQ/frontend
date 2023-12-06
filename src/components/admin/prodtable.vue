@@ -272,6 +272,10 @@
   
           <!-- Product Description -->
           <v-row>
+              <v-col cols="12">
+                Barcode:
+                <canvas id="editUpcCanvas"></canvas>
+              </v-col>
             <v-col cols="12">
               <div class="form-group">
                 <label for="edit_product_description">Product Description</label>
@@ -339,6 +343,9 @@ export default {
     edit_product_description: "",
     editImageUrl: null,
 
+    editBarcodeImage: null,
+      selectedProductId: null,
+
     };
   },
   computed: 
@@ -384,6 +391,23 @@ export default {
     this.getInfo();
   },
   methods: {
+
+    handleEditStockChange() {
+      this.calculateEditTotalPrice(); // Calculate total price
+      this.generateUPCForEdit(); // Regenerate UPC when stock changes
+    },
+
+    handleEditUnitPriceChange() {
+      this.calculateEditTotalPrice(); // Calculate total price
+      this.generateUPCForEdit(); // Regenerate UPC when unit price changes
+    },
+  calculateEditTotalPrice() {
+    if (this.edit_stock && this.edit_unit_price) {
+      this.edit_price = (parseInt(this.edit_stock) * parseInt(this.edit_unit_price)).toString();
+    } else {
+      this.edit_price = "";
+    }
+  },
     async updateProduct() {
       try {
         const response = await axios.post(`/updateItem/${this.selectedProductId}`, {
@@ -539,6 +563,24 @@ export default {
         height: 30,
         displayValue: false,
       });
+    },
+    generateUPCForEdit() {
+      const uniqueIdentifier = `${this.edit_category_id}${this.edit_size_id}${this.edit_prod_name}${this.edit_unit_price}${this.edit_stock}`;
+      const hashedUPC = sha256(uniqueIdentifier);
+      const numericUPC = hashedUPC.replace(/\D/g, '').substring(0, 12);
+
+      this.edit_UPC = numericUPC;
+
+      JsBarcode("#editUpcCanvas", numericUPC, {
+        format: "EAN13",
+        width: 2,
+        height: 30,
+        displayValue: false,
+      });
+
+      // Convert the generated barcode to an image URL and bind it to the editBarcodeImage data property
+      const canvas = document.getElementById('editUpcCanvas');
+      this.editBarcodeImage = canvas.toDataURL("image/png");
     },
     clearUPC() {
       this.UPC = '';
