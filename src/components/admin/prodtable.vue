@@ -1,5 +1,9 @@
 
 
+
+
+
+
 <template>
   
  
@@ -411,7 +415,8 @@ export default {
       this.edit_price = "";
     }
   },
-  async updateProduct() {
+ 
+async updateProduct() {
   try {
     const response = await axios.post(`/updateItem/${this.selectedProductId}`, {
       edit_category_id: this.edit_category_id,
