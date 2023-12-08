@@ -25,9 +25,9 @@
             <button @click="openModal" style=" width:20%; margin-left:78%;" class="neumorphic-button">Add Product</button>
                 <div class="card-body">
                   <insert @data-saved="getInfo" />
-                  <div class="table-responsive">
+                  <div class="table-container">
                     <table id="datatable-responsive">
-                      <thead class="thead-dark">
+                      <thead class="thead-dark sticky-header">
                         <tr>
                           <th>UPC</th>
                           <th>Category</th>
@@ -60,9 +60,17 @@
                           <td>{{ product.unit_price }}</td>
                           <td>
                             <td>
+                              <div>
                               <btn @click="openEditModal(product.id)" class="neumorphic-edit">
                                 <i class="fa fa-edit"></i> EDIT
-                              </btn>                
+                              </btn>
+                            </div>
+                            <br>
+                              <div>
+                              <a href="/audith_table" class="neumorphic-edit">
+                                <i class="fas fa-clipboard-list"></i> Audit
+                              </a>       
+                            </div>        
                             </td>
                           </td>
                         </tr>
@@ -71,9 +79,10 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
+              </div>
+              </div>
+        
+        
  
           <v-dialog v-model="modalOpen" max-width="600" @close="clearModalFields">
             <v-card>
@@ -732,16 +741,41 @@ saveBarcodeImage() {
 </script>
 <style>
 /* Additional or modified CSS styles for the table */
+/* Additional or modified CSS styles for the table */
+.sticky-header th {
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2; /* Adjust the background color as needed */
+  z-index: 100;
+}
+
+.table-container {
+  max-height: 400px; /* Set a smaller maximum height for the table container */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.table-wrapper {
+  overflow: hidden; /* Hide table overflow beyond the container */
+}
+
+.table-responsive {
+  width: fit-content; /* Set width to fit the content */
+  min-width: 100%; /* Set minimum width to ensure the table fills the container */
+}
+
 #datatable-responsive {
-  width: 100%;
+  width: 100%; /* Ensure table takes full width */
   border-collapse: collapse;
-  margin-top: 20px;
+  table-layout: fixed; /* Enforce fixed table layout */
 }
 
 #datatable-responsive th,
 #datatable-responsive td {
   border: 1px solid #ddd;
   padding: 8px;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Show ellipsis for overflowing text */
 }
 
 #datatable-responsive th {
@@ -758,54 +792,19 @@ saveBarcodeImage() {
   background-color: #e6e6e6;
 }
 
-.card {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+.fixed-header-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
-.card-body {
-  padding: 20px;
-}
-
-.text-danger {
-  color: red;
-}
-
-.text-success {
-  color: green;
-}
-
-.btn {
-  text-decoration: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-}
-
-.btn-outline-primary {
-  color: #007bff;
-  border-color: #007bff;
-}
-
-.btn-outline-primary:hover {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.btn-sm {
-  padding: 4px 8px;
-  font-size: 12px;
-}
-
-.img-fluid {
-  max-width: 100px;
-  max-height: 100px;
-}
-.text-right {
-  text-align: right;
-  margin-right: 20px;
-  
+.fixed-header-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f2f2f2;
+  color: #333;
+  text-align: left;
 }
 .neumorphic-button {
   width: 80px;
@@ -836,4 +835,5 @@ saveBarcodeImage() {
   background-color: #e0e0e0;
   color: #000; /* Change text color on hover if needed */
 }
+
 </style>

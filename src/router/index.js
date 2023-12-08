@@ -17,6 +17,7 @@ import register from '../views/register.vue'
 import userblog from '../views/userblog.vue'
 import productrequest from '../views/productrequest.vue'
 import forgotpass from '../views/forgotpass.vue'
+import audith_table from '../views/audith_table.vue'
 
 
 
@@ -91,6 +92,10 @@ const routes = [
     component: () => import('../views/productrequest.vue'), // Replace with your actual path and component
     props: true // Pass route params as props to the component
   },
+  {
+    path: '/audith_table',
+    component: audith_table
+  },
 
 ]
 
@@ -109,7 +114,7 @@ router.beforeEach((to, from, next) => {
       next('/');
     } else {
       // Check if the user is trying to access the admin route
-      if (to.path === '/admin'  || to.path === '/bookingtable' || to.path === '/productcategory') { //di pa tapos mag add ng path that was not accessible by the non-admin users
+      if (to.path === '/admin'  || to.path === '/bookingtable' || to.path === '/productcategory' || to.path === '/audith_table') { //di pa tapos mag add ng path that was not accessible by the non-admin users
         // Check if the user's credentials match the admin's credentials
         const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
 
