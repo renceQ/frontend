@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <template>
   
  
@@ -67,9 +61,9 @@
                             </div>
                             <br>
                               <div>
-                              <a href="/audith_table" class="neumorphic-edit">
-                                <i class="fas fa-clipboard-list"></i> Audit
-                              </a>       
+                                <router-link :to="{ name: 'AudithTable', params: { productId: product.id } }" class="neumorphic-edit">
+                                  <i class="fas fa-clipboard-list" @click="openAuditModal(product.id)"></i> AUDIT
+                                </router-link>                             
                             </div>        
                             </td>
                           </td>
@@ -407,7 +401,14 @@ export default {
   },
   methods: {
     
-
+    async openAuditModal(productId) {
+    try {
+      const response = await axios.get(`getaudith/${productId}`);
+      this.products = response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
     handleEditStockChange() {
       this.calculateEditTotalPrice(); // Calculate total price
       this.generateUPCForEdit(); // Regenerate UPC when stock changes

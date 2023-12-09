@@ -1,6 +1,7 @@
 <template>
     <div class="table-container">
-        <insert @data-saved="getaudith" />
+        <h1>Audit data</h1>
+        <insert @data-saved="filterAuditRecords" />
         <table class="product-table">
         <thead>
           <tr>
@@ -21,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="product in products" :key="product.id">
+            <tr v-for="product in products" :key="product.id">
             <td v-if="product.image">
                 <img :src="product.image" alt="image" class="img-fluid" style="max-width: 100px; max-height:100px;">
               </td>
@@ -68,17 +69,33 @@ export default {
       products: [],
       categories: [],
       sizes: [],
+      selectedProductId: null,
+      productId: ''
       }
   },
   created() {
     this.getaudith();
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    this.selectedProductId = urlParams.get('id');
+
+    if (this.selectedProductId) {
+      this.getaudith(this.selectedProductId); // Fetch audit data based on the selected product ID
+    }
   },
   methods: {
-
-    async getaudith() {
+    async filterAuditRecords() {
+            try {
+                const response = await axios.get(`getaudith/${this.selectedProductId}`);
+                this.products = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+    async getaudith(productId) {
       try {
-        const response = await axios.get('getaudith');
-        this.products = response.data;
+        const response = await axios.get(`getaudith/${productId}`);
+        this.products = response.data; // Update products with fetched data
       } catch (error) {
         console.error(error);
       }
@@ -138,7 +155,7 @@ export default {
         console.error(error);
       }
     },
-    
+ 
   },
   
    

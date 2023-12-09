@@ -93,7 +93,8 @@ const routes = [
     props: true // Pass route params as props to the component
   },
   {
-    path: '/audith_table',
+    path: '/audith_table/:productId', // Define a dynamic segment for the product ID
+    name: 'AudithTable', // Optionally, provide a name for the route
     component: audith_table
   },
 
