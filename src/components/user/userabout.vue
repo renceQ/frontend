@@ -1,17 +1,12 @@
 <template>
   <br>
   <br>
-	<br>
-  
-  <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: srcurl('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-    <div style="display: flex; align-items: center; justify-content: flex-end;">
-      <div style="margin-right: 50px; margin-left: 100px; ">
-        <br>
-        <br>
-  
-        <h1 class="navbar-brand" href="index.html" style="font-size: 50px; "> About|<span>US...</span></h1>
-        <br>
-        <h2 class="navbar-brand" href="index.html" style="font-size: 20px;">
+
+  <section class="hero-wrap-0 js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div style="display: flex; align-items: left; text-align: justify;">
+      <div style="margin-right: 50px; margin-left: 100px;">
+        <h1 class="navbar-brand" style="font-size: 50px;"> About|<span>US...</span></h1>
+        <h2 class="navbar-brand" href="index.html" style="font-size: 15px;">
           QMJ Enterprises is dedicated to crafting unforgettable experiences <br>
           through a diverse array of services. From expertly arranging sound <br>
           and lighting setups to capturing captivating moments through professional<br>
@@ -21,90 +16,78 @@
            personalized and exceptional touches that leave a lasting impression.
         </h2>
       </div>
-      <img :src="require('../../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 10px; width: 450px; margin-right: 100px; margin-top: 80px;">
-    </div>
-<br>
-<br>
-<br>
-<br>
-    <div class="container" >
-      <div class="row justify-content-end">
-        <div class="col-md-7">
-          <h6>With 19 years of invaluable experience, QMJ Enterprises stands as a 
-            seasoned <br><br>expert in creating exceptional and memorable experiences. Over nearly two decades,<br>
-            <br>their expertise which ensures every client receives unparalleled service and enduring<br><br>
-             satisfaction.</h6>
-        </div>
+      <div style="display: flex; align-items: center; justify-content: flex-end;">
+        <img :src="require('../../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 10px; width: 450px; margin-right: 100px; margin-top: 80px;">
       </div>
     </div>
-  </section>
-  
-  <section class="ftco-counter img" id="section-counter" >
+    <br>
     <div class="container">
       <div class="row d-flex">
-        <div class="col-md-6 d-flex">
-          <img :src="require('../../assets/images/log.jpg')" alt="Description of the image" style="border-radius: 10px; width: 500px; margin-right: 100px; margin-top: 80px;margin-bottom: 100px;">
+        <div class="col-md-7">
+          <h3 class="navbar-brand" style="font-size: 15px;">
+            At the heart of QMJ Enterprise lies a dedication to crafting unforgettable experiences. Established with a vision to redefine industry <br>
+            standards, QMJ Enterprise has consistently delivered excellence across its diverse array of services. From expertly arranging sound and <br> 
+            lighting setups to capturing captivating moments through professional photo and video shoots, QMJ Enterprise ensures that every project <br>
+            is marked by personalized and exceptional touches. This commitment not only ensures that its offerings are cutting-edge but also reflects <br>  
+            a proactive approach to meeting and exceeding client expectations. Whether it's designing albums, creating bespoke souvenirs, customizing <br>
+            clothing, or excelling in printing tarpaulins, QMJ Enterprise embraces innovation as a driving force for success.
+          </h3>
         </div>
-        <div class="col-md-6 pl-md-5 py-5">
-          <div class="row justify-content-start pb-3">
-            <div class="col-md-12 ">
-              <span class="subheading">Fun Facts</span>
-              <h2 class="mb-4"><span>Fun</span> Facts</h2>
-              <p>wala pako datasssssssssssssssssssss</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 ">
-              <div class="block-18 text-center py-4 bg-light mb-4">
-                <div class="text">
-                  <div class="icon ">
-                    <span class="flaticon-guest"></span>
-                  </div>
-                  <strong class="number" data-number="30">31</strong>
-                  <span>Speakers</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 ">
-              <div class="block-18 text-center py-4 bg-light mb-4">
-                <div class="text">
-                  <div class="icon d-flex justify-content-center align-items-center">
-                    <span class="flaticon-handshake"></span>
-                  </div>
-                  <strong class="number" data-number="200">13</strong>
-                  <span>Sponsor</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 ">
-              <div class="block-18 text-center py-4 bg-light mb-4">
-                <div class="text">
-                  <div class="icon d-flex justify-content-center align-items-center">
-                    <span class="flaticon-chair"></span>
-                  </div>
-                  <strong class="number" data-number="2500">21</strong>
-                  <span>Total Seats</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 ">
-              <div class="block-18 text-center py-4 bg-light mb-4">
-                <div class="text">
-                  <div class="icon d-flex justify-content-center align-items-center">
-                    <span class="flaticon-idea"></span>
-                  </div>
-                  <strong class="number" data-number="40">42</strong>
-                  <span>Topics</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-md-7">
+          <h1 class="navbar-brand" style="font-size: 30px;"> OurStory|<span>2013...</span></h1>
+          <h4 class="navbar-brand" style="font-size: 15px; text-align: justify;">
+            The early days weren't without challenges. From navigating <br>
+            market fluctuations to establishing a foothold in a competitive <br> 
+            industry, QMJ Enterprise faced its share of obstacles. However, <br> 
+            resilience and a dedication to excellence guided the team through <br> 
+            these challenges, strengthening their resolve to succeed. <br>
+            Understanding that each client is unique, the enterprise adopted <br>
+            a client-centric approach, actively engaging with clients to tailor <br>
+            solutions that not only met but exceeded expectations.
+          </h4>
+        </div>
+        <div class="col-md-5" style="margin-top: 10px;">
+          <h1 class="navbar-brand" style="font-size: 30px;"> Challenges<span>...</span></h1>
+          <h4 class="navbar-brand" style="font-size: 15px; text-align: justify;">
+            It's important to note that businesses also use challenges as <br>
+            opportunities for growth and improvement. Qmj may develop strategies,<br>
+            innovate, and adapt to overcome obstacles and enhance their overall <br> 
+            resilience. To get specific information about challenges faced by QMJ <br>
+            Enterprises, I recommend checking their official communications, reports,<br>
+            or contacting the company directly for the latest and most accurate details.
+          </h4>
+        </div>
+      </div>
+      <div class="row d-flex align-items-center">
+        <div class="col-md-7">
+          <img :src="require('../../assets/images/qmjenterprise.jpg')" alt="Description of the image" style="border-radius: 10px; width: 600px; margin-right: 20px; margin-top: 80px;">
+        </div>
+        <div class="col-md-5">
+          <div class="col-md-5">
+          <h3 class="navbar-brand" style="font-size: 15px; text-align: justify;">
+            At the heart of QMJ Enterprise lies a dedication to crafting unforgettable <br> 
+            experience. Established with a vision to redefine industry standards, QMJ <br>
+            Enterprise has consistently delivered excellence across its diverse array <br>
+            of services. From expertly arranging sound and lighting setups to capturing <br>
+            captivating moments through professional photo and video shoots, QMJ <br> 
+            Enterprise ensures that every project is marked by personalized and <br> 
+            exceptional touches. This commitment not only ensures that its offerings <br> 
+            are cutting-edge but also reflects a proactive approach to meeting and <br>
+            exceeding client expectations. Whether it's designing albums, creating <br> 
+            bespoke souvenirs, customizing clothing, or excelling in printing tarpaulins,<br>
+            QMJ Enterprise embraces innovation as a driving force for success.
+          </h3>
         </div>
       </div>
     </div>
+    </div>
   </section>
-
-
+  <br>
+  <br>
   <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
       <div class="row mb-5">
@@ -156,14 +139,13 @@
       </div>
       <div class="row">
         <div class="col-md-12 text-center">
-
         </div>
       </div>
     </div>
   </footer>
 </template>
-
 <script>
+
 //   import mig from'../../assets/js/jquery-migrate-3.0.1.min.js'
 //   import popper from '../../assets/js/popper.min.js'
 
