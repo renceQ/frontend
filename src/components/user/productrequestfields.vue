@@ -17,7 +17,10 @@
             <button @click="increaseQuantity" type="button" class="btn btn-secondary" style="height:38px;">+</button>
           </div>
           </div>
+          <!--hidden fields-->
           <input type="hidden" v-model="productData.id">
+          <input type="hidden" v-model="productData.transaction_code">
+
           <div>
             <h3>Delivery Address</h3>
             <div style="margin-top: 20px;">
@@ -75,6 +78,7 @@ export default {
         prod_name: '',
         unit_price: '',
         sizes: [],
+        transaction_code: '',
         
 
       },
@@ -114,6 +118,8 @@ export default {
           other_info: this.info[0].other_info, // Assuming you want the first user's other info
           customerName: this.customerName,
           id: this.productData.id,
+          transaction_code: this.productData.transaction_code,
+          
         });
 
         // Resetting data after order placement
@@ -143,6 +149,8 @@ export default {
       this.productData.size_id = this.$route.params.size_id || '';
       this.productData.stock = this.$route.params.stock || 0;
       this.productData.id = this.$route.params.id || '';
+      this.productData.transaction_code = this.$route.params.transaction_code || '';
+      
     },
     increaseQuantity() {
   if (this.quantity < this.productData.stock) {

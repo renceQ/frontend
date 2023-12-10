@@ -37,6 +37,9 @@
     </div>
   </div>
 
+   <!-- generated transact code -->
+  <input type="hidden" v-model="productData.transaction_code">
+
     <!-- Footer Section -->
     <footer class="ftco-footer ftco-bg-dark ftco-section mt-5">
       <!-- Your footer content -->
@@ -58,15 +61,31 @@
       sizes: [],
       category_id: '',
       size_id: '',
+      productData: { // Initialize productData object
+      transaction_code: '', // Initialize transaction_code property
+    }
       };
     },
     created() {
     this.getData();
   },
     methods: {
+
+      generateTransactionCode() {
+    // Generate a random transaction code (for example purposes)
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const length = 8;
+    let transactionCode = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      transactionCode += chars.charAt(randomIndex);
+    }
+    return transactionCode;
+  },
    
       preOrder(product) {
-  const { image, prod_name, unit_price, size_id, stock, id } = product;
+  const { image, prod_name, unit_price, size_id, stock, id,   } = product;
+  const transactionCode = this.generateTransactionCode();
   this.$router.push({
     name: 'productrequest',
     params: {
@@ -76,6 +95,7 @@
       size_id,
       stock, // Include stock parameter
       id,
+      transaction_code: transactionCode,
     }
   });
 },

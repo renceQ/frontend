@@ -12,6 +12,9 @@
               :items="pendingOrders"
               item-key="id"
             >
+            <template v-slot:[`item.transaction_code`]="{ item }">
+                <span>{{ item.transaction_code }}</span>
+              </template>
               <template v-slot:[`item.image`]="{ item }">
                 <img :src="item.image" alt="Product Image" width="50" height="50">
               </template>
@@ -43,6 +46,9 @@
               :items="approvedOrders"
               item-key="id"
             >
+            <template v-slot:[`item.transaction_code`]="{ item }">
+                <span>{{ item.transaction_code }}</span>
+              </template>
               <template v-slot:[`item.image`]="{ item }">
                 <img :src="item.image" alt="Product Image" width="50" height="50">
               </template>
@@ -71,6 +77,9 @@
               :items="declinedOrders"
               item-key="id"
             >
+            <template v-slot:[`item.transaction_code`]="{ item }">
+                <span>{{ item.transaction_code }}</span>
+              </template>
               <template v-slot:[`item.image`]="{ item }">
                 <img :src="item.image" alt="Product Image" width="50" height="50">
               </template>
@@ -98,6 +107,7 @@
     data() {
       return {
         headers: [
+          { text: 'Transaction Code', value: 'transaction_code' }, 
           { text: 'Image', value: 'image' },
           { text: 'Product Name', value: 'prod_name' },
           { text: 'Unit Price', value: 'unit_price' },
@@ -164,6 +174,7 @@
 
       getHeaderTitle(field) {
         const headerTitles = {
+          transaction_code: 'Transact Code',
           image: 'Image',
           prod_name: 'Product Name',
           unit_price: 'Unit Price',
@@ -175,6 +186,7 @@
           customerName: 'Customer Name',
           status: 'Status',
           actions: 'Actions',
+          
           // Add other field titles accordingly
         };
         return headerTitles[field] || '';
