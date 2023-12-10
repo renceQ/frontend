@@ -118,13 +118,13 @@
     },
     computed: {
       pendingOrders() {
-        return this.infos.filter(order => order.status !== 'approve' && order.status !== 'deny');
+        return this.infos.filter(order => order.status !== 'approved' && order.status !== 'denied');
       },
       approvedOrders() {
-        return this.infos.filter(order => order.status === 'approve');
+        return this.infos.filter(order => order.status === 'approved');
       },
       declinedOrders() {
-        return this.infos.filter(order => order.status === 'deny');
+        return this.infos.filter(order => order.status === 'denied');
       }
     },
     methods: {
@@ -136,12 +136,32 @@
           console.error(error);
         }
       },
-      approveEvent(id) {
-        // Logic to handle event approval
-      },
-      denyEvent(id) {
-        // Logic to handle event denial
-      },
+      async approveEvent(id) {
+    try {
+      const response = await axios.post(`/updateOrderStatus/${id}`, { status: 'approved' });
+      if (response.status === 200) {
+        this.getOrder(); // Refresh orders after status update
+      } else {
+        console.error('Error updating order status');
+      }
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  },
+
+  async denyEvent(id) {
+    try {
+      const response = await axios.post(`/updateOrderStatus/${id}`, { status: 'denied' });
+      if (response.status === 200) {
+        this.getOrder(); // Refresh orders after status update
+      } else {
+        console.error('Error updating order status');
+      }
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  },
+
       getHeaderTitle(field) {
         const headerTitles = {
           image: 'Image',
@@ -164,33 +184,6 @@
   </script>
   
   <style>
-  /* Add your custom styles here */
-  .container {
-    width: 1000px;
-    margin-left: 330px;
-  }
   
-  .card {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .card-header {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    padding: 10px;
-  }
-  
-  .table img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  
-  .btn {
-    margin-right: 5px;
-    margin-bottom: 5px;
-  }
   </style>
   
