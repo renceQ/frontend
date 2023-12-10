@@ -43,7 +43,7 @@
     </form>
     </div>
 
-     <!-- Vuetify modal dialog -->
+     Vuetify modal dialog
      <v-dialog v-model="dialog" persistent max-width="400">
       <v-card>
         <v-card-text>

@@ -12,6 +12,7 @@
   <ul>
       <li><a href="#"><i class="fas fa-qrcode"></i>Dashboard</a></li>
       <li><a href="/productstable"><i class="fas fa-link"></i>Products</a></li>
+      <li><a href="/orderRequest"><i class="fas fa-eye"></i>Order Request</a></li>
       <li><a href="/productcategory"><i class="fas fa-eye"></i>Category</a></li>
       <li><a href="/bookingtable"><i class="fas fa-link"></i>Booking</a></li>
       <li><a href="/customer"><i class="fas fa-link"></i>Customers</a></li>
