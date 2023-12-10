@@ -1,7 +1,7 @@
 <template>
     <div class="table-container">
-        <h1>Audit data</h1>
-        <insert @data-saved="filterAuditRecords" />
+        <h1>Audit data for Product ID: {{ productId }}</h1>
+        <insert @data-saved="getAuditRecords" />
         <table class="product-table">
         <thead>
           <tr>
@@ -22,23 +22,23 @@
           </tr>
         </thead>
         <tbody>
-            <tr v-for="product in products" :key="product.id">
-            <td v-if="product.image">
-                <img :src="product.image" alt="image" class="img-fluid" style="max-width: 100px; max-height:100px;">
+            <tr v-for="auditRecord in auditRecords" :key="auditRecord.id">
+            <td v-if="auditRecord.image">
+                <img :src="auditRecord.image" alt="image" class="img-fluid" style="max-width: 100px; max-height:100px;">
               </td>
-            <td>{{ getCategoryName(product.category_id) }}</td>
-            <td>{{ product.prod_name }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.unit_price }}</td>
-            <td>{{ getSizeName(product.size_id) }}</td>
-            <td>{{ product.UPC }}</td>
-            <td>{{ product.barcode_image }}</td>
-            <td>{{ product.created_at }}</td>
-            <td>{{ product.updated_at }}</td>
-            <td>{{ product.product_description }}</td>
-            <td>{{ product.type }}</td>
-            <td>{{ product.stock }}</td>
-            <td>{{ product.old_stock }}</td>
+            <td>{{ getCategoryName(auditRecord.category_id) }}</td>
+            <td>{{ auditRecord.prod_name }}</td>
+            <td>{{ auditRecord.price }}</td>
+            <td>{{ auditRecord.unit_price }}</td>
+            <td>{{ getSizeName(auditRecord.size_id) }}</td>
+            <td>{{ auditRecord.UPC }}</td>
+            <td>{{ auditRecord.barcode_image }}</td>
+            <td>{{ auditRecord.created_at }}</td>
+            <td>{{ auditRecord.updated_at }}</td>
+            <td>{{ auditRecord.product_description }}</td>
+            <td>{{ auditRecord.type }}</td>
+            <td>{{ auditRecord.stock }}</td>
+            <td>{{ auditRecord.old_stock }}</td>
           </tr>
         </tbody>
       </table>
@@ -70,32 +70,23 @@ export default {
       categories: [],
       sizes: [],
       selectedProductId: null,
-      productId: ''
+      productId: '',
+      auditRecords: [],
       }
   },
   created() {
-    this.getaudith();
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    this.selectedProductId = urlParams.get('id');
+   
+    this.productId = this.$route.params.productId; // Get the productId from the route
 
-    if (this.selectedProductId) {
-      this.getaudith(this.selectedProductId); // Fetch audit data based on the selected product ID
-    }
+if (this.productId) {
+  this.getAuditRecords(this.productId); // Fetch audit records based on productId
+}
   },
   methods: {
-    async filterAuditRecords() {
-            try {
-                const response = await axios.get(`getaudith/${this.selectedProductId}`);
-                this.products = response.data;
-            } catch (error) {
-                console.error(error);
-            }
-        },
-    async getaudith(productId) {
+    async getAuditRecords(productId) {
       try {
         const response = await axios.get(`getaudith/${productId}`);
-        this.products = response.data; // Update products with fetched data
+        this.auditRecords = response.data; // Update auditRecords with fetched data
       } catch (error) {
         console.error(error);
       }
@@ -155,7 +146,6 @@ export default {
         console.error(error);
       }
     },
- 
   },
   
    
