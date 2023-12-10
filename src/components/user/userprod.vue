@@ -66,7 +66,7 @@
     methods: {
    
       preOrder(product) {
-  const { image, prod_name, unit_price, size_id, stock } = product;
+  const { image, prod_name, unit_price, size_id, stock, id } = product;
   this.$router.push({
     name: 'productrequest',
     params: {
@@ -74,7 +74,8 @@
       prod_name,
       unit_price,
       size_id,
-      stock // Include stock parameter
+      stock, // Include stock parameter
+      id,
     }
   });
 },

@@ -17,7 +17,7 @@
             <button @click="increaseQuantity" type="button" class="btn btn-secondary" style="height:38px;">+</button>
           </div>
           </div>
-
+          <input type="hidden" v-model="productData.id">
           <div>
             <h3>Delivery Address</h3>
             <div style="margin-top: 20px;">
@@ -88,6 +88,7 @@ export default {
         contact:'', 
         other_info:'', 
         customerName: '',
+        id: '',
     };
   },
   created() {
@@ -112,6 +113,7 @@ export default {
           contact: this.info[0].contact, // Assuming you want the first user's contact
           other_info: this.info[0].other_info, // Assuming you want the first user's other info
           customerName: this.customerName,
+          id: this.productData.id,
         });
 
         // Resetting data after order placement
@@ -140,6 +142,7 @@ export default {
       this.productData.unit_price = this.$route.params.unit_price || 0;
       this.productData.size_id = this.$route.params.size_id || '';
       this.productData.stock = this.$route.params.stock || 0;
+      this.productData.id = this.$route.params.id || '';
     },
     increaseQuantity() {
   if (this.quantity < this.productData.stock) {
