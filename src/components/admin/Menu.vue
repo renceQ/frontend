@@ -6,8 +6,8 @@
   <i class="fa fa-times" id="cancle" style=" margin-left:20px;" ></i>
   </label>
     <div class="sidebar">
-  <header><img src="pic.jpg">
-  <p>Admin</p>
+  <header><img v-if="info.length > 0" :src="info[0].profile_picture" alt="Profile" >
+  <p>Qmj Images</p>
   </header>
   <ul>
       <li><a href="#"><i class="fas fa-qrcode"></i>Dashboard</a></li>
@@ -32,6 +32,46 @@
 </nav>
   </template>
   
+  <script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+	  info: [],
+    };
+  },
+  created() {
+	this.token = sessionStorage.getItem('jwt');
+  if (this.token) {
+    this.getInfo();
+  } else {
+    // Handle the case where token is not available in local storage
+    console.error('JWT token not found in local storage');
+  }
+},
+  
+  methods: {
+	async logout() {
+		        sessionStorage.clear();
+    },
+	
+	toggleDropdown() {
+    const menu = document.querySelector('.menu-item');
+    menu.classList.toggle('active');
+  },
+    async getInfo() {
+    try {
+      const response = await axios.get(`getUserData/${this.token}`);
+      this.info = response.data; // Assuming response.data is an object/array of user data
+    } catch (error) {
+      console.error(error);
+      // Handle the error case, such as showing a message to the user
+    }
+  },
+  },
+};
+</script>
   <style>
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
       @import '../../assets/css/style.css';
