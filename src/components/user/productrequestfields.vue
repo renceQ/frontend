@@ -1,6 +1,7 @@
 <template>
   <div class="container mt-4">
     <h2>Product Request Fields</h2>
+    <form @submit.prevent="placeOrder">
     <div class="row">
       <div class="col">
         <p>Image:</p>
@@ -36,10 +37,29 @@
           </div>
 
           <router-link to="/userproducts" class="btn btn-primary">Choose Another Product</router-link>
-          <button @click="requestOrder" class="btn btn-success">Place Order</button>
+          <button   type="submit" class="btn btn-success">Place Order</button>
         </div>
       </div>
+    </form>
     </div>
+
+     <!-- Vuetify modal dialog -->
+     <v-dialog v-model="dialog" persistent max-width="400">
+      <v-card>
+        <v-card-text>
+          <div class="text-center">
+            <p>  Your order has been successfully placed. </p>
+            <img :src="require('../../../public/img/check.gif')"  style="width: 120px; height: 120px;">
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn  style="margin-left:162px;"  href="/userproducts" color="primary" @click="dialog = false">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+
+
 
 </template>
 
@@ -49,15 +69,25 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      dialog: false,
       productData: {
         image: '',
         prod_name: '',
         unit_price: '',
         sizes: [],
+        
+
       },
       info: [],
       quantity: 1, // Initial quantity
-      size_id: '' // Selected size
+      size_id: '',
+      image:'', 
+        prod_name:'', 
+        unit_price:'',  
+        address:'', 
+        contact:'', 
+        other_info:'', 
+        customerName: '',
     };
   },
   created() {
@@ -66,10 +96,36 @@ export default {
     if (this.token) {
       this.getInfo();
     } else {
-      console.error('JWT token not found in local storage');
+      console.error('JWT token not found in session storage');
     }
   },
   methods: {
+    async placeOrder() {
+      try {
+        const ins = await axios.post("placeOrder", {
+          image: this.productData.image,
+          prod_name: this.productData.prod_name,
+          unit_price: this.productData.unit_price,
+          size_id: this.productData.size_id,
+          quantity: this.quantity,
+          address: this.info[0].address, // Assuming you want the first user's address
+          contact: this.info[0].contact, // Assuming you want the first user's contact
+          other_info: this.info[0].other_info, // Assuming you want the first user's other info
+          customerName: this.customerName,
+        });
+
+        // Resetting data after order placement
+        this.quantity = 1;
+        this.customerName = "";
+
+        // Triggering data retrieval after order placement
+        await this.getInfo();
+
+        this.dialog = true;
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async getInfo() {
       try {
         const response = await axios.get(`getUserData/${this.token}`);

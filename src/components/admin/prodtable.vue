@@ -16,7 +16,7 @@
         </div>
         <div class="container">
           <div class="row">
-            <button @click="openModal" style=" width:20%; margin-left:78%;" class="neumorphic-button">Add Product</button>
+            <button @click="openModal" style=" width:18%; margin-left:78%; margin-bottom:3%;" class="neumorphic-button">Add Product</button>
                 <div class="card-body">
                   <insert @data-saved="getInfo" />
                   <div class="table-container">
