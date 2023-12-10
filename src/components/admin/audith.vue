@@ -32,7 +32,9 @@
             <td>{{ auditRecord.unit_price }}</td>
             <td>{{ getSizeName(auditRecord.size_id) }}</td>
             <td>{{ auditRecord.UPC }}</td>
-            <td>{{ auditRecord.barcode_image }}</td>
+            <td v-if="auditRecord.barcode_image">
+              <img :src="auditRecord.barcode_image" alt="image" class="img-fluid" style="max-width: 100px; max-height:100px;">
+            </td>
             <td>{{ auditRecord.created_at }}</td>
             <td>{{ auditRecord.updated_at }}</td>
             <td>{{ auditRecord.product_description }}</td>

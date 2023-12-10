@@ -64,7 +64,7 @@
       </div>
       <div class="row d-flex align-items-center">
         <div class="col-md-7">
-          <img :src="require('../../assets/images/qmjenterprise.jpg')" alt="Description of the image" style="border-radius: 10px; width: 600px; margin-right: 20px; margin-top: 80px;">
+          <img :src="require('../../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 10px; width: 600px; margin-right: 20px; margin-top: 80px;">
         </div>
         <div class="col-md-5">
           <div class="col-md-5">
