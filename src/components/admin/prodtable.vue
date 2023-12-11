@@ -64,7 +64,13 @@
                                 <router-link :to="{ name: 'AudithTable', params: { productId: product.id } }" class="neumorphic-edit">
                                   <i class="fas fa-clipboard-list" @click="openAuditModal(product.id)"></i> AUDIT
                                 </router-link>                             
-                            </div>        
+                            </div>  
+                            <br>
+                            <div>
+                              <router-link :to="{ name: 'SalesTable', params: { productId: product.id } }" class="neumorphic-edit">
+                                <i class="fas fa-chart-bar" @click="openAuditModal(product.id)"></i> SALES
+                              </router-link>                             
+                          </div>      
                             </td>
                           </td>
                         </tr>

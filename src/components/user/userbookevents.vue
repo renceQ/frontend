@@ -21,6 +21,28 @@
                 <label for="event_title">Event Title:</label>
                 <input type="text" class="form-control" placeholder="Event Title" v-model="event_title" required>
               </div>
+
+              <div class="form-group">
+                <label for="service">Services</label>
+                <div class="position-relative">
+                    <select class="form-control" v-model="service" required>
+                        <option value="" disabled selected>Select a service</option>
+                        <option value="Sounds Service">Sounds Service</option>
+                        <option value="Lights Service">Lights Service</option>
+                        <option value="Photo Shoot Service">Photo Shoot Service</option>
+                        <option value="Video Shoot Service">Video Shoot Service</option>
+                        <option value="Photo & Video Shoots Service">Photo & Video Shoots Service</option>
+                        <option value="Photo & Video Shoots Service With SDE">Photo & Video Shoots Service With SDE</option>
+                        <option value="Sounds & Lights Service">Sounds & Lights Service</option>
+                        <option value="Sounds & Lights with Photo Shoot Service">Sounds & Lights with Photo Shoot Service</option>
+                        <option value="Sounds and Lights with Photo & Video Shoots Service">Sounds and Lights with Photo & Video Shoots Service</option>
+                        <option value="Sounds and Lights with Photo Video Shoots and SDE Service">Sounds and Lights with Photo Video Shoots and SDE Service</option>
+                    </select>
+                    <i class="fas fa-caret-down position-absolute end-0 bottom-0 p-3" style="pointer-events: none;"></i>
+                </div>
+            </div>
+            
+              
               
               <div class="form-group">
                 <label for="start_date">Start Date:</label>
@@ -222,6 +244,7 @@
         name:"", 
         email:"", 
         phone:"", 
+        service:"",
       info: [],
     }
   },
@@ -239,6 +262,7 @@
           name: this.name,
           email: this.email,
           phone: this.phone,
+          service: this.service,
         });
 
         this.event_title ="";
@@ -249,6 +273,7 @@
         this.name ="";
         this.email ="";
         this.phone ="";
+        this.service ="";
 
 
         this.$emit('data-saved');

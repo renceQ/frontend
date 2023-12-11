@@ -33,9 +33,12 @@
                    <div>
                     <label for="customerName">Customer Name:</label>
                     <input type="text" id="customerName" v-model="customerName" placeholder="customer name" required>
+                    Total Price:
+                    <input type="text" v-model="productData.total" placeholder="total price" disabled>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
 
@@ -79,7 +82,7 @@ export default {
         unit_price: '',
         sizes: [],
         transaction_code: '',
-        
+        total: 0
 
       },
       info: [],
@@ -93,8 +96,10 @@ export default {
         other_info:'', 
         customerName: '',
         id: '',
+         
     };
   },
+  
   created() {
     this.getProductDetails();
     this.token = sessionStorage.getItem('jwt');
@@ -102,6 +107,21 @@ export default {
       this.getInfo();
     } else {
       console.error('JWT token not found in session storage');
+    }
+  },
+  computed: {
+    // Calculate total price based on quantity and unit price
+    totalAmount() {
+      return this.quantity * this.productData.unit_price;
+    }
+  },
+  watch: {
+    // Watch for changes in quantity or unit price to update total
+    totalAmount() {
+      this.productData.total = this.totalAmount;
+    },
+    'productData.unit_price'() {
+      this.productData.total = this.totalAmount;
     }
   },
   methods: {
@@ -119,6 +139,7 @@ export default {
           customerName: this.customerName,
           id: this.productData.id,
           transaction_code: this.productData.transaction_code,
+          total: this.productData.total,
           
         });
 

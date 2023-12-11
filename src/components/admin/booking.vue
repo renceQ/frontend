@@ -1,71 +1,223 @@
 <template>
-    <div class="clearfix"></div>
-    <div class="row" style="margin-left: 300px; margin-right: 20px;">
-      <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>List of Event Request</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Settings 1</a>
-                  <a class="dropdown-item" href="#">Settings 2</a>
-                </div>
-              </li>
-              <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
+  <v-container>
+    <v-row>
+      <v-col cols="12">
+        <v-card v-if="showPendingtable" class="custom-data-table">
+          <v-card-title>
+            <h2>List of Event Requests</h2>
+            <v-spacer></v-spacer>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on }">
+                <v-btn icon v-on="on">
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item>
+                  <v-list-item-title>Settings 1</v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>Settings 2</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-card-title>
+          <v-card-text>
+            <v-data-table
+              :headers="tableHeaders"
+              :items="pendingRequests"
+              item-key="event_title"
+              :items-per-page="10"
+            >
+              <template v-slot:[`item.event_title`]="{ item }">
+                {{ item.event_title }}
+              </template>
+              <template v-slot:[`item.start_date`]="{ item }">
+                {{ item.start_date }}
+              </template>
+              <template v-slot:[`item.end_date`]="{ item }">
+                {{ item.end_date }}
+              </template>
+              <template v-slot:[`item.location`]="{ item }">
+                {{ item.location }}
+              </template>
+              <template v-slot:[`item.event_description`]="{ item }">
+                {{ item.event_description }}
+              </template>
+              <template v-slot:[`item.name`]="{ item }">
+                {{ item.name }}
+              </template>
+              <template v-slot:[`item.email`]="{ item }">
+                {{ item.email }}
+              </template>
+              <template v-slot:[`item.phone`]="{ item }">
+                {{ item.phone }}
+              </template>
+              <template v-slot:[`item.service`]="{ item }">
+                {{ item.service }}
+              </template>
+              <template v-slot:[`item.status`]="{ item }">
+                {{ item.status }}
+              </template>
+              <template v-slot:[`item.actions`]="{ item }">
+                <v-btn small color="success" @click="viewEvent(item)">
+                  <v-icon>mdi-eye</v-icon>
+                  View
+                </v-btn>
+                <!-- Add other action buttons here -->
+              </template>
+            </v-data-table>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 
 
-          <div class="x_content">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="card-box table-responsive">
-                    <insert @data-saved="geteventinfo" />
-                  <table id="datatable-responsive" class="table table-bordered table-striped dt-responsive nowrap" cellspacing="0" width="80%" style="margin: 0 auto;">
-                    <thead>
-                      <tr>
-                        <th>Event </th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Location</th>
-                        <th>Event_Description</th>
-                        <th>Contact Name</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="info in info">
-                        <td>{{ info.event_title}}</td>
-                        <td>{{ info.start_date}}</td>
-                        <td>{{ info.end_date}}</td>
-                        <td>{{ info.location}}</td>
-                        <td>{{ info.event_description}}</td>
-                        <td>{{ info.name}}</td>
-                        <td>{{ info.email}}</td>
-                        <td>{{ info.phone}}</td>
-                        <td> 
-                          <a href="#" data-id="1" class="btn btn-success btn-sm approve"><i class="fa fa-approve"></i> Approve</a>
-                          <a href="#" data-id="1" class="btn btn-danger btn-sm deny"><i class="fa fa-deny"></i> Deny</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+   <!-- Approved Request Table -->
+   <v-col cols="12" style="margin-left: 90px;">
+   <v-card v-if="showApprovedTable" class="custom-data-table">
+    <v-card-title>
+      <h2>Approved Requests</h2>
+    </v-card-title>
+    <v-card-text>
+      <v-data-table
+        :headers="tableHeaders"
+        :items="approvedRequests"
+        item-key="event_title"
+        :items-per-page="10"
+      >
+        
+      <template v-slot:[`item.event_title`]="{ item }">
+        {{ item.event_title }}
+      </template>
+      <template v-slot:[`item.start_date`]="{ item }">
+        {{ item.start_date }}
+      </template>
+      <template v-slot:[`item.end_date`]="{ item }">
+        {{ item.end_date }}
+      </template>
+      <template v-slot:[`item.location`]="{ item }">
+        {{ item.location }}
+      </template>
+      <template v-slot:[`item.event_description`]="{ item }">
+        {{ item.event_description }}
+      </template>
+      <template v-slot:[`item.name`]="{ item }">
+        {{ item.name }}
+      </template>
+      <template v-slot:[`item.email`]="{ item }">
+        {{ item.email }}
+      </template>
+      <template v-slot:[`item.phone`]="{ item }">
+        {{ item.phone }}
+      </template>
+      <template v-slot:[`item.service`]="{ item }">
+        {{ item.service }}
+      </template>
+      <template v-slot:[`item.status`]="{ item }">
+        {{ item.status }}
+      </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-btn small color="success" @click="viewEvent(item)">
+          <v-icon>mdi-eye</v-icon>
+          View
+        </v-btn>
+        <!-- Add other action buttons here -->
+      </template>
+      </v-data-table>
+    </v-card-text>
+  </v-card>
+</v-col>
 
 
-          
-        </div>
-      </div>
-    </div>
+  <!-- Declined Request Table -->
+  <v-col cols="12" style="margin-left: 90px;">
+  <v-card v-if="showDeclinedTable" class="custom-data-table">
+    <v-card-title>
+      <h2>Declined Requests</h2>
+    </v-card-title>
+    <v-card-text>
+      <v-data-table
+        :headers="tableHeaders"
+        :items="declinedRequests"
+        item-key="event_title"
+        :items-per-page="10"
+      >
+       
+      <template v-slot:[`item.event_title`]="{ item }">
+        {{ item.event_title }}
+      </template>
+      <template v-slot:[`item.start_date`]="{ item }">
+        {{ item.start_date }}
+      </template>
+      <template v-slot:[`item.end_date`]="{ item }">
+        {{ item.end_date }}
+      </template>
+      <template v-slot:[`item.location`]="{ item }">
+        {{ item.location }}
+      </template>
+      <template v-slot:[`item.event_description`]="{ item }">
+        {{ item.event_description }}
+      </template>
+      <template v-slot:[`item.name`]="{ item }">
+        {{ item.name }}
+      </template>
+      <template v-slot:[`item.email`]="{ item }">
+        {{ item.email }}
+      </template>
+      <template v-slot:[`item.phone`]="{ item }">
+        {{ item.phone }}
+      </template>
+      <template v-slot:[`item.service`]="{ item }">
+        {{ item.service }}
+      </template>
+      <template v-slot:[`item.status`]="{ item }">
+        {{ item.status }}
+      </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-btn small color="success" @click="viewEvent(item)">
+          <v-icon>mdi-eye</v-icon>
+          View
+        </v-btn>
+        <!-- Add other action buttons here -->
+      </template>
+      </v-data-table>
+    </v-card-text>
+  </v-card>
+</v-col>
+ 
+  <v-dialog v-model="showModal" max-width="800px">
+    <v-card>
+      <v-toolbar color="primary" dark>
+        <v-btn icon @click="closeModal">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-toolbar-title>{{ selectedEvent.event_title }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <!-- Neumorphic Approve Button -->
+        <v-btn text color="white" @click="approveEvent">Approve</v-btn>
+        <v-btn text color="white" @click="declineEvent">Decline</v-btn>
+      </v-toolbar>
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col cols="12">
+              <v-row v-for="(value, key) in selectedEvent" :key="key">
+                <v-col cols="12">
+                  <span>{{ formatLabel(key) }}:</span>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field v-model="selectedEvent[key]" readonly outlined></v-text-field>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
+
 
 </template>
 
@@ -75,24 +227,147 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      showModal: false,
+      selectedEvent: {}, // Holds the selected event details
       info: [],
+      tableHeaders: [
+        { text: 'Event', value: 'event_title' },
+        { text: 'Start Date', value: 'start_date' },
+        { text: 'End Date', value: 'end_date' },
+        { text: 'Location', value: 'location' },
+        { text: 'Event Description', value: 'event_description' },
+        { text: 'Contact Name', value: 'name' },
+        { text: 'Email', value: 'email' },
+        { text: 'Phone Number', value: 'phone' },
+        { text: 'Type of Service', value: 'service' },
+        { text: 'Status', value: 'status' },
+        { text: 'Action', value: 'actions', sortable: false },
+      ],
     };
   },
+  computed: {
+    pendingRequests() {
+        return this.info.filter(item => item.status !== 'approved' && item.status !== 'denied');
+      },
+    approvedRequests() {
+      return this.info.filter(item => item.status === 'approved');
+    },
+    declinedRequests() {
+      return this.info.filter(item => item.status === 'declined');
+    },
+    showPendingtable() {
+      return this.pendingRequests.length > 0;
+    },
+    showApprovedTable() {
+      return this.approvedRequests.length > 0;
+    },
+    showDeclinedTable() {
+      return this.declinedRequests.length > 0;
+    },
+  },
   created() {
-    this.geteventinfo();
+    this.getEventInfo();
   },
   methods: {
-    async geteventinfo() {
+    async approveEvent() {
+    try {
+      const response = await axios.post('/updateEventStatus', {
+        id: this.selectedEvent.id,
+        status: 'approved'
+      });
+
+      if (response.status === 200) {
+        // Update the status in the selectedEvent object
+        this.selectedEvent.status = 'approved';
+
+        // Find the index of the updated event in the info array and update it
+        const index = this.info.findIndex(event => event.id === this.selectedEvent.id);
+        if (index !== -1) {
+          this.$set(this.info, index, { ...this.selectedEvent });
+        }
+
+        this.showModal = false; // Close the modal
+      } else {
+        console.error('Error updating event status');
+      }
+    } catch (error) {
+      console.error('Error updating event status:', error);
+    }
+  },
+
+  async declineEvent() {
+    try {
+      const response = await axios.post('/updateEventStatus', {
+        id: this.selectedEvent.id,
+        status: 'declined'
+      });
+
+      if (response.status === 200) {
+        // Update the status in the selectedEvent object
+        this.selectedEvent.status = 'declined';
+
+        // Find the index of the updated event in the info array and update it
+        const index = this.info.findIndex(event => event.id === this.selectedEvent.id);
+        if (index !== -1) {
+          this.$set(this.info, index, { ...this.selectedEvent });
+        }
+
+        this.showModal = false; // Close the modal
+      } else {
+        console.error('Error updating event status');
+      }
+    } catch (error) {
+      console.error('Error updating event status:', error);
+    }
+  },
+
+    viewEvent(item) {
+      // Set the selected event when "View" button is clicked
+      this.selectedEvent = { ...item }; // Copy the item details to selectedEvent
+      this.showModal = true; // Open the modal
+    },
+    closeModal() {
+      this.showModal = false; // Close the modal
+    },
+    formatLabel(key) {
+      // Convert camelCase to Title Case for labels
+      return key.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+    },
+    async getEventInfo() {
       try {
         const response = await axios.get('getevent');
         this.info = response.data;
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
-    
-    
-    // Other methods...
   },
 };
 </script>
+
+<style>
+/* Add your custom styles here */
+/* For example, adjust the modal styles */
+.v-dialog--width {
+  max-width: 800px !important;
+}
+
+/* Remove the border */
+.v-text-field {
+  border: none !important;
+}
+
+.custom-data-table {
+  width: 1000px; /* Set the width for the tables */
+  margin-left: 200px;
+}
+
+/* Ensure table cells have consistent width */
+.custom-table .v-data-table__wrapper {
+  width: 100%;
+}
+
+.custom-table .v-data-table__wrapper table {
+  width: 100%;
+}
+</style>

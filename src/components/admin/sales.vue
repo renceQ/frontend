@@ -1,46 +1,43 @@
 <template>
     <div class="table-container">
-        <h1>Product History: {{ productId }}</h1>
-        <insert @data-saved="getAuditRecords" />
+        <h1>Sales ID: {{ productId }}</h1>
+        <insert @data-saved="getSalesRecord" />
         <table class="product-table">
         <thead>
           <tr>
             <th>Image</th>
-            <th>Category ID</th>
             <th>Product Name</th>
-            <th>Price</th>
             <th>Unit Price</th>
+            <th>Total Price</th>
             <th>Size ID</th>
-            <th>UPC</th>
-            <th>Barcode Image</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>Product Description</th>
+            <th>Quantity</th>
+            <th>Address</th>
+            <th>Contact</th>
+            <th>Other Info</th>
+            <th>Customer Name</th>
+            <th>Status</th>
+            <th>Transaction Code</th>
             <th>Type</th>
-            <th>Current Stock</th>
-            <th>Old Stock</th>
+            
           </tr>
         </thead>
         <tbody>
-            <tr v-for="auditRecord in auditRecords" :key="auditRecord.id">
-            <td v-if="auditRecord.image">
-                <img :src="auditRecord.image" alt="image" class="img-fluid" style="max-width: 100px; max-height:100px;">
+            <tr v-for="salesRecord in salesRecords" :key="salesRecord.id">
+            <td v-if="salesRecord.image">
+                <img :src="salesRecord.image" alt="image" class="img-fluid" style="max-width: 100px; max-height:100px;">
               </td>
-            <td>{{ getCategoryName(auditRecord.category_id) }}</td>
-            <td>{{ auditRecord.prod_name }}</td>
-            <td>{{ auditRecord.price }}</td>
-            <td>{{ auditRecord.unit_price }}</td>
-            <td>{{ getSizeName(auditRecord.size_id) }}</td>
-            <td>{{ auditRecord.UPC }}</td>
-            <td v-if="auditRecord.barcode_image">
-              <img :src="auditRecord.barcode_image" alt="image" class="img-fluid" style="max-width: 100px; max-height:100px;">
-            </td>
-            <td>{{ auditRecord.created_at }}</td>
-            <td>{{ auditRecord.updated_at }}</td>
-            <td>{{ auditRecord.product_description }}</td>
-            <td>{{ auditRecord.type }}</td>
-            <td>{{ auditRecord.stock }}</td>
-            <td>{{ auditRecord.old_stock }}</td>
+            <td>{{ salesRecord.prod_name }}</td>
+            <td>{{ salesRecord.unit_price }}</td>
+            <td>{{ salesRecord.total }}</td>
+            <td>{{ getSizeName(salesRecord.size_id) }}</td>
+            <td>{{ salesRecord.quantity }}</td>
+            <td>{{ salesRecord.address }}</td>
+            <td>{{ salesRecord.contact }}</td>
+            <td>{{ salesRecord.other_info }}</td>
+            <td>{{ salesRecord.customerName }}</td>
+            <td>{{ salesRecord.status }}</td>
+            <td>{{ salesRecord.transaction_code }}</td>
+            <td>{{ salesRecord.type }}</td>
           </tr>
         </tbody>
       </table>
@@ -55,25 +52,27 @@ export default {
     return {
         id: "",
         image: null,
-        category_id: "",
+        quantity: "",
         prod_name: "",
         stock: "",
-        price: "",
+        address: "",
         unit_price: "",
         size_id: "",
-        UPC: "",
-        barcode_image: null,
-        created_at: "",
-        updated_at: "",
-        product_description: "",
-        type: "",
+        contact: "",
+        other_info: "",
+        customerName: "",
+        status: "",
+        product_id: "",
         old_stock:"",
+        transaction_code: "",
+        type: "",
+        total: "",
       products: [],
       categories: [],
       sizes: [],
       selectedProductId: null,
       productId: '',
-      auditRecords: [],
+      salesRecords: [],
       }
   },
   created() {
@@ -81,14 +80,14 @@ export default {
     this.productId = this.$route.params.productId; // Get the productId from the route
 
 if (this.productId) {
-  this.getAuditRecords(this.productId); // Fetch audit records based on productId
+  this.getSalesRecord(this.productId); // Fetch audit records based on productId
 }
   },
   methods: {
-    async getAuditRecords(productId) {
+    async getSalesRecord(productId) {
       try {
-        const response = await axios.get(`getaudith/${productId}`);
-        this.auditRecords = response.data; // Update auditRecords with fetched data
+        const response = await axios.get(`getsales/${productId}`);
+        this.salesRecords = response.data; // Update salesRecords with fetched data
       } catch (error) {
         console.error(error);
       }
@@ -128,14 +127,6 @@ if (this.productId) {
       try {
         const response = await axios.get("getsize");
         this.sizes = response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async fetchCategories() {
-      try {
-        const response = await axios.get("getcat");
-        this.categories = response.data; // Assuming response.data contains the categories array
       } catch (error) {
         console.error(error);
       }

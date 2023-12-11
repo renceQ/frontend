@@ -1,8 +1,11 @@
 <template>
   <br>
   <br>
-
-  <section class="hero-wrap-0 js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+  <br>
+  <br>
+  <br>
+  <br>
+  <section class="hero-wrap-0 js-fullheight" style="background-image: url('images/bg_2.jpg'); margin-bottom:100px;" data-stellar-background-ratio="0.5">
     <div style="display: flex; align-items: left; text-align: justify;">
       <div style="margin-right: 50px; margin-left: 100px;">
         <h1 class="navbar-brand" style="font-size: 50px;"> About|<span>US...</span></h1>
@@ -17,7 +20,7 @@
         </h2>
       </div>
       <div style="display: flex; align-items: center; justify-content: flex-end;">
-        <img :src="require('../../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 10px; width: 450px; margin-right: 100px; margin-top: 80px;">
+        <img :src="require('../../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 10px; width: 450px; margin-right: 100px; ">
       </div>
     </div>
     <br>
@@ -196,4 +199,5 @@
 @import '../../assets/css/flaticon.css';
 @import '../../assets/css/icomoon.css';
 @import '../../assets/css/style.css';
+
 </style>

@@ -19,6 +19,8 @@ import productrequest from '../views/productrequest.vue'
 import forgotpass from '../views/forgotpass.vue'
 import audith_table from '../views/audith_table.vue'
 import orderRequest from '../views/orderRequest.vue'
+import sales_table from '../views/sales_table.vue'
+
 
 
 
@@ -103,6 +105,12 @@ const routes = [
     path: '/orderRequest',
     component: orderRequest
   },
+  {
+    path: '/sales_table/:productId', // Define a dynamic segment for the product ID
+    name: 'SalesTable', // Optionally, provide a name for the route
+    component: sales_table
+  },
+
 ]
 
 const router = createRouter({
