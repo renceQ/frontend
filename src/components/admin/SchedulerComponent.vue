@@ -14,8 +14,13 @@ export default {
         return [];
       },
     },
+    filterDate: {
+      type: String, // Change the type to String or Date as per your requirements
+      default: null,
+    },
   },
   methods: {
+    
     $_initDataProcessor: function() {
       if (!scheduler.$_dataProcessorInitialized) {
         scheduler.createDataProcessor((entity, action, data, id) => {
@@ -72,8 +77,20 @@ export default {
     // Fetch and parse events from the backend
     async fetchAndParseEvents() {
       const events = await this.fetchEventsFromBackend();
+      let filteredEvents = events;
+
+      // Filter events based on the provided date range (assuming start_date and end_date format matches)
+      if (this.filterDate) {
+        const filterDate = new Date(this.filterDate);
+        filteredEvents = events.filter(event => {
+          const eventStartDate = new Date(event.start_date);
+          const eventEndDate = new Date(event.end_date);
+          return eventStartDate <= filterDate && filterDate <= eventEndDate;
+        });
+      }
+
       scheduler.clearAll();
-      scheduler.parse(events);
+      scheduler.parse(filteredEvents);
     },
   },
   mounted: async function () {
@@ -94,7 +111,7 @@ export default {
       new Date(2020, 0, 20),
       "week"
     );
-    await this.fetchAndParseEvents(); // Fetch and parse events on component mount
+    await this.fetchAndParseEvents();  // Fetch and parse events on component mount
   },
 };
 </script>

@@ -1,5 +1,17 @@
 <template>
   <v-container>
+
+    <v-row>
+      <v-col cols="12">
+        <h2>List of Approved Events</h2>
+        <ul>
+          <li v-for="event in approvedRequests" :key="event.id">
+            {{ event.event_title }} - {{ formatDate(event.start_date) }} to {{ formatDate(event.end_date) }}
+          </li>
+        </ul>
+      </v-col>
+    </v-row>
+
     <v-row>
       <v-col cols="12">
         <v-card v-if="showPendingtable" class="custom-data-table">
@@ -219,6 +231,10 @@
   </v-dialog>
 
 
+
+  
+
+
 </template>
 
 <script>
@@ -269,6 +285,9 @@ export default {
     this.getEventInfo();
   },
   methods: {
+    formatDate(date) {
+      return new Date(date).toLocaleDateString(); // Adjust date formatting as needed
+    },
     async approveEvent() {
     try {
       const response = await axios.post('/updateEventStatus', {

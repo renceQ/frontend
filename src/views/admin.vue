@@ -13,7 +13,12 @@
             </div>
           </transition-group>
         </div>
-        <SchedulerComponent class="left-container" :events="events" @event-updated="logEventUpdate"></SchedulerComponent>
+        <SchedulerComponent
+        class="left-container"
+        :events="events"
+        :filterDate="selectedDate" 
+        @event-updated="logEventUpdate"
+      ></SchedulerComponent>
       </div>
     </div>
   </template>
@@ -45,6 +50,7 @@
           },
         ],
         messages: [],
+        selectedDate: null,
       };
     },
     methods: {
@@ -65,6 +71,9 @@
           this.messages = this.messages.filter((msg) => msg.id !== message.id);
         }, 2000);
       },
+      handleDateSelection(date) {
+      this.selectedDate = date; // Update the selected date
+    },
     },
   };
   </script>
