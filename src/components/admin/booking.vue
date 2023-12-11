@@ -247,7 +247,7 @@ export default {
   },
   computed: {
     pendingRequests() {
-        return this.info.filter(item => item.status !== 'approved' && item.status !== 'denied');
+        return this.info.filter(item => item.status !== 'approved' && item.status !== 'declined');
       },
     approvedRequests() {
       return this.info.filter(item => item.status === 'approved');
@@ -278,7 +278,9 @@ export default {
 
       if (response.status === 200) {
         // Update the status in the selectedEvent object
+        this.showModal = false; // Close the modal after approval
         this.selectedEvent.status = 'approved';
+        this.getEventInfo();
 
         // Find the index of the updated event in the info array and update it
         const index = this.info.findIndex(event => event.id === this.selectedEvent.id);
@@ -305,7 +307,8 @@ export default {
       if (response.status === 200) {
         // Update the status in the selectedEvent object
         this.selectedEvent.status = 'declined';
-
+        this.getEventInfo();
+        this.showModal = false; // Close the modal after approval
         // Find the index of the updated event in the info array and update it
         const index = this.info.findIndex(event => event.id === this.selectedEvent.id);
         if (index !== -1) {

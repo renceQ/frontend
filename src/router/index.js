@@ -20,6 +20,7 @@ import forgotpass from '../views/forgotpass.vue'
 import audith_table from '../views/audith_table.vue'
 import orderRequest from '../views/orderRequest.vue'
 import sales_table from '../views/sales_table.vue'
+import calendar from '../views/calendar.vue'
 
 
 
@@ -109,6 +110,10 @@ const routes = [
     path: '/sales_table/:productId', // Define a dynamic segment for the product ID
     name: 'SalesTable', // Optionally, provide a name for the route
     component: sales_table
+  },
+  {
+    path: '/calendar',
+    component: calendar
   },
 
 ]
