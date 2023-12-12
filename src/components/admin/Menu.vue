@@ -11,12 +11,12 @@
   </header>
   <ul>
       <li><a href="#"><i class="fas fa-qrcode"></i>Dashboard</a></li>
-      <li><a href="/productstable"><i class="fas fa-link"></i>Products</a></li>
-      <li><a href="/orderRequest"><i class="fas fa-eye"></i>Order Request</a></li>
-      <li><a href="/productcategory"><i class="fas fa-eye"></i>Category</a></li>
-      <li><a href="/bookingtable"><i class="fas fa-link"></i>Booking</a></li>
-      <li><a href="/customer"><i class="fas fa-link"></i>Customers</a></li>
-      <li><a href="/approved_events"><i class="fas fa-link"></i>Approved Request</a></li>
+      <li><a href="/productstable"><i class="fas fa-link"></i>Products List</a></li>
+      <li><a href="/orderRequest"><i class="fas fa-eye"></i>Product Order Request</a></li>
+      <li><a href="/productcategory"><i class="fas fa-eye"></i>Product Category</a></li>
+      <li><a href="/bookingtable"><i class="fas fa-link"></i>Book Request</a></li>
+      <li><a href="/customer"><i class="fas fa-link"></i>Customer List</a></li>
+      <li><a href="/approved_events"><i class="fas fa-link"></i>Event Schedules</a></li>
       <li><a href="#"><i class="fas fa-question-circle"></i>About</a></li>
       <li><a href="#"><i class="fas fa-cog"></i>Services</a></li>
       <li><a href="#"><i class="fas fa-phone"></i>Contact</a></li>

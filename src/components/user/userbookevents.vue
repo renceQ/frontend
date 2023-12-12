@@ -2,8 +2,8 @@
     <br>
     
     <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div style="display: flex; align-items: center; justify-content: flex-end;">
-        <div style="margin-right: 50px; margin-left: 200px; margin-bottom: 140px;">
+      <div style="width: 600px; position: absolute; margin-left: 100px;">
+        <div >
           <br>
           <br>
           <br>
@@ -13,7 +13,7 @@
           <br>
           <div>
            
-            <form @submit.prevent="saveBooking" class="container mt-5 p-4 bg-light rounded shadow-lg" style="margin-right:350px;">
+            <form @submit.prevent="saveBooking" class="container mt-5 p-4 bg-light rounded shadow-lg" >
               <h2 class="mb-4">Request for event</h2>
               
               <!-- Event Information -->
@@ -84,12 +84,61 @@
               
               <button type="submit" class="btn btn-primary">Book Event</button>
             </form>
+
+                
+<div class="calendar-container" style=" position: absolute; margin-left:700px; top: 160px;">
+
+  <v-row>
+    <v-col cols="12">
+      <h2>Event Schedules</h2>
+      <ul>
+        <li v-for="event in approvedRequests" :key="event.id">
+          {{ event.event_title }} - {{ formatDate(event.start_date) }} to {{ formatDate(event.end_date) }}
+        </li>
+      </ul>
+    </v-col>
+  </v-row>
+
+
+  <div >
+    <label for="month">Select Month:</label>
+        <select id="month" v-model="selectedMonth" @change="updateCalendar">
+          <option v-for="(month, index) in months" :key="index" :value="index">{{ month }}</option>
+        </select>
+    <label for="year">Select Year:</label>
+        <select id="year" v-model="selectedYear" @change="updateCalendar">
+          <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+        </select>
+  </div>
+  <div >
+    <table style="width: 450px; height: 450px;">
+      <thead>
+        <tr>
+          <th colspan="7">{{ currentMonth }} {{ selectedYear }}</th>
+        </tr>
+        <tr>
+          <th v-for="day in days" :key="day">{{ day }}</th>
+        </tr>
+      </thead>
+        <tbody>
+          <tr v-for="week in calendar" :key="week">
+            <td v-for="day in week" :key="day.number"
+              :class="{ highlighted: day.highlighted, today: isToday(day), eventDay: hasEvent(day) }">
+              {{ day.number }}
+            </td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+  </div>
+  
+            
           </div>
           <br>
-    
         </div>
-        <img :src="require('../../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 10px; width: 450px; margin-right: 100px;margin-bottom: 700px;">
-      </div>
+
+    
+    </div>
     </section>
     
   
@@ -236,6 +285,16 @@
   export default {
   data() {
     return {
+      selectedMonth: new Date().getMonth(),
+      selectedYear: new Date().getFullYear(),
+      days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      months: [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ],
+      approvedRequests: [ /* Your approved events data */ ],
+      calendar: [],
+
         event_title:"", 
         start_date:"", 
         end_date:"", 
@@ -248,9 +307,146 @@
       info: [],
     }
   },
+  computed: {
+    currentMonth() {
+      return this.months[this.selectedMonth];
+    },
+    approvedRequests() {
+      return this.info.filter(item => item.status === 'approved');
+    },
+    years() {
+  const currentYear = new Date().getFullYear();
+  const yearsBefore = 10;
+  const yearsAfter = 10;
+  const years = [];
+
+  for (let i = currentYear - yearsBefore; i <= currentYear + yearsAfter; i++) {
+    years.push(i);
+  }
+
+  return years;
+}
+  },
   created() {
+    this.getEventInfo();
+  },
+  mounted() {
+    this.updateCalendar();
   },
   methods: {
+    updateCalendar() {
+    const firstDay = new Date(this.selectedYear, this.selectedMonth, 1).getDay();
+    const lastDate = new Date(this.selectedYear, this.selectedMonth + 1, 0).getDate();
+    const calendar = [];
+    let date = 1;
+
+    for (let i = 0; i < 6; i++) {
+      const week = [];
+
+      for (let j = 0; j < 7; j++) {
+        if (i === 0 && j < firstDay) {
+          week.push({ number: '', event: false, approvedEvent: null, highlighted: false });
+        } else if (date > lastDate) {
+          break;
+        } else {
+          const currentDate = new Date(this.selectedYear, this.selectedMonth, date);
+          const isEventDay = this.hasEventOnDate(date);
+          const approvedEvent = isEventDay ? this.getApprovedEvent(currentDate) : null;
+
+          let highlighted = false; // Initialize highlighted flag to false
+
+          if (approvedEvent) {
+            // Check if the current date falls within the start_date and end_date of an approved event
+            highlighted = currentDate >= new Date(approvedEvent.start_date) &&
+                          currentDate <= new Date(approvedEvent.end_date);
+          }
+
+          week.push({
+            number: date,
+            event: isEventDay,
+            approvedEvent: approvedEvent,
+            highlighted: highlighted, // Update highlighted flag
+          });
+
+          date++;
+        }
+      }
+
+      calendar.push(week);
+      if (date > lastDate) break;
+    }
+
+    this.calendar = calendar;
+  },
+
+  getApprovedEvent(date) {
+  return this.approvedRequests.find(event => {
+    const eventStartDate = new Date(event.start_date);
+    const eventEndDate = new Date(event.end_date);
+
+    return date >= eventStartDate && date <= eventEndDate;
+  });
+},
+hasEventOnDate(date) {
+    const currentDate = new Date(this.selectedYear, this.selectedMonth, date);
+
+    return this.approvedRequests.some(event => {
+      const eventStartDate = new Date(event.start_date);
+      const eventEndDate = new Date(event.end_date);
+
+      // Check if the current date falls within the event's start and end dates
+      return currentDate >= eventStartDate && currentDate <= eventEndDate;
+    });
+  },
+    formatDate(date) {
+      // Add your formatting logic for the event dates
+      // Example: Format the date to your preferred format
+      return new Date(date).toLocaleDateString();
+    },
+    isToday(day) {
+      const today = new Date();
+      return today.getFullYear() === this.selectedYear &&
+        today.getMonth() === this.selectedMonth &&
+        today.getDate() === day.number;
+    },
+    hasEvent(day) {
+      return day.event;
+    },
+    async approveEvent() {
+    try {
+      const response = await axios.post('/updateEventStatus', {
+        id: this.selectedEvent.id,
+        status: 'approved'
+      });
+
+      if (response.status === 200) {
+        // Update the status in the selectedEvent object
+        this.showModal = false; // Close the modal after approval
+        this.selectedEvent.status = 'approved';
+        this.getEventInfo();
+
+        // Find the index of the updated event in the info array and update it
+        const index = this.info.findIndex(event => event.id === this.selectedEvent.id);
+        if (index !== -1) {
+          this.$set(this.info, index, { ...this.selectedEvent });
+        }
+
+        this.showModal = false; // Close the modal
+      } else {
+        console.error('Error updating event status');
+      }
+    } catch (error) {
+      console.error('Error updating event status:', error);
+    }
+  },
+  async getEventInfo() {
+      try {
+        const response = await axios.get('getevent');
+        this.info = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async saveBooking() {
       try {
         const ins = await axios.post("saveBooking", {
@@ -286,7 +482,96 @@
 };
   </script>
   
-  <style>
+  <style> 
+ 
+  .calendar-container {
+    position: absolute;
+    margin-left: 700px;
+    top: 160px;
+    background-color: #e0e5ec; /* Background color */
+    box-shadow: 8px 8px 15px #babecc, -8px -8px 15px #ffffff; /* Neumorphic shadow */
+    border-radius: 4px; /* Rounded corners */
+    padding: 20px;
+  }
+
+  .calendar-container {
+    position: absolute;
+    margin-left: 700px;
+    top: 160px;
+    background-color: rgba(255, 255, 255, 0.5); /* Transparent background */
+    backdrop-filter: blur(10px); /* Adding blur effect */
+    border-radius: 4px; /* Rounded corners */
+    padding: 20px;
+  }
+
+  /* Select boxes */
+  select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Transparent border */
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.3); /* Transparent background for select */
+  }
+
+  /* Table styles */
+  table {
+    width: 450px;
+    height: 450px;
+    border-collapse: collapse;
+    margin-top: 15px;
+    backdrop-filter: blur(5px); /* Adding blur effect */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Transparent border */
+  }
+
+  th {
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.3); /* Transparent background for table header */
+  }
+
+  td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Transparent border */
+    background-color: rgba(255, 255, 255, 0.2); /* Transparent background for table cell */
+  }
+
+  /* Highlighted, today, and event day styles */
+  .highlighted {
+    background-color: rgba(166, 192, 254, 0.5); /* Transparent highlighted day color */
+  }
+
+  .today {
+    background-color: rgba(255, 182, 193, 0.5); /* Transparent today's color */
+  }
+
+  .eventDay {
+    background-color: rgba(255, 215, 0, 0.5); /* Transparent event day color */
+  }
+  .glass-effect {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Transparent border */
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.3); /* Transparent background */
+    backdrop-filter: blur(5px); /* Adding blur effect */
+  }
+  
+  /* Styling for the calendar background image */
+  .calendar-container table {
+    width: 450px;
+    height: 450px;
+    border-collapse: collapse;
+    margin-top: 15px;
+    backdrop-filter: blur(5px); /* Adding blur effect */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Transparent border */
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+  
   @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css';
   @import url('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900');
   @import '../../assets/css/open-iconic-bootstrap.min.css';

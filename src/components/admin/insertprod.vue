@@ -230,6 +230,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 /* Your component's specific styles if needed */
 </style>

@@ -2,21 +2,10 @@
   <v-container>
 
     <v-row>
-      <v-col cols="12">
-        <h2>List of Approved Events</h2>
-        <ul>
-          <li v-for="event in approvedRequests" :key="event.id">
-            {{ event.event_title }} - {{ formatDate(event.start_date) }} to {{ formatDate(event.end_date) }}
-          </li>
-        </ul>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12">
+      <v-col cols="12" style="margin-left: 200px;">
         <v-card v-if="showPendingtable" class="custom-data-table">
           <v-card-title>
-            <h2>List of Event Requests</h2>
+            <h2>Pending Requests</h2>
             <v-spacer></v-spacer>
             <v-menu offset-y>
               <template v-slot:activator="{ on }">
@@ -34,7 +23,7 @@
               </v-list>
             </v-menu>
           </v-card-title>
-          <v-card-text>
+          <v-card-text >
             <v-data-table
               :headers="tableHeaders"
               :items="pendingRequests"
@@ -87,7 +76,7 @@
 
 
    <!-- Approved Request Table -->
-   <v-col cols="12" style="margin-left: 90px;">
+   <v-col cols="12" style="margin-left: 350px; width:950px;">
    <v-card v-if="showApprovedTable" class="custom-data-table">
     <v-card-title>
       <h2>Approved Requests</h2>
@@ -144,7 +133,7 @@
 
 
   <!-- Declined Request Table -->
-  <v-col cols="12" style="margin-left: 90px;">
+  <v-col cols="12" style="margin-left: 350px; width:950px;">
   <v-card v-if="showDeclinedTable" class="custom-data-table">
     <v-card-title>
       <h2>Declined Requests</h2>
@@ -198,37 +187,42 @@
     </v-card-text>
   </v-card>
 </v-col>
- 
-  <v-dialog v-model="showModal" max-width="800px">
-    <v-card>
-      <v-toolbar color="primary" dark>
-        <v-btn icon @click="closeModal">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <v-toolbar-title>{{ selectedEvent.event_title }}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <!-- Neumorphic Approve Button -->
-        <v-btn text color="white" @click="approveEvent">Approve</v-btn>
-        <v-btn text color="white" @click="declineEvent">Decline</v-btn>
-      </v-toolbar>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-row v-for="(value, key) in selectedEvent" :key="key">
+
+
+<v-dialog v-model="showModal" max-width="800px">
+  <v-card>
+    <v-toolbar color="primary" dark>
+      <v-btn icon @click="closeModal">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+      <v-toolbar-title>{{ selectedEvent.event_title }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <!-- Neumorphic Approve Button -->
+      <v-btn text color="white" @click="approveEvent">Approve</v-btn>
+      <v-btn text color="white" @click="declineEvent">Decline</v-btn>
+    </v-toolbar>
+    <v-card-text>
+      <v-container>
+        <v-row>
+          <v-col cols="12">
+            <v-row v-for="(value, key) in selectedEvent" :key="key">
+              <!-- Check if the key is not 'id' before displaying it -->
+              <template v-if="key !== 'id'">
                 <v-col cols="12">
                   <span>{{ formatLabel(key) }}:</span>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field v-model="selectedEvent[key]" readonly outlined></v-text-field>
                 </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-    </v-card>
-  </v-dialog>
+              </template>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card-text>
+  </v-card>
+</v-dialog>
+
 
 
 
@@ -246,6 +240,7 @@ export default {
       showModal: false,
       selectedEvent: {}, // Holds the selected event details
       info: [],
+      
       tableHeaders: [
         { text: 'Event', value: 'event_title' },
         { text: 'Start Date', value: 'start_date' },
@@ -263,7 +258,7 @@ export default {
   },
   computed: {
     pendingRequests() {
-        return this.info.filter(item => item.status !== 'approved' && item.status !== 'declined');
+        return this.info.filter(item => item.status !== 'approved' && item.status !== 'declined' && item.status !== 'done');
       },
     approvedRequests() {
       return this.info.filter(item => item.status === 'approved');
@@ -368,28 +363,7 @@ export default {
 </script>
 
 <style>
-/* Add your custom styles here */
-/* For example, adjust the modal styles */
-.v-dialog--width {
-  max-width: 800px !important;
-}
 
-/* Remove the border */
-.v-text-field {
-  border: none !important;
-}
-
-.custom-data-table {
-  width: 1000px; /* Set the width for the tables */
-  margin-left: 200px;
-}
-
-/* Ensure table cells have consistent width */
-.custom-table .v-data-table__wrapper {
-  width: 100%;
-}
-
-.custom-table .v-data-table__wrapper table {
-  width: 100%;
-}
 </style>
+
+

@@ -89,7 +89,7 @@ export default {
     this.getInfo();
   } else {
     // Handle the case where token is not available in local storage
-    console.error('JWT token not found in local storage');
+    console.error('JWT token not found in session storage');
   }
 },
   
@@ -111,19 +111,19 @@ export default {
       // Handle the error case, such as showing a message to the user
     }
   },
-    handleScroll() {
+  handleScroll() {
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-      if (currentScroll > this.lastScrollTop) {
-        // Scrolling down
-        this.isNavbarHidden = true;
-      } else {
-        // Scrolling up
+      if (currentScroll <= 0) {
+        // At the top of the page
         this.isNavbarHidden = false;
+      } else {
+        // Scrolled down
+        this.isNavbarHidden = true;
       }
 
       this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    }
+    },
   },
 };
 </script>
