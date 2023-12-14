@@ -4,53 +4,43 @@
 	<nav class="neumorphic-navbar" :class="{ 'navbar-hidden': isNavbarHidden }">
 				<a class="navbar-brand">Qmj<span>Ent.</span></a>
 				<!--profile picture-->
-				<img style="width:50px; height:50px;"  v-if="info.length > 0" :src="info[0].profile_picture" alt="Profile" class="profile-picture-navbar">
+				<!-- <img style="width:50px; height:50px;"  v-if="info.length > 0" :src="info[0].profile_picture" alt="Profile" class="profile-picture-navbar"> -->
 				<span style="margin-left:300px;" class="nav-item">
-				  <router-link to="/home" class="nav-link">Home</router-link>
+				  <router-link to="/qmjimages" class="nav-link">Home</router-link>
 				</span>
 				<span class="nav-item">
-				  <router-link to="/about" class="nav-link">About</router-link>
+				  <router-link to="#" class="nav-link">About</router-link>
 				</span>
 				<span class="nav-item">
-				  <a href="/userServices" class="nav-link">Services</a>
+				  <a href="#" class="nav-link">Services</a>
 				</span>
 				<span class="nav-item">
-				  <a href="/bookevents" class="nav-link">Book event</a>
+				  <a class="nav-link" @click="openDialog">Book Event</a>
 				</span>
 				<span class="nav-item">
-				  <a href="userblog" class="nav-link">Blog</a>
+				  <a href="#" class="nav-link">Blog</a>
 				</span>
 				<span class="nav-item">
-				  <a href="/userproducts" class="nav-link">Products</a>
+				  <a @click="openDialog" class="nav-link">Products</a>
 				</span>
+                <span class="nav-item">
+                    <a href="/" class="nav-link">Login Account</a>
+                  </span>
 				<span class="nav-item cta">
 				  <router-link to="/contacts" class="nav-link">Contact Us</router-link>
 				</span>	
-        
-				<nav class="navbar">
+				<!-- <nav class="navbar">
 					  <li class="menu-item" >
 						<a href="#">Menu</a>
-						<ul class="dropdown" style="margin-right: 200px; position:absolute;">
+						<ul class="dropdown">
 						  <li><a href="#">View Your Profile</a></li>
 						  <li><a href="#">Settings and Privacy</a></li>
 						  <li><a href="#">Help and Support</a></li>
 						  <li><a href="#" class="nav-link" @click="logout">Log out</a></li>
 						</ul>
 					  </li>
-				  </nav>
-
-          <div style="margin-left:10px;" class="notification-container">
-            <!-- Notification icon with a dynamic class -->
-            <div @click="toggleNotification" class="notification-icon" :class="{ 'active': showNotification }">
-              <!-- You can put your notification icon content here -->
-              <i class="fas fa-bell"></i>
-            </div>
-<!--         
-            Button to toggle the notification
-            <button @click="toggleNotification">
-              Toggle Notification
-            </button> -->
-          </div>
+				  </nav> -->
+				
 
 				
 			  </nav>
@@ -76,11 +66,44 @@
 				  </tbody>
 	
 			  </div> -->
+
+
+              <!--Dialog for request account-->
+
+              <v-dialog v-model="dialog" max-width="500px">
+                <v-card>
+                  <v-card-title class="headline" style="margin-left:99px;">Rigister Account As new User</v-card-title>
+                  <v-card-text>
+                    <p style="margin-left:120px;">Doesn't have an account yet?</p>
+                    <img :src="require('../../../public/img/galit.gif')"  style="margin-left:160px; width: 120px; height: 120px;">
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn color="primary" href="/register" style="margin-right:100px; margin-left:40px;">Register</v-btn>
+                    <v-btn style="margin-left:90px;" @click="closeDialog" >Register Later</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+
+
+                 <!--Dialog for request account-->
+
+                 <!-- <v-dialog v-model="dialoglogin" max-width="500px">
+                    <v-card>
+                      <v-card-title class="headline">Account Information</v-card-title>
+                      <v-card-text>
+                        <p>Do you have an account yet?</p>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-btn color="primary" href="/register">Register</v-btn>
+                        <v-btn @click="closeDialoglogin">Register Later</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog> -->
+
 </template>
 
 <script>
 import axios from 'axios';
-import { nextTick } from 'vue';
 
 export default {
   data() {
@@ -88,7 +111,8 @@ export default {
       isNavbarHidden: false,
       lastScrollTop: 0,
 	  info: [],
-    showNotification: false 
+      dialog: false,
+      dialoglogin: false
     };
   },
   mounted() {
@@ -109,13 +133,20 @@ export default {
 },
   
   methods: {
-    toggleNotification() {
-      // Toggle the state of the notification
-      this.showNotification = !this.showNotification;
+    openDialog() {
+      this.dialog = true;
+    },
+    closeDialog() {
+      this.dialog = false;
+    },
+    openlogin() {
+      this.dialoglogin = true;
+    },
+    closeDialoglogin() {
+      this.dialoglogin = false;
     },
 	async logout() {
 		        sessionStorage.clear();
-            // this.$router.push('/landing');
     },
 	
 	toggleDropdown() {
@@ -314,28 +345,5 @@ export default {
   /* Add more styles for smaller screens if needed */
 }
 
-.notification-container {
-  position: relative;
-}
-
-.notification-icon {
-  font-size: 24px; /* Adjust the size of the icon */
-  transition: transform 0.3s ease; /* Transition effect for smooth movement */
-}
-
-.notification-icon.active {
-  /* Add styles for the active state of the notification */
-  animation: bounce 0.6s infinite alternate; /* Example animation */
-}
-
-/* Example of a bounce animation */
-@keyframes bounce {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-5px); /* Adjust the distance or direction */
-  }
-}
   
 </style>

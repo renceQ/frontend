@@ -1,6 +1,5 @@
 <template>
-
-
+	
 	<form @data-saved="getUserDetails" />
 	<div>
 		<tr v-for="info in info">

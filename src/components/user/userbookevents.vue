@@ -311,7 +311,7 @@
     currentMonth() {
       return this.months[this.selectedMonth];
     },
-    approvedRequests() {
+     approvedRequests() {
       return this.info.filter(item => item.status === 'approved');
     },
     years() {

@@ -20,10 +20,10 @@
             <br>
           </div>
 			<div style="margin-left:320px;">
-				<router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Sounds and Lights</router-link>
-                <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">photo/video production</router-link>
-                <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Items Customization</router-link>
-                <router-link to="/about" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Tarpaulin Printing </router-link>
+				<a href="#" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Sounds and Lights</a>
+                <a  href="#" style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">photo/video production</a>
+                <a href="#"  style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Items Customization</a>
+                <a href="#"  style="padding: 10px 20px; font-size: 16px; background-color: #f0f0f0; border: none;  box-shadow: 4px 4px 8px #c7c7c7, -4px -4px 8px #ffffff; transition: all 0.3s ease;">Tarpaulin Printing </a>
 			</div>
     </div>
       <br>
@@ -38,7 +38,7 @@
           </div>
 
     
-        <section class="ftco-counter img" id="section-counter">
+        <section class="sec1" id="sec1" >
         <div class="container">
           <div class="row d-flex">
             <div class="col-md-6 d-flex">
@@ -72,7 +72,7 @@
         </section>
 
             
-        <section class="ftco-counter img" id="section-counter">
+        <section class="sec2" id="sec2" >
             <div class="container">
               <div class="row d-flex">
                 <div class="col-md-6 d-flex">
@@ -106,7 +106,7 @@
             </section>
     
     
-            <section class="ftco-counter img" id="section-counter">
+            <section class="sec3" id="sec3" >
                 <div class="container">
                   <div class="row d-flex">
                     <div class="col-md-6 d-flex">
@@ -141,7 +141,7 @@
 
                 
     
-            <section class="ftco-counter img" id="section-counter">
+            <section class="sec4" id="sec4" >
                 <div class="container">
                   <div class="row d-flex">
                     <div class="col-md-6 d-flex">
@@ -238,3 +238,32 @@
 
 
 </style>
+
+<script>
+export default {
+  data() {
+    return {
+      currentSection: '' 
+    };
+  },
+  methods: {
+    scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      // Check if the target element is a <template>
+      if (element.tagName.toLowerCase() === 'template') {
+        // Do something if it's a <template>, like showing an alert or performing a different action
+        console.log("This is a template, skipping scroll");
+        return; // Exit the function without scrolling
+      }
+
+      // Scroll to the element if it's not a <template>
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+}
+};
+</script>

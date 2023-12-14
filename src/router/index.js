@@ -21,6 +21,7 @@ import audith_table from '../views/audith_table.vue'
 import orderRequest from '../views/orderRequest.vue'
 import sales_table from '../views/sales_table.vue'
 import calendar from '../views/calendar.vue'
+import landing from '../views/landing.vue'
 
 
 
@@ -30,6 +31,10 @@ const routes = [
   {
     path: '/',
     component: login
+  },
+  {
+    path: '/qmjimages',
+    component: landing
   },
   {
     path: '/register',
@@ -128,7 +133,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const token = sessionStorage.getItem('jwt');
 
-  if (to.path !== '/' && to.path !== '/register' && to.path !== '/forgotpass') {
+  if (to.path !== '/' && to.path !== '/register' && to.path !== '/forgotpass' && to.path !== '/qmjimages') {
     if (!token) {
       next('/');
     } else {
