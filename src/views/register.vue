@@ -38,42 +38,64 @@
     },
     methods: {
       async register() {
-        this.message = ''; // Resetting message before each form submission
-  
-        if (!this.username || !this.password || !this.passwordConfirm) {
-          this.message = 'Please fill in all fields';
-          return;
-        }
-  
-        // Validate password complexity
-        const letterNumberRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-        if (this.password.length < 10 || !letterNumberRegex.test(this.password)) {
-          this.message = 'Password must be at least 10 characters long and contain both letters and numbers.';
-          return;
-        }
-  
-        if (this.password !== this.passwordConfirm) {
-          this.message = 'Password do not match';
-          return;
-        }
-  
-        try {
-          const data = await axios.post('api/register', {
-            username: this.username,
-            password: this.password,
-          });
-  
-          if (data.data.msg === 'okay') {
-            alert('Registered successfully');
-            router.push('/');
-          } else {
-            this.message = data.data.msg || 'Invalid response';
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          this.message = 'Error occurred while registering';
-        }
-      },
+  this.message = ''; // Resetting message before each form submission
+
+  if (!this.username || !this.password || !this.passwordConfirm) {
+    this.message = 'Please fill in all fields';
+    return;
+  }
+
+  // Validate password complexity
+  const letterNumberRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+  if (this.password.length < 10 || !letterNumberRegex.test(this.password)) {
+    this.message = 'Password must be at least 10 characters long and contain both letters and numbers.';
+    return;
+  }
+
+  if (this.password !== this.passwordConfirm) {
+    this.message = 'Passwords do not match';
+    return;
+  }
+
+  try {
+    // Check if username already exists
+    const usernameExists = await this.checkUsernameExists(this.username);
+    
+    if (usernameExists) {
+      this.message = 'Username already exists';
+      return;
+    }
+
+    // If username does not exist, proceed with registration
+    const data = await axios.post('api/register', {
+      username: this.username,
+      password: this.password,
+    });
+
+    if (data.data.msg === 'okay') {
+      alert('Registered successfully');
+      router.push('/');
+    } else {
+      this.message = data.data.msg || 'Invalid response';
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    this.message = 'Error occurred while registering';
+  }
+},
+
+async checkUsernameExists(username) {
+  try {
+    const response = await axios.post('api/checkUsername', {
+      username: username,
+    });
+    
+    return response.data.exists; // Return true or false based on server response
+  } catch (error) {
+    console.error('Error checking username:', error);
+    return false; // Return false in case of an error
+  }
+},
     },
   };
   </script>

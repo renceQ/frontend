@@ -452,6 +452,7 @@ async updateProduct() {
       this.successModalOpen = true; // Show success modal or message
       // Reset the form fields or update the product list
       this.refreshData(); // Function to refresh product list after update
+      this.getInfo();
     } else {
       // Handle error cases, show error message or handle as per your requirement
       console.error('Error updating product');
@@ -670,6 +671,7 @@ async updateProduct() {
 
     // Refresh data if needed
     this.refreshData();
+    this.getInfo();
   } catch (error) {
     console.error("Error saving product:", error);
   }

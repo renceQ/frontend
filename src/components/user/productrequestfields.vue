@@ -30,6 +30,7 @@
                   <input type="text" v-model="userData.address" placeholder="Enter Address" required>
                   <input type="text" v-model="userData.contact" placeholder="Enter Contact" required>
                   <input type="text" v-model="userData.other_info" placeholder="Enter Other Information" required>
+                  <input type="hidden" v-model="userData.token" placeholder="Enter Other Information" required>
                    <div>
                     <label for="customerName">Customer Name:</label>
                     <input type="text" id="customerName" v-model="customerName" placeholder="customer name" required>
@@ -82,7 +83,7 @@ export default {
         unit_price: '',
         sizes: [],
         transaction_code: '',
-        total: 0
+        total: 0,
 
       },
       info: [],
@@ -96,6 +97,7 @@ export default {
         other_info:'', 
         customerName: '',
         id: '',
+        token: '',
          
     };
   },
@@ -136,6 +138,7 @@ export default {
           address: this.info[0].address, // Assuming you want the first user's address
           contact: this.info[0].contact, // Assuming you want the first user's contact
           other_info: this.info[0].other_info, // Assuming you want the first user's other info
+          token: this.info[0].token, // Assuming you want the first user's other info
           customerName: this.customerName,
           id: this.productData.id,
           transaction_code: this.productData.transaction_code,

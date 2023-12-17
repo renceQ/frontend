@@ -26,11 +26,38 @@
 				<span class="nav-item cta">
 				  <router-link to="/contacts" class="nav-link">Contact Us</router-link>
 				</span>	
+
+
+        <div class="NOTIF">
+          <nav class="navbar">
+            <li class="menu-item">
+              <a href="#">
+                <i class="fas fa-bell"></i>
+                <div v-if="filteredInfos.length > 0" class="notification-indicator">
+                  {{ filteredInfos.length }}
+                </div>
+              </a>
+              <ul class="dropdown" style="position: absolute; margin-right: 100px;">
+                <li><h4>Notifications</h4></li>
+                <!-- Filtered notifications -->
+                <li v-for="filteredInfo in filteredInfos" :key="filteredInfo.id">
+                  <a href="#">
+                    {{ filteredInfo.prod_name }} - {{ filteredInfo.status }}
+                    <!-- Show the token if needed -->
+                    <span v-if="!hideToken">{{ token }}</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </nav>
+        </div>
+
         
 				<nav class="navbar">
 					  <li class="menu-item" >
 						<a href="#">Menu</a>
 						<ul class="dropdown" style="margin-right: 200px; position:absolute;">
+              <h2></h2>
 						  <li><a href="#">View Your Profile</a></li>
 						  <li><a href="#">Settings and Privacy</a></li>
 						  <li><a href="#">Help and Support</a></li>
@@ -39,21 +66,10 @@
 					  </li>
 				  </nav>
 
-          <div style="margin-left:10px;" class="notification-container">
-            <!-- Notification icon with a dynamic class -->
-            <div @click="toggleNotification" class="notification-icon" :class="{ 'active': showNotification }">
-              <!-- You can put your notification icon content here -->
-              <i class="fas fa-bell"></i>
-            </div>
-<!--         
-            Button to toggle the notification
-            <button @click="toggleNotification">
-              Toggle Notification
-            </button> -->
-          </div>
+        
 
-				
 			  </nav>
+        
 
 			  <router-view></router-view>
 			</div>
@@ -76,24 +92,33 @@
 				  </tbody>
 	
 			  </div> -->
+        
 </template>
 
 <script>
 import axios from 'axios';
-import { nextTick } from 'vue';
 
 export default {
   data() {
     return {
       isNavbarHidden: false,
       lastScrollTop: 0,
-	  info: [],
-    showNotification: false 
+	    info: [],
+      infos: [],
+      token: '',
+    hideToken: true,
     };
+  },
+  computed: {
+    filteredInfos() {
+      // Filter the 'infos' array based on the token in session storage
+      return this.infos.filter(info => info.token === this.token);
+    }
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
 	this.getInfo(); 
+  this.getOrder();
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -109,10 +134,16 @@ export default {
 },
   
   methods: {
-    toggleNotification() {
-      // Toggle the state of the notification
-      this.showNotification = !this.showNotification;
-    },
+    async getOrder() {
+  try {
+    const response = await axios.get('getOrder');
+    this.infos = response.data;
+    // Set hideToken to true after fetching notifications
+    this.hideToken = true;
+  } catch (error) {
+    console.error(error);
+  }
+},
 	async logout() {
 		        sessionStorage.clear();
             // this.$router.push('/landing');
@@ -265,12 +296,14 @@ export default {
 
 .dropdown {
   width: 205px;
+  margin-right: 300px;
   margin-top: 10px;
   display: none;
   z-index: 1;
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 .dropdown li {
   display: block;
@@ -318,24 +351,21 @@ export default {
   position: relative;
 }
 
-.notification-icon {
-  font-size: 24px; /* Adjust the size of the icon */
-  transition: transform 0.3s ease; /* Transition effect for smooth movement */
+.notification-indicator {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
 
-.notification-icon.active {
-  /* Add styles for the active state of the notification */
-  animation: bounce 0.6s infinite alternate; /* Example animation */
-}
 
-/* Example of a bounce animation */
-@keyframes bounce {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-5px); /* Adjust the distance or direction */
-  }
-}
-  
 </style>

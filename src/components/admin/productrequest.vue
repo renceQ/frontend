@@ -1,5 +1,17 @@
 <template>
-    <v-container style="width: 1000px; margin-left: 330px;">
+  <v-row v-if="approvedOrders.length > 0">
+    <v-col cols="12">
+      <h2>Approved Orders</h2>
+      <ul>
+        <li v-for="order in approvedOrders" :key="order.id">
+          <!-- Display order details here -->
+         {{ order.prod_name }} - {{ order.status }} 
+        </li>
+      </ul>
+    </v-col>
+  </v-row>
+  
+  <v-container style="width: 1000px; margin-left: 330px;">
       <!-- Pending Orders table -->
       <v-row>
         <v-col>
