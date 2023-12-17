@@ -21,11 +21,12 @@
     
         <nav class="neumorphic-navbars" style="margin-top: 20px; width: 950px; height: 60px; margin-left: 315px; z-index: 10;">
           <!-- Replace these router-links or hrefs with methods that filter based on status -->
+          
           <span class="nav-item">
-            <a href="all_main" class="nav-link">All</a>
+            <a href="all_main" class="nav-link" style="font-weight:700; color:darkorange" >All</a>
           </span>
           <span class="nav-item">
-            <a href="toship_main" class="nav-link" style="font-weight:700; color:darkorange">To Ship</a>
+            <a href="toship_main" class="nav-link" >To Ship</a>
           </span>
           <span class="nav-item">
             <a href="torecieve_main" class="nav-link">To Receive</a>
@@ -65,8 +66,10 @@
                               <span v-if="!hideToken" class="product-info">{{ token }}</span>
                             </an>
                             <div>
-                              <button @click="openModal" class="neumorphic-button" style="margin-left:470px;width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
-                              <button @click="openDialog" class="neumorphic-button" style="width: 200px;">Cancel Order</button>
+
+                              <button @click="openModal" class="neumorphic-button" style=" margin-left:240px; width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
+                              <button @click="openDialog" class="neumorphic-button" style="width: 200px;">Cancel Order</button>&nbsp;&nbsp;
+                              <button @click="openDialog" class="neumorphic-button" style=" width: 200px; background-color:rgb(240, 151, 43); color:white;">Rate</button> 
                             </div>
                           </div>
                         </li>

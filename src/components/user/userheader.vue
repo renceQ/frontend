@@ -138,7 +138,6 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
-	this.getInfo(); 
   this.getOrder();
   },
   beforeDestroy() {

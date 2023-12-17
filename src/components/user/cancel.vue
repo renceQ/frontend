@@ -21,11 +21,12 @@
     
         <nav class="neumorphic-navbars" style="margin-top: 20px; width: 950px; height: 60px; margin-left: 315px; z-index: 10;">
           <!-- Replace these router-links or hrefs with methods that filter based on status -->
+          
           <span class="nav-item">
-            <a href="all_main" class="nav-link">All</a>
+            <a href="all_main" class="nav-link"  >All</a>
           </span>
           <span class="nav-item">
-            <a href="toship_main" class="nav-link" style="font-weight:700; color:darkorange">To Ship</a>
+            <a href="toship_main" class="nav-link" >To Ship</a>
           </span>
           <span class="nav-item">
             <a href="torecieve_main" class="nav-link">To Receive</a>
@@ -34,7 +35,7 @@
             <a href="completed_main" class="nav-link">Completed</a>
           </span>
           <span class="nav-item">
-            <a href="cancel_main" class="nav-link">Returns and Cancellation</a>
+            <a href="cancel_main" class="nav-link" style="font-weight:700; color:darkorange">Returns and Cancellation</a>
           </span>
           <a style="margin-left: 190px; margin-right: 20px;" class="navbar-brand">Product | <span>Status.</span></a>
         </nav>
@@ -66,7 +67,7 @@
                             </an>
                             <div>
                               <button @click="openModal" class="neumorphic-button" style="margin-left:470px;width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
-                              <button @click="openDialog" class="neumorphic-button" style="width: 200px;">Cancel Order</button>
+                              <button @click="openDialog" class="neumorphic-button" style="width: 200px; background-color:rgb(240, 151, 43); color:white;">Rate</button> &nbsp;&nbsp;
                             </div>
                           </div>
                         </li>
@@ -299,10 +300,5 @@ a[href="#"] {
     margin-bottom: 12px;
     width: 40px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-
-
-
-  
+  }  
 </style>

@@ -25,10 +25,10 @@
             <a href="all_main" class="nav-link">All</a>
           </span>
           <span class="nav-item">
-            <a href="toship_main" class="nav-link" style="font-weight:700; color:darkorange">To Ship</a>
+            <a href="toship_main" class="nav-link">To Ship</a>
           </span>
           <span class="nav-item">
-            <a href="torecieve_main" class="nav-link">To Receive</a>
+            <a href="torecieve_main" class="nav-link"  style="font-weight:700; color:darkorange">To Receive</a>
           </span>
           <span class="nav-item">
             <a href="completed_main" class="nav-link">Completed</a>
@@ -65,8 +65,9 @@
                               <span v-if="!hideToken" class="product-info">{{ token }}</span>
                             </an>
                             <div>
-                              <button @click="openModal" class="neumorphic-button" style="margin-left:470px;width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
-                              <button @click="openDialog" class="neumorphic-button" style="width: 200px;">Cancel Order</button>
+                                <button @click="openModal" class="neumorphic-button" style="margin-left:470px;width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
+                              <button class="neumorphic-button" style="width: 200px; opacity: 0.5;"><i class="fas fa-question-circle"></i>
+                                Cancel Order</button>
                             </div>
                           </div>
                         </li>

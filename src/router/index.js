@@ -23,6 +23,11 @@ import sales_table from '../views/sales_table.vue'
 import calendar from '../views/calendar.vue'
 import landing from '../views/landing.vue'
 import toship_main from '../views/toship_main.vue'
+import all_main from '../views/all_main.vue'
+import torecieve_main from '../views/torecieve_main.vue'
+import completed_main from '../views/completed_main.vue'
+import cancel_main from '../views/cancel_main.vue'
+import orderproducts from '../views/orderproducts.vue'
 
 
 
@@ -125,7 +130,26 @@ const routes = [
     path: '/toship_main',
     component: toship_main
   },
-
+  {
+    path: '/all_main',
+    component: all_main
+  },
+  {
+    path: '/torecieve_main',
+    component: torecieve_main
+  },
+  {
+    path: '/completed_main',
+    component: completed_main
+  },
+  {
+    path: '/cancel_main',
+    component: cancel_main
+  },
+  {
+    path: '/orderproducts',
+    component: orderproducts
+  },
 ]
 
 const router = createRouter({
