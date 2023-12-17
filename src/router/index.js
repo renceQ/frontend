@@ -22,6 +22,7 @@ import orderRequest from '../views/orderRequest.vue'
 import sales_table from '../views/sales_table.vue'
 import calendar from '../views/calendar.vue'
 import landing from '../views/landing.vue'
+import toship_main from '../views/toship_main.vue'
 
 
 
@@ -119,6 +120,10 @@ const routes = [
   {
     path: '/calendar',
     component: calendar
+  },
+  {
+    path: '/toship_main',
+    component: toship_main
   },
 
 ]

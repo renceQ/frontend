@@ -27,6 +27,12 @@
             <template v-slot:[`item.transaction_code`]="{ item }">
                 <span>{{ item.transaction_code }}</span>
               </template>
+              <template v-slot:[`item.updated_at`]="{ item }">
+                <span>{{ item.updated_at }}</span>
+              </template>
+              <template v-slot:[`item.created_at`]="{ item }">
+                <span>{{ item.created_at }}</span>
+              </template>
               <template v-slot:[`item.image`]="{ item }">
                 <img :src="item.image" alt="Product Image" width="50" height="50">
               </template>
@@ -61,12 +67,21 @@
             <template v-slot:[`item.transaction_code`]="{ item }">
                 <span>{{ item.transaction_code }}</span>
               </template>
+              <template v-slot:[`item.updated_at`]="{ item }">
+                <span>{{ item.updated_at }}</span>
+              </template>
+              <template v-slot:[`item.created_at`]="{ item }">
+                <span>{{ item.created_at }}</span>
+              </template>
               <template v-slot:[`item.image`]="{ item }">
                 <img :src="item.image" alt="Product Image" width="50" height="50">
               </template>
               <template v-slot:[`item.actions`]="{ item }">
-                <v-btn @click="approveEvent(item.id)" color="success" small disabled>
-                  Approved
+                <v-btn @click="pendingEvent(item.id)" color="success" small>
+                  Undo
+                </v-btn>
+                <v-btn @click="denyEvent(item.id)" color="error" small>
+                  Deny
                 </v-btn>
               </template>
               <template v-for="(header, index) in headers" v-slot:[`header.${header.value}`]="{ props }">
@@ -92,12 +107,21 @@
             <template v-slot:[`item.transaction_code`]="{ item }">
                 <span>{{ item.transaction_code }}</span>
               </template>
+              <template v-slot:[`item.updated_at`]="{ item }">
+                <span>{{ item.updated_at }}</span>
+              </template>
+              <template v-slot:[`item.created_at`]="{ item }">
+                <span>{{ item.created_at }}</span>
+              </template>
               <template v-slot:[`item.image`]="{ item }">
                 <img :src="item.image" alt="Product Image" width="50" height="50">
               </template>
               <template v-slot:[`item.actions`]="{ item }">
-                <v-btn @click="denyEvent(item.id)" color="error" small disabled>
-                  Denied
+                <v-btn @click="approveEvent(item.id)" color="success" small>
+                  Approve
+                </v-btn>
+                <v-btn @click="denyEvent(item.id)" color="error" small>
+                  Deny
                 </v-btn>
               </template>
               <template v-for="(header, index) in headers" v-slot:[`header.${header.value}`]="{ props }">
@@ -120,6 +144,8 @@
       return {
         headers: [
           { text: 'Transaction Code', value: 'transaction_code' }, 
+          { text: 'Date Updated', value: 'updated_at' }, 
+          { text: 'Date Requested', value: 'created_at' }, 
           { text: 'Image', value: 'image' },
           { text: 'Product Name', value: 'prod_name' },
           { text: 'Unit Price', value: 'unit_price' },
@@ -171,7 +197,19 @@
       console.error('Error updating order status:', error);
     }
   },
-
+  
+  async pendingEvent(id) {
+    try {
+      const response = await axios.post(`/updateOrderStatus/${id}`, { status: 'pending' });
+      if (response.status === 200) {
+        this.getOrder(); // Refresh orders after status update
+      } else {
+        console.error('Error updating order status');
+      }
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  },
   async denyEvent(id) {
     try {
       const response = await axios.post(`/updateOrderStatus/${id}`, { status: 'denied' });
@@ -188,6 +226,8 @@
       getHeaderTitle(field) {
         const headerTitles = {
           transaction_code: 'Transact Code',
+          updated_at: 'Last Updated',
+          created_at: 'Date Requested',
           image: 'Image',
           prod_name: 'Product Name',
           unit_price: 'Unit Price',

@@ -2,10 +2,13 @@
 <template>
 	<div>
 	<nav class="neumorphic-navbar" :class="{ 'navbar-hidden': isNavbarHidden }">
+    <span class="nav-item">
+      <img style="width:50px; height:50px;"  v-if="info.length > 0" :src="require('../../assets/images/logo.jpg')" class="logo-picture-navbar">
+    </span>
 				<a class="navbar-brand">Qmj<span>Ent.</span></a>
 				<!--profile picture-->
-				<img style="width:50px; height:50px;"  v-if="info.length > 0" :src="info[0].profile_picture" alt="Profile" class="profile-picture-navbar">
-				<span style="margin-left:300px;" class="nav-item">
+
+				<span style="margin-left:190px;" class="nav-item">
 				  <router-link to="/home" class="nav-link">Home</router-link>
 				</span>
 				<span class="nav-item">
@@ -23,10 +26,22 @@
 				<span class="nav-item">
 				  <a href="/userproducts" class="nav-link">Products</a>
 				</span>
-				<span class="nav-item cta">
-				  <router-link to="/contacts" class="nav-link">Contact Us</router-link>
-				</span>	
+        
 
+        <nav class="navbar">
+          <li class="menu-item" >
+          <a href="#">
+            <i class="fas fa-shopping-bag"></i>
+          </a>
+          <ul class="dropdown" style="margin-right: 200px; position:absolute;">
+            <h2></h2>
+            <li><a href="/toship_main">To Ship</a></li>
+            <li><a href="#">To Recieve</a></li>
+            <li><a href="#">Completed</a></li>
+            <li><a href="#">Returns and Cancelation</a></li>
+          </ul>
+          </li>
+        </nav>
 
         <div class="NOTIF">
           <nav class="navbar">
@@ -52,20 +67,26 @@
           </nav>
         </div>
 
+				<span class="nav-item cta">
+				  <router-link to="/contacts" class="nav-link">Contact Us</router-link>
+				</span>	
+
+
+
         
 				<nav class="navbar">
 					  <li class="menu-item" >
 						<a href="#">Menu</a>
 						<ul class="dropdown" style="margin-right: 200px; position:absolute;">
               <h2></h2>
-						  <li><a href="#">View Your Profile</a></li>
+						  <!-- <li><a href="#">View Your Profile</a></li> -->
 						  <li><a href="#">Settings and Privacy</a></li>
 						  <li><a href="#">Help and Support</a></li>
 						  <li><a href="#" class="nav-link" @click="logout">Log out</a></li>
 						</ul>
 					  </li>
 				  </nav>
-
+          <img style="width:50px; height:50px;"  v-if="info.length > 0" :src="info[0].profile_picture" alt="Profile" class="profile-picture-navbar">
         
 
 			  </nav>
@@ -111,9 +132,9 @@ export default {
   },
   computed: {
     filteredInfos() {
-      // Filter the 'infos' array based on the token in session storage
-      return this.infos.filter(info => info.token === this.token);
-    }
+    // Filter the 'infos' array based on the token in session storage and status "approved"
+    return this.infos.filter(info => info.token === this.token && (info.status === "approved" || info.status === "denied"));
+  }
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
@@ -136,7 +157,7 @@ export default {
   methods: {
     async getOrder() {
   try {
-    const response = await axios.get('getOrder');
+    const response = await axios.get('getNotif');
     this.infos = response.data;
     // Set hideToken to true after fetching notifications
     this.hideToken = true;
@@ -219,6 +240,13 @@ export default {
   border-radius: 50%;
   margin-left: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.logo-picture-navbar {
+  width: 30px;
+  height: 30px;
+  border-radius: 0%;
+  margin-left: 10px;
 }
 
 /* Hide the navbar when scrolled down */
