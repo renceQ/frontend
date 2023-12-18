@@ -9,25 +9,24 @@
     <div class="row align-items-center">
       <div class="mb-5">
         <h2 class="h3">Contact Info</h2>
-        <p>242 Bacer Street Brgy Commonwealth Quezon City, Philippines,1121</p>
+        <p>Refer to the details below for additional contact information within QMJ Enterprise and Creative Services.</p>
       </div>
       <div class="w-100">Philippines</div>
       <ul class="list-unstyled mb-5">
         <li class="">
-          <span class="mr-3"><span class="icon-map"></span></span> 242 Bracer, Quezon City, Phillipines
+          <span class="mr-3"><span class="icon-map"></span></span> km. 13 BIGA, Calapan City, Oriental Mindoro, Luzon, Philippines
         </li>
-        <li class=""><span class="mr-3"><span class="icon-phone"></span></span> +639616451996</li>
-        <li class=""><span class="mr-3"><span class="icon-envelope-o"></span></span> qmjenterprise14@gmail.com </li>
+        <li class=""><span class="mr-3"><span class="icon-phone"></span></span> +639474062928</li>
+        <li class=""><span class="mr-3"><span class="icon-envelope-o"></span></span> qmjimages2018@gmail.com </li>
       </ul>
       <div class="row align-items-center">
-        <p>Basic Info</p>
+        <p>Basic Info:<br><span>Photography and Videography
+Sound and stage lights production</span><br></p>
       </div>
       <div class="row align-items-center">
-        <p>Open Hours</p>
+        <p>Open Hour:<br><span> 8:00 AM - 9:00 PM</span><br></p>
       </div>
-      <div class="row align-items-center">
-        <p>Delivery Takeout Dine-in</p>
-      </div>
+      
       <div class="col-md-3">
         <div class="icon"></div>
         <p></p>
@@ -41,8 +40,8 @@
         <div class="container">
           <div class="row d-flex justify-content-center">
             <div class="col-md-7 text-center heading-section heading-section-white ">
-              <h2>Subscribe to our Newsletter</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+              <h2>Subscribe to our Services to gain Monthly Discount!</h2>
+              <p>Photography and Videography Sound and stage lights production</p>
               <div class="row d-flex justify-content-center mt-4 mb-4">
                 <div class="col-md-8">
                   <form action="#" class="subscribe-form">
