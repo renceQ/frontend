@@ -5,7 +5,8 @@
       <span v-if="info.length > 0">
         <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ info[0].username }}</a><br>
         <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="#"><i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;&nbsp; Edit Profile</a><br>
-        <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="#"><i class="fas fa-history custom-icon"></i>&nbsp;&nbsp;&nbsp; Order History</a>
+        <a style="position:absolute; margin-top:30px; text-decoration: none; color:darkorange;" href="/orderhistory"><i class="fas fa-history custom-icon"></i>&nbsp;&nbsp;&nbsp; Order History</a><br>
+        <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="/toship_main"> <i class="fas fa-shopping-bag"></i>&nbsp;&nbsp;&nbsp; My Purchase</a>
       </span>
     </div>
     <div>
@@ -23,29 +24,25 @@
         <nav class="neumorphic-navbars" style="margin-top: 20px; width: 950px; height: 60px; margin-left: 315px; z-index: 10;">
           <!-- Replace these router-links or hrefs with methods that filter based on status -->
          
+
           <span class="nav-item">
-            <a href="toship_main" class="nav-link" >To Ship</a>
+            <a href="/pending_main" class="nav-link" style="font-weight:400; color:rgb(14, 11, 9)" >Pending</a>
           </span>
           <span class="nav-item">
-            <a href="torecieve_main" class="nav-link">To Receive</a>
+            <a href="/orderhistory" class="nav-link" style="font-weight:700; color:darkorange; margin-right:350px;" >Order History</a>
           </span>
-          <span class="nav-item">
-            <a  href="completed_main" class="nav-link" style="font-weight:700; color:darkorange">Recieved</a>
-          </span>
-          <span class="nav-item">
-            <a href="cancel_main" class="nav-link">Returns and Cancellation</a>
-          </span>
+
           <a style="margin-left: 190px; margin-right: 20px;" class="navbar-brand">Product | <span>Status.</span></a>
         </nav>
       
-                </div>
+    </div>
 
 
 
 
                 <!--products container-->
                 <div>
-                  <div v-for="filteredInfo in filteredInfos" :key="filteredInfo.id" class="container" style="margin-top: 20px;">
+                  <div v-for="infos in filteredProducts" :key="infos.id" class="container" style="margin-top: 20px;">
                     <nav class="neumorphic-navbars" style="width: 950px; margin-left: 200px; z-index: 10;">
                       <ul>
                         <li>
@@ -55,20 +52,18 @@
                           </div>
             
                           <div style="margin-bottom: 20px;"> 
-                            <an  v-if="filteredInfo.image">
-                              <img :src="filteredInfo.image" class="img-fluids" style="max-width: 140px; max-height: 140px;" readonly>
-                              <span style="margin-right: 140px; margin-left: 80px;">Product:{{ filteredInfo.prod_name }}</span> 
-                              <span style="margin-right: 140px;">Quantity:{{ filteredInfo.quantity }}</span> 
-                              <span >Total: ₱{{ filteredInfo.total }}</span>
+                            <an  v-if="infos.image">
+                              <img :src="infos.image" class="img-fluids" style="max-width: 140px; max-height: 140px;" readonly>
+                              <span style="margin-right: 140px; margin-left: 80px;">Product:{{ infos.prod_name }}</span> 
+                              <span style="margin-right: 140px;">Quantity:{{ infos.quantity }}</span> 
+                              <span >Total: ₱{{ infos.total }}</span>
                               <span v-if="!hideStatus" class="product-info">{{ status }}</span> 
                               <span v-if="!hideToken" class="product-info">{{ token }}</span>
                             </an>
                             <div>
-                              <button @click="openDialog" class="neumorphic-button" style="margin-left:240px; width: 200px; background-color:rgb(240, 206, 14); color:white;"><i class="fas fa-star custom-icon"></i>
-                                Rate </button>&nbsp;&nbsp;&nbsp;
-                              <button @click="openModal" class="neumorphic-button" style="width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
-                              <button @click="openDialog" class="neumorphic-button" style="width: 200px; background-color:rgb(248, 53, 53); color:white;"><i class="fas fa-trash-alt custom-icon"></i>
-                                Delete</button>
+
+                                <button @click="deletehistory(infos.id)" class="neumorphic-button" style=" margin-left:650px; width: 200px; background-color:rgb(248, 53, 53); color:white;"><i class="fas fa-trash-alt custom-icon"></i>
+                                    Delete</button>
                             </div>
                           </div>
                         </li>
@@ -120,6 +115,7 @@ export default {
         // Add more reasons if needed
       ],
       hideStatus: false,
+      selectedInfo: null,
       
     };
   },
@@ -137,16 +133,42 @@ export default {
   }
   this.getInfo();
 },
-computed: {
+  computed: {
+    filteredProducts() {
+      // Filter products based on the status
+      return this.infos.filter(product => product.status !== 'deleted');
+    },
+  },
 
-
-  filteredInfos() {
-    // Filter the 'infos' array based on the token in session storage and status equals 'Approved'
-    return this.infos.filter(info => info.token === this.token && info.status === 'recieved');
-  }
-},
   methods: {
 
+    
+   async deletehistory(id) {
+  try {
+    const confirmed = window.confirm('Are you sure you want to delete this record?');
+
+    if (confirmed) {
+      const userInput = prompt('Type "okay" to confirm:');
+      if (userInput && userInput.trim().toLowerCase() === 'okay') {
+        const response = await axios.post(`/updateNotifStatus/${id}`, {
+          status: 'deleted',
+        });
+
+        if (response.status === 200) {
+          this.getOrder(); // Refresh orders after status update
+        } else {
+          console.error('Error updating order status');
+        }
+      } else {
+        console.log('No changes were made.');
+      }
+    } else {
+      console.log('No changes were made.');
+    }
+  } catch (error) {
+    console.error('Error updating order status:', error);
+  }
+},
     openDialog() {
       this.dialogs = true;
     },
@@ -170,7 +192,7 @@ computed: {
     },
     async getOrder() {
   try {
-    const response = await axios.get('getOrder');
+    const response = await axios.get('getNotif');
     this.infos = response.data;
     // Set hideToken to true after fetching notifications
     this.hideToken = true;

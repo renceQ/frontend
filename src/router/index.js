@@ -28,6 +28,7 @@ import completed_main from '../views/completed_main.vue'
 import cancel_main from '../views/cancel_main.vue'
 import orderproducts from '../views/orderproducts.vue'
 import orderhistory from '../views/orderhistory.vue'
+import pending_main from '../views/pending_main.vue'
 
 
 
@@ -149,6 +150,10 @@ const routes = [
   {
     path: '/orderhistory',
     component: orderhistory
+  },
+  {
+    path: '/pending_main',
+    component: pending_main
   },
 ]
 

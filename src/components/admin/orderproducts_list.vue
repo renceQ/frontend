@@ -10,7 +10,7 @@
               <insert @data-saved="getOrder" />
               <v-data-table 
                 :headers="headers"
-                :items="pendingOrders"
+                :items="approvedOrders"
                 item-key="id"
               >
               <template v-slot:[`item.transaction_code`]="{ item }">
@@ -161,8 +161,11 @@
         this.getOrder();
       },
       computed: {
+        approvedOrders() {
+          return this.infos.filter(order => order.status !== 'pending' && order.status !== 'denied' && order.status !== 'delivering' && order.status !== 'recieved' && order.status !== 'cancelled');
+        },
         pendingOrders() {
-          return this.infos.filter(order => order.status !== 'approved' && order.status !== 'denied' && order.status !== 'delivering' && order.status !== 'recieved' && order.status !== 'cancelled');
+          return this.infos.filter(order => order.status === 'pending');
         },
         deliveringOrders() {
           return this.infos.filter(order => order.status === 'delivering');

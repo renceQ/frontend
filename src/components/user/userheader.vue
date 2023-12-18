@@ -39,6 +39,7 @@
             <li><a href="/torecieve_main">To Recieve</a></li>
             <li><a href="/completed_main">Recieved</a></li>
             <li><a href="/cancel_main">Returns and Cancelation</a></li>
+            <li><a href="/orderhistory">Order History</a></li>
           </ul>
           </li>
         </nav>

@@ -5,7 +5,8 @@
       <span v-if="info.length > 0">
         <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ info[0].username }}</a><br>
         <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="#"><i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;&nbsp; Edit Profile</a><br>
-        <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="/orderhistory"><i class="fas fa-history custom-icon"></i>&nbsp;&nbsp;&nbsp; Order History</a>
+        <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="/orderhistory"><i class="fas fa-history custom-icon"></i>&nbsp;&nbsp;&nbsp; Order History</a><br>
+        <a style="position:absolute; margin-top:30px; text-decoration: none; color:darkorange;" href="/toship_main"> <i class="fas fa-shopping-bag"></i>&nbsp;&nbsp;&nbsp; My Purchase</a>
       </span>
     </div>
     <div>
