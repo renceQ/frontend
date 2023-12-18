@@ -226,8 +226,9 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Eventalk</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <h2 class="ftco-heading-2">QMJ IMAGES ENTERPRISES</h2>
+              <p>Your best source of Photography and Videography
+Sound and stage lights production.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -242,7 +243,7 @@
                 <li><a href="#" class="py-2 d-block">Speakers</a></li>
                 <li><a href="#" class="py-2 d-block">Shcedule</a></li>
                 <li><a href="#" class="py-2 d-block">Events</a></li>
-                <li><a href="#" class="py-2 d-block">Blog</a></li>
+                <li><a href="/userblog" class="py-2 d-block">Blog</a></li>
               </ul>
             </div>
           </div>
@@ -250,21 +251,23 @@
              <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Privacy</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Career</a></li>
-                <li><a href="#" class="py-2 d-block">About Us</a></li>
-                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
-                <li><a href="#" class="py-2 d-block">Services</a></li>
+                <li><a href="/bookevents" class="py-2 d-block">Book Event</a></li>
+                <li><a href="/about" class="py-2 d-block">About Us</a></li>
+                <li><a href="/contacts" class="py-2 d-block">Contact Us</a></li>
+                <li><a href="/userServices" class="py-2 d-block">Services</a></li>
+                <li><a href="/userproducts" class="py-2 d-block">Products</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Have a Questions?</h2>
+              <h2 class="ftco-heading-2">Want more Answers to your Questions?</h2>
               <div class="block-23 mb-3">
                 <ul>
-                  <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                  <li><span class="icon icon-map-marker"></span><span class="text">km. 13 BIGA, Calapan, Philippines</span></li>
+                  <li><a href="Tel:0947 406 2928"><span class="icon icon-phone"></span><span class="text">0947 406 2928</span></a></li>
+                  <li><a href="mailto:qmjimages2018@gmail.com"><span class="icon icon-envelope"></span><span class="text">qmjimages2018@gmail.com</span></a></li>
+                  
                 </ul>
               </div>
             </div>
@@ -278,6 +281,7 @@
       </div>
     </footer>
   </template>
+  
   
   <script>
   import axios from 'axios'
