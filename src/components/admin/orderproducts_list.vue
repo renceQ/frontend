@@ -1,22 +1,11 @@
 <template>
-    <v-row v-if="approvedOrders.length > 0">
-      <v-col cols="12">
-        <h2>Approved Orders</h2>
-        <ul>
-          <li v-for="order in approvedOrders" :key="order.id">
-            <!-- Display order details here -->
-           {{ order.prod_name }} - {{ order.status }} 
-          </li>
-        </ul>
-      </v-col>
-    </v-row>
     
     <v-container style="width: 1000px; margin-left: 330px;">
         <!-- Pending Orders table -->
         <v-row>
           <v-col>
             <v-card>
-              <v-card-title>Pending Orders</v-card-title>
+              <v-card-title>Order List</v-card-title>
               <!-- Replace with your insert component -->
               <insert @data-saved="getOrder" />
               <v-data-table 
@@ -37,11 +26,14 @@
                   <img :src="item.image" alt="Product Image" width="50" height="50">
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
-                  <v-btn @click="approveEvent(item.id)" color="success" small>
-                    Approve
+                  <v-btn @click="pendingEvent(item.id)" color="error" small>
+                    Undo
                   </v-btn>
-                  <v-btn @click="denyEvent(item.id)" color="error" small>
-                    Deny
+                  <v-btn @click="deliveringEvent(item.id)" color="success" small>
+                    Deliver Product
+                  </v-btn>
+                  <v-btn @click="openviewdialog(item.id)" color="black" small> <v-icon>mdi-eye</v-icon>
+                    View Details
                   </v-btn>
                 </template>
                 <template v-for="(header, index) in headers" v-slot:[`header.${header.value}`]="{ props }">
@@ -58,10 +50,10 @@
         <v-row>
           <v-col>
             <v-card>
-              <v-card-title>Approved Orders</v-card-title>
+              <v-card-title>On Delivery Orders</v-card-title>
               <v-data-table
                 :headers="headers"
-                :items="approvedOrders"
+                :items="deliveringOrders"
                 item-key="id"
               >
               <template v-slot:[`item.transaction_code`]="{ item }">
@@ -77,11 +69,14 @@
                   <img :src="item.image" alt="Product Image" width="50" height="50">
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
-                  <v-btn @click="pendingEvent(item.id)" color="success" small>
+                  <v-btn @click="approveEvent(item.id)" color="error" small>
                     Undo
                   </v-btn>
-                  <v-btn @click="denyEvent(item.id)" color="error" small>
-                    Deny
+                  <v-btn @click="delivered(item.id)" color="success" small>
+                    Item Delivered
+                  </v-btn>
+                  <v-btn @click="openviewdialog(item.id)" color="black" small> <v-icon>mdi-eye</v-icon>
+                    View Details
                   </v-btn>
                 </template>
                 <template v-for="(header, index) in headers" v-slot:[`header.${header.value}`]="{ props }">
@@ -98,10 +93,10 @@
         <v-row>
           <v-col>
             <v-card>
-              <v-card-title>Declined Orders</v-card-title>
+              <v-card-title>Delivered Orders</v-card-title>
               <v-data-table
                 :headers="headers"
-                :items="declinedOrders"
+                :items="deliveredOrders"
                 item-key="id"
               >
               <template v-slot:[`item.transaction_code`]="{ item }">
@@ -117,11 +112,11 @@
                   <img :src="item.image" alt="Product Image" width="50" height="50">
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
-                  <v-btn @click="approveEvent(item.id)" color="success" small>
-                    Approve
+                  <v-btn @click="deliveringEvent(item.id)" color="success" small>
+                    Undo
                   </v-btn>
-                  <v-btn @click="denyEvent(item.id)" color="error" small>
-                    Deny
+                  <v-btn @click="openviewdialog(item.id)" color="black" small> <v-icon>mdi-eye</v-icon>
+                    View Details
                   </v-btn>
                 </template>
                 <template v-for="(header, index) in headers" v-slot:[`header.${header.value}`]="{ props }">
@@ -167,13 +162,13 @@
       },
       computed: {
         pendingOrders() {
-          return this.infos.filter(order => order.status !== 'approved' && order.status !== 'denied');
+          return this.infos.filter(order => order.status !== 'approved' && order.status !== 'denied' && order.status !== 'delivering' && order.status !== 'recieved' && order.status !== 'cancelled');
         },
-        approvedOrders() {
-          return this.infos.filter(order => order.status === 'approved');
+        deliveringOrders() {
+          return this.infos.filter(order => order.status === 'delivering');
         },
-        declinedOrders() {
-          return this.infos.filter(order => order.status === 'denied');
+        deliveredOrders() {
+          return this.infos.filter(order => order.status === 'recieved');
         }
       },
       methods: {
@@ -197,10 +192,38 @@
         console.error('Error updating order status:', error);
       }
     },
+
+    async delivered(id) {
+      try {
+        const response = await axios.post(`/updateOrderStatus/${id}`, { status: 'recieved' });
+        if (response.status === 200) {
+          this.getOrder(); // Refresh orders after status update
+        } else {
+          console.error('Error updating order status');
+        }
+      } catch (error) {
+        console.error('Error updating order status:', error);
+      }
+    },
+    
     
     async pendingEvent(id) {
       try {
         const response = await axios.post(`/updateOrderStatus/${id}`, { status: 'pending' });
+        if (response.status === 200) {
+          this.getOrder(); // Refresh orders after status update
+        } else {
+          console.error('Error updating order status');
+        }
+      } catch (error) {
+        console.error('Error updating order status:', error);
+      }
+    },
+
+     
+    async deliveringEvent(id) {
+      try {
+        const response = await axios.post(`/updateOrderStatus/${id}`, { status: 'delivering' });
         if (response.status === 200) {
           this.getOrder(); // Refresh orders after status update
         } else {

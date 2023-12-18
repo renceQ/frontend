@@ -4,7 +4,8 @@
       <img style="width:70px; height:70px; "  v-if="info.length > 0" :src="info[0].profile_picture" alt="Profile" class="profile-picture-navbar">
       <span v-if="info.length > 0">
         <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ info[0].username }}</a><br>
-        <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="#"><i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;&nbsp; Edit Profile</a>
+        <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="#"><i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;&nbsp; Edit Profile</a><br>
+        <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="#"><i class="fas fa-history custom-icon"></i>&nbsp;&nbsp;&nbsp; Order History</a>
       </span>
     </div>
     <div>
@@ -21,10 +22,7 @@
     
         <nav class="neumorphic-navbars" style="margin-top: 20px; width: 950px; height: 60px; margin-left: 315px; z-index: 10;">
           <!-- Replace these router-links or hrefs with methods that filter based on status -->
-          
-          <span class="nav-item">
-            <a href="all_main" class="nav-link" >All</a>
-          </span>
+         
           <span class="nav-item">
             <a href="toship_main" class="nav-link" >To Ship</a>
           </span>
@@ -32,7 +30,7 @@
             <a href="torecieve_main" class="nav-link">To Receive</a>
           </span>
           <span class="nav-item">
-            <a  href="completed_main" class="nav-link" style="font-weight:700; color:darkorange">Completed</a>
+            <a  href="completed_main" class="nav-link" style="font-weight:700; color:darkorange">Recieved</a>
           </span>
           <span class="nav-item">
             <a href="cancel_main" class="nav-link">Returns and Cancellation</a>
@@ -66,8 +64,10 @@
                               <span v-if="!hideToken" class="product-info">{{ token }}</span>
                             </an>
                             <div>
-                              <button @click="openModal" class="neumorphic-button" style="margin-left:470px;width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
-                              <button @click="openDialog" class="neumorphic-button" style="width: 200px;"><i class="fas fa-trash-alt custom-icon"></i>
+                              <button @click="openDialog" class="neumorphic-button" style="margin-left:240px; width: 200px; background-color:rgb(240, 206, 14); color:white;"><i class="fas fa-star custom-icon"></i>
+                                Rate </button>&nbsp;&nbsp;&nbsp;
+                              <button @click="openModal" class="neumorphic-button" style="width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
+                              <button @click="openDialog" class="neumorphic-button" style="width: 200px; background-color:rgb(248, 53, 53); color:white;"><i class="fas fa-trash-alt custom-icon"></i>
                                 Delete</button>
                             </div>
                           </div>
@@ -142,7 +142,7 @@ computed: {
 
   filteredInfos() {
     // Filter the 'infos' array based on the token in session storage and status equals 'Approved'
-    return this.infos.filter(info => info.token === this.token && info.status === 'approved');
+    return this.infos.filter(info => info.token === this.token && info.status === 'recieved');
   }
 },
   methods: {

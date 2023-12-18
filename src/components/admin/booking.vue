@@ -1,78 +1,60 @@
 <template>
-  <v-container>
-
-    <v-row>
-      <v-col cols="12" style="margin-left: 200px;">
-        <v-card v-if="showPendingtable" class="custom-data-table">
-          <v-card-title>
-            <h2>Pending Requests</h2>
-            <v-spacer></v-spacer>
-            <v-menu offset-y>
-              <template v-slot:activator="{ on }">
-                <v-btn icon v-on="on">
-                  <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item>
-                  <v-list-item-title>Settings 1</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>Settings 2</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-card-title>
-          <v-card-text >
-            <v-data-table
-              :headers="tableHeaders"
-              :items="pendingRequests"
-              item-key="event_title"
-              :items-per-page="10"
-            >
-              <template v-slot:[`item.event_title`]="{ item }">
-                {{ item.event_title }}
-              </template>
-              <template v-slot:[`item.start_date`]="{ item }">
-                {{ item.start_date }}
-              </template>
-              <template v-slot:[`item.end_date`]="{ item }">
-                {{ item.end_date }}
-              </template>
-              <template v-slot:[`item.location`]="{ item }">
-                {{ item.location }}
-              </template>
-              <template v-slot:[`item.event_description`]="{ item }">
-                {{ item.event_description }}
-              </template>
-              <template v-slot:[`item.name`]="{ item }">
-                {{ item.name }}
-              </template>
-              <template v-slot:[`item.email`]="{ item }">
-                {{ item.email }}
-              </template>
-              <template v-slot:[`item.phone`]="{ item }">
-                {{ item.phone }}
-              </template>
-              <template v-slot:[`item.service`]="{ item }">
-                {{ item.service }}
-              </template>
-              <template v-slot:[`item.status`]="{ item }">
-                {{ item.status }}
-              </template>
-              <template v-slot:[`item.actions`]="{ item }">
-                <v-btn small color="success" @click="viewEvent(item)">
-                  <v-icon>mdi-eye</v-icon>
-                  View
-                </v-btn>
-                <!-- Add other action buttons here -->
-              </template>
-            </v-data-table>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  
+   <!-- Approved Request Table -->
+   <v-col cols="12" style="margin-left: 350px; width:950px;">
+    <v-card v-if="showPendingtable" class="custom-data-table">
+     <v-card-title>
+       <h2>Pending Requests</h2>
+     </v-card-title>
+     <v-card-text>
+       <v-data-table
+         :headers="tableHeaders"
+         :items="pendingRequests"
+         item-key="event_title"
+         :items-per-page="10"
+       >
+         
+       <template v-slot:[`item.event_title`]="{ item }">
+         {{ item.event_title }}
+       </template>
+       <template v-slot:[`item.start_date`]="{ item }">
+         {{ item.start_date }}
+       </template>
+       <template v-slot:[`item.end_date`]="{ item }">
+         {{ item.end_date }}
+       </template>
+       <template v-slot:[`item.location`]="{ item }">
+         {{ item.location }}
+       </template>
+       <template v-slot:[`item.event_description`]="{ item }">
+         {{ item.event_description }}
+       </template>
+       <template v-slot:[`item.name`]="{ item }">
+         {{ item.name }}
+       </template>
+       <template v-slot:[`item.email`]="{ item }">
+         {{ item.email }}
+       </template>
+       <template v-slot:[`item.phone`]="{ item }">
+         {{ item.phone }}
+       </template>
+       <template v-slot:[`item.service`]="{ item }">
+         {{ item.service }}
+       </template>
+       <template v-slot:[`item.status`]="{ item }">
+         {{ item.status }}
+       </template>
+       <template v-slot:[`item.actions`]="{ item }">
+         <v-btn small color="success" @click="viewEvent(item)">
+           <v-icon>mdi-eye</v-icon>
+           View
+         </v-btn>
+         <!-- Add other action buttons here -->
+       </template>
+       </v-data-table>
+     </v-card-text>
+   </v-card>
+ </v-col>
 
 
    <!-- Approved Request Table -->

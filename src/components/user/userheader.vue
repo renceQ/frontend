@@ -36,13 +36,18 @@
           <ul class="dropdown" style="margin-right: 200px; position:absolute;">
             <h2></h2>
             <li><a href="/toship_main">To Ship</a></li>
-            <li><a href="#">To Recieve</a></li>
-            <li><a href="#">Completed</a></li>
-            <li><a href="#">Returns and Cancelation</a></li>
+            <li><a href="/torecieve_main">To Recieve</a></li>
+            <li><a href="/completed_main">Recieved</a></li>
+            <li><a href="/cancel_main">Returns and Cancelation</a></li>
           </ul>
           </li>
         </nav>
 
+
+
+
+
+        <!--NOTIFFFFFFFFFFFFFFFFF-->
         <div class="NOTIF">
           <nav class="navbar">
             <li class="menu-item">
@@ -52,20 +57,40 @@
                   {{ filteredInfos.length }}
                 </div>
               </a>
-              <ul class="dropdown" style="position: absolute; margin-right: 100px;">
+              <ul class="dropdown" :class="{ active: showAll }" style="position: absolute; margin-right: 100px; width:300px;">
                 <li><h4>Notifications</h4></li>
                 <!-- Filtered notifications -->
-                <li v-for="filteredInfo in filteredInfos" :key="filteredInfo.id">
-                  <a href="#">
-                    {{ filteredInfo.prod_name }} - {{ filteredInfo.status }}
-                    <!-- Show the token if needed -->
+                <li v-for="(filteredInfo, index) in displayedNotifications" :key="filteredInfo.id">
+                  <!-- Display notifications based on 'showAll' flag -->
+                  <a href="#" style="">
+                    <i class="fas fa-comment custom-icon" style="color: green;"></i>&nbsp;&nbsp;&nbsp; 
+                    <span style="font-size: 14px; align-items: center; font-weight:700;">
+                      {{ filteredInfo.prod_name }} -
+                    </span>
+                    <!-- Show the appropriate message based on status -->
+                    <br>
+                    <span v-if="filteredInfo.status === 'approved'">
+                      Hi! {{ filteredInfo.customerName }}, your order has been approved. We will be packing your parcel soon!
+                    </span>
+                    <span v-else-if="filteredInfo.status === 'denied'">
+                      Your request has been denied due to some reasons.
+                    </span>
+                    <!-- Display other relevant information -->
                     <span v-if="!hideToken">{{ token }}</span>
+                    <span v-if="!hideStatus">{{ status }}</span>
                   </a>
                 </li>
+                <!-- Change the button text to 'Hide All' when 'showAll' is true -->
+                <a @click.stop.prevent="toggleShowAll" v-if="filteredInfos.length > 5" style="align-items: center; width:88px; margin-left:80px; cursor: pointer;">
+                  {{ showAll ? 'Hide All' : 'View All' }}
+                </a>
               </ul>
-            </li>
+            </li>  
           </nav>
         </div>
+        
+        
+        
 
 				<span class="nav-item cta">
 				  <router-link to="/contacts" class="nav-link">Contact Us</router-link>
@@ -128,13 +153,28 @@ export default {
       infos: [],
       token: '',
     hideToken: true,
+    showAll: false,
     };
   },
   computed: {
     filteredInfos() {
-    // Filter the 'infos' array based on the token in session storage and status "approved"
-    return this.infos.filter(info => info.token === this.token && (info.status === "approved" || info.status === "denied"));
-  }
+    // Filter the 'infos' array based on the token in session storage and status "approved" or "denied"
+    const filtered = this.infos.filter(info => info.token === this.token && (info.status === "approved" || info.status === "denied"));
+
+    // Sort the filtered notifications based on the 'updated_at' field in descending order
+    return filtered.sort((a, b) => {
+      // Convert the 'updated_at' strings to Date objects for comparison
+      const dateA = new Date(a.updated_at);
+      const dateB = new Date(b.updated_at);
+
+      // Sort by the latest 'updated_at' first (descending order)
+      return dateB - dateA;
+    });
+  },
+  displayedNotifications() {
+      // If 'showAll' is true, display all notifications, otherwise show the first 3
+      return this.showAll ? this.filteredInfos : this.filteredInfos.slice(0, 3);
+    },
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
@@ -195,12 +235,27 @@ export default {
 
       this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     },
+    toggleShowAll() {
+      this.showAll = !this.showAll; // Toggle the 'showAll' flag when 'View All'/'Hide All' is clicked
+    },
+    preventClose(event) {
+      if (this.showAll) {
+        event.stopPropagation(); // Prevent the dropdown from closing when 'View All' is clicked
+      }
+    }
   },
 };
 </script>
 
 <style>
+.dropdown {
+  overflow-y: hidden; /* Hide the scrollbar by default */
+}
 
+.dropdown.active {
+  overflow-y: auto; /* Show scrollbar when 'View All'/'Hide All' is clicked */
+  max-height: 300px; /* Limit the height to 300px */
+}
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900');
 @import '../../assets/css/open-iconic-bootstrap.min.css';
 @import '../../assets/css/animate.css';

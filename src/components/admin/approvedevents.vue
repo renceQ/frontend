@@ -1,58 +1,57 @@
 <template>
 
-   <!-- Approved Request Table -->
-   <v-col cols="12" style="margin-left: 350px; width:950px;">
-   <v-card v-if="showApprovedTable" class="custom-data-table">
-    <v-card-title>
-      <h2>Event Schedules</h2>
-    </v-card-title>
-    <v-card-text>
-      <v-data-table
-        :headers="tableHeaders"
-        :items="approvedRequests"
-        item-key="event_title"
-        :items-per-page="10"
-      >
-        
-      <template v-slot:[`item.event_title`]="{ item }">
-        {{ item.event_title }}
-      </template>
-      <template v-slot:[`item.start_date`]="{ item }">
-        {{ item.start_date }}
-      </template>
-      <template v-slot:[`item.end_date`]="{ item }">
-        {{ item.end_date }}
-      </template>
-      <template v-slot:[`item.location`]="{ item }">
-        {{ item.location }}
-      </template>
-      <template v-slot:[`item.event_description`]="{ item }">
-        {{ item.event_description }}
-      </template>
-      <template v-slot:[`item.name`]="{ item }">
-        {{ item.name }}
-      </template>
-      <template v-slot:[`item.email`]="{ item }">
-        {{ item.email }}
-      </template>
-      <template v-slot:[`item.phone`]="{ item }">
-        {{ item.phone }}
-      </template>
-      <template v-slot:[`item.service`]="{ item }">
-        {{ item.service }}
-      </template>
-      <template v-slot:[`item.actions`]="{ item }">
-        <v-btn small color="success" @click="viewEvent(item)">
-          <v-icon>mdi-eye</v-icon>
-          View
-        </v-btn>
-        <!-- Add other action buttons here -->
-      </template>
-      </v-data-table>
-    </v-card-text>
-  </v-card>
-</v-col>
-
+  <v-col cols="12" style="margin-left: 350px; width:950px;">
+    <v-card v-if="showApprovedTable" class="custom-data-table">
+      <v-card-title>
+        <h2>Event Schedules</h2>
+      </v-card-title>
+      <v-card-text>
+        <v-data-table
+          :headers="tableHeaders"
+          :items="approvedRequests"
+          item-key="event_title"
+          :items-per-page="10"
+        >
+         
+        <template v-slot:[`item.event_title`]="{ item }">
+          {{ item.event_title }}
+        </template>
+        <template v-slot:[`item.start_date`]="{ item }">
+          {{ item.start_date }}
+        </template>
+        <template v-slot:[`item.end_date`]="{ item }">
+          {{ item.end_date }}
+        </template>
+        <template v-slot:[`item.location`]="{ item }">
+          {{ item.location }}
+        </template>
+        <template v-slot:[`item.event_description`]="{ item }">
+          {{ item.event_description }}
+        </template>
+        <template v-slot:[`item.name`]="{ item }">
+          {{ item.name }}
+        </template>
+        <template v-slot:[`item.email`]="{ item }">
+          {{ item.email }}
+        </template>
+        <template v-slot:[`item.phone`]="{ item }">
+          {{ item.phone }}
+        </template>
+        <template v-slot:[`item.service`]="{ item }">
+          {{ item.service }}
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-btn small color="success" @click="viewEvent(item)">
+            <v-icon>mdi-eye</v-icon>
+            View
+          </v-btn>
+          <!-- Add other action buttons here -->
+        </template>
+        </v-data-table>
+      </v-card-text>
+    </v-card>
+  </v-col>
+  
 
   <!-- Declined Request Table -->
   <v-col cols="12" style="margin-left: 350px; width:950px;">

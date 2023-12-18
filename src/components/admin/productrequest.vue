@@ -1,15 +1,14 @@
 <template>
-  <v-row v-if="approvedOrders.length > 0">
+  <!-- <v-row v-if="approvedOrders.length > 0">
     <v-col cols="12">
       <h2>Approved Orders</h2>
       <ul>
         <li v-for="order in approvedOrders" :key="order.id">
-          <!-- Display order details here -->
          {{ order.prod_name }} - {{ order.status }} 
         </li>
       </ul>
     </v-col>
-  </v-row>
+  </v-row> -->
   
   <v-container style="width: 1000px; margin-left: 330px;">
       <!-- Pending Orders table -->
@@ -117,8 +116,8 @@
                 <img :src="item.image" alt="Product Image" width="50" height="50">
               </template>
               <template v-slot:[`item.actions`]="{ item }">
-                <v-btn @click="approveEvent(item.id)" color="success" small>
-                  Approve
+                <v-btn @click="pendingEvent(item.id)" color="success" small>
+                  Undo
                 </v-btn>
                 <v-btn @click="denyEvent(item.id)" color="error" small>
                   Deny
@@ -167,7 +166,7 @@
     },
     computed: {
       pendingOrders() {
-        return this.infos.filter(order => order.status !== 'approved' && order.status !== 'denied');
+        return this.infos.filter(order => order.status !== 'approved' && order.status !== 'denied' && order.status !== 'cancelled' && order.status !== 'recieved' && order.status !== 'delivering');
       },
       approvedOrders() {
         return this.infos.filter(order => order.status === 'approved');

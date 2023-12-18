@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <h2>Product Request Fields</h2>
+    <h2 style="margin-left:450px;">Product Request Fields</h2>
     <form @submit.prevent="placeOrder">
     <div class="row">
       <div class="col">
@@ -39,6 +39,25 @@
                   </div>
                 </div>
               </div>
+              
+              <div class="payment-method">
+                <label>Select Payment Method:</label><br>
+
+                <input type="radio" id="paymaya" value="paymaya" v-model="selectedPaymentMethod">
+                <label for="paymaya">
+                  <img :src="require('../../../public/img/maya.png')" alt="PayMaya" style="width: 200px; height: 100px;">
+                </label><br>
+              
+                <input type="radio" id="gcash" value="gcash" v-model="selectedPaymentMethod">
+                <label for="gcash">
+                  <img :src="require('../../../public/img/gcash.png')" alt="GCash" style="width: 200px; height: 200px;">
+                </label><br>
+              
+              
+                <input type="radio" id="cod" value="cod" v-model="selectedPaymentMethod">
+                <label for="cod">Cash on Delivery</label>
+              </div>
+
 
             </div>
           </div>
