@@ -82,7 +82,7 @@
                   </a>
                 </li>
                 <!-- Change the button text to 'Hide All' when 'showAll' is true -->
-                <a @click.stop.prevent="toggleShowAll" v-if="filteredInfos.length > 5" style="align-items: center; width:88px; margin-left:80px; cursor: pointer;">
+                <a @click.stop.prevent="toggleShowAll" v-if="filteredInfos.length > 3" style="align-items: center; width:88px; margin-left:80px; cursor: pointer;">
                   {{ showAll ? 'Hide All' : 'View All' }}
                 </a>
               </ul>
