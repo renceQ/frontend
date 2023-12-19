@@ -28,7 +28,7 @@
           <img :src="product.image" alt="" style="width: 180px; height: 180px;">
           <div class="ri-text">
             <h4>{{ product.prod_name }}</h4>
-            <p>Unit Price: {{ product.unit_price }}</p>
+            <p>Unit Price: ₱{{ product.unit_price }}</p>
             <p>Available Size: {{ getSizeName(product.size_id) }}</p>
             <button class="btn btn-outline-danger btn-sm" @click="preOrder(product)">Pre order</button>
           </div>

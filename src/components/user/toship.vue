@@ -63,6 +63,8 @@
                               <span >Total: ₱{{ filteredInfo.total }}</span>
                               <span v-if="!hideStatus" class="product-info">{{ status }}</span> 
                               <span v-if="!hideToken" class="product-info">{{ token }}</span>
+                              <span v-if="!hidetotal" class="product-info">{{ total }}</span>
+
                             </an>
                             <div>
                               <button @click="openModal" class="neumorphic-button" style="margin-left:470px;width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;

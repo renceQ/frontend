@@ -63,7 +63,7 @@
                 <!-- Filtered notifications -->
                 <li v-for="(filteredInfo, index) in displayedNotifications" :key="filteredInfo.id">
                   <!-- Display notifications based on 'showAll' flag -->
-                  <a href="#" style="">
+                  <a href="/toship_main" style="">
                     <i class="fas fa-comment custom-icon" style="color: green;"></i>&nbsp;&nbsp;&nbsp; 
                     <span style="font-size: 14px; align-items: center; font-weight:700;">
                       {{ filteredInfo.prod_name }} -

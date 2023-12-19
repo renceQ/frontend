@@ -155,6 +155,7 @@ const routes = [
     path: '/pending_main',
     component: pending_main
   },
+
 ]
 
 const router = createRouter({

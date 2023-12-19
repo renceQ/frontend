@@ -7,7 +7,7 @@
         <p>Image:</p>
         <img :src="productData.image" alt="Product Image" class="img-fluid" style="max-width: 200px; max-height: 200px;">
         <p>Product Name: {{ productData.prod_name }}</p>
-        <p>Unit Price: {{ productData.unit_price }}</p>
+        <p>Unit Price: ₱{{ productData.unit_price }}</p>
         <p>size : {{ getSizeName(productData.size_id )}}</p>
         <div class="mb-3">
           <p>Quantity:</p>
