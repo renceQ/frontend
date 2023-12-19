@@ -183,7 +183,7 @@
 
 
   
-       <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md">
@@ -217,6 +217,7 @@ Sound and stage lights production.</p>
                 <li><a href="/about" class="py-2 d-block">About Us</a></li>
                 <li><a href="/contacts" class="py-2 d-block">Contact Us</a></li>
                 <li><a href="/userServices" class="py-2 d-block">Services</a></li>
+                <li><a href="/userproducts" class="py-2 d-block">Products</a></li>
               </ul>
             </div>
           </div>

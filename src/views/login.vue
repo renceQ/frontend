@@ -1,10 +1,22 @@
 User
 
 <template>
-  <div style="margin-right: 500px;">
+  <div>
+     <div style="margin-right: 500px;">
     <div>
-      <h5 style="margin-left: 650px;"></h5>
-      <v-sheet>
+    
+      <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <div style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%;margin-left: 500px; margin-bottom: 20px;">
+          <img :src="require('../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 50%;max-width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        
+        <h2 style="margin-left: 500px; ">Welcome to QMJEnt!</h2>
+        <p style="margin-left: 500px;">Please Login</p>
+      </div>
+
+      
+      <v-sheet >
+        
         <v-form @submit.prevent="login" class="login-form">
           <div v-if="message" class="error-message-box">
             <div class="error-message">{{ message }}</div>
@@ -34,12 +46,17 @@ User
           
           
           <v-btn type="button" href="/register" class="mt-4 custom-login-btn" color="#000000" block>Create New Account</v-btn>
-          <a href="/forgotpass" style="color: black; margin-left: 110px;">Forgot Password?</a>
+          <a href="/forgotpass" style="color: black; margin-left: auto; margin-right: auto; display: block; text-align: center;">Forgot Password?</a>
+
 
         </v-form>
+      
       </v-sheet>
+      
     </div>
   </div>
+</div>
+
 </template>
 
 
@@ -104,7 +121,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .line-with-text {
   display: flex;
   align-items: center;
@@ -158,4 +175,59 @@ a[href="/forgotpass"]:hover {
   text-decoration: none;
 }
 
+/* updated css*/
+
+img{
+  animation: fade-up 1s;
+}
+
+h2{
+  animation: fade-up 1.5s;
+}
+p{
+  animation: fade-up 2s;
+}
+
+.v-btn{
+  opacity: 0;
+  animation: fade-in .6s ease-in-out forwards; 
+  animation-delay: 0.4s;
+}
+.v-checkbox{
+  animation: fade-up 2.5s;
+}
+a{
+  animation: fade-up 3s;
+}
+.v-text-field{
+  opacity: 0;
+  animation: fade-up 0.9s ease-in-out forwards; 
+  animation-delay: 0.2s;
+}
+.line-with-text{
+  opacity: 0;
+  animation: fade-up 0.9s ease-in-out forwards; 
+  animation-delay: 0.2s;
+}
+
+.gradient-background {
+  min-height: 100vh; /* Set a minimum height to cover the entire viewport */
+  animation: gradientMove 10s infinite;
+  background: linear-gradient(45deg, #ff8a00, #e52e71); /* Adjust gradient colors */
+  background-size: 200% 200%;
+}
+
+  
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 </style>
