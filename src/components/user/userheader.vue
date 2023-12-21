@@ -189,7 +189,7 @@ export default {
   if (this.token) {
     this.getInfo();
   } else {
-    // Handle the case where token is not available in local storage
+    // Handle the case where token is not available in local storage     session token
     console.error('JWT token not found in session storage');
   }
 },
@@ -217,7 +217,7 @@ export default {
     async getInfo() {
     try {
       const response = await axios.get(`getUserData/${this.token}`);
-      this.info = response.data; // Assuming response.data is an object/array of user data
+      this.info = response.data; // Assuming response.data is an object/array of user data   get session token
     } catch (error) {
       console.error(error);
       // Handle the error case, such as showing a message to the user

@@ -52,12 +52,13 @@
                         <li>
                           <br>
                           <div>
-                            Product Status: 
+                            <asd><span style="color:rgb(13, 109, 19); margin-left:500px;"><i class="fas fa-toolbox custom-icon"></i>
+                              &nbsp;&nbsp;&nbsp;Seller will prepare and ship your package soon...</span></asd>
                           </div>
             
                           <div style="margin-bottom: 20px;"> 
                             <an  v-if="filteredInfo.image">
-                              <img :src="filteredInfo.image" class="img-fluids" style="max-width: 140px; max-height: 140px;" readonly>
+                              <img :src="filteredInfo.image" class="img-fluids" style="max-width: 140px; max-height: 140px;" >
                               <span style="margin-right: 140px; margin-left: 80px;">Product:{{ filteredInfo.prod_name }}</span> 
                               <span style="margin-right: 140px;">Quantity:{{ filteredInfo.quantity }}</span> 
                               <span >Total: ₱{{ filteredInfo.total }}</span>

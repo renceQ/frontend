@@ -182,6 +182,7 @@
       <!-- Neumorphic Approve Button -->
       <v-btn text color="white" @click="approveEvent">Approve</v-btn>
       <v-btn text color="white" @click="declineEvent">Decline</v-btn>
+      <!-- <v-btn text color="white" @click="declineEvent">Decline</v-btn> -->
     </v-toolbar>
     <v-card-text>
       <v-container>
@@ -270,6 +271,7 @@ export default {
       const response = await axios.post('/updateEventStatus', {
         id: this.selectedEvent.id,
         status: 'approved'
+
       });
 
       if (response.status === 200) {
@@ -297,7 +299,8 @@ export default {
     try {
       const response = await axios.post('/updateEventStatus', {
         id: this.selectedEvent.id,
-        status: 'declined'
+        status: 'declined',
+         reason: 'The Admin declined your order due to some reasons'
       });
 
       if (response.status === 200) {
@@ -311,7 +314,7 @@ export default {
           this.$set(this.info, index, { ...this.selectedEvent });
         }
 
-        this.showModal = false; // Close the modal
+        this.showModal = false;
       } else {
         console.error('Error updating event status');
       }

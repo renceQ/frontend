@@ -44,15 +44,15 @@
 
 
 
-                <!--products container-->
+                <!--products container--> <!--filtered container-->
                 <div>
-                  <div v-for="filteredInfo in filteredInfos" :key="filteredInfo.id" class="container" style="margin-top: 20px;">
+                 <div v-for="filteredInfo in filteredInfos" :key="filteredInfo.id" class="container" style="margin-top: 20px;">
                     <nav class="neumorphic-navbars" style="width: 950px; margin-left: 200px; z-index: 10;">
                       <ul>
                         <li>
                           <br>
                           <div>
-                            Product Status: 
+                           <asd><span style="color:rgb(13, 109, 19); margin-left:650px;"><i class="fas fa-truck custom-icon"></i>&nbsp;&nbsp;&nbsp;Parcel has been delivered...</span></asd>
                           </div>
             
                           <div style="margin-bottom: 20px;"> 

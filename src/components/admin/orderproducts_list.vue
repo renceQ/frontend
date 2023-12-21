@@ -238,8 +238,12 @@
     },
     async denyEvent(id) {
       try {
-        const response = await axios.post(`/updateOrderStatus/${id}`, { status: 'denied' });
+        const response = await axios.post(`/updateOrderStatus/${id}`, { 
+          status: 'denied',
+          reason: 'The Admin declined your order due to some reasons'
+        });
         if (response.status === 200) {
+
           this.getOrder(); // Refresh orders after status update
         } else {
           console.error('Error updating order status');

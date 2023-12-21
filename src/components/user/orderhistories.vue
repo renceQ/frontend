@@ -48,7 +48,8 @@
                         <li>
                           <br>
                           <div>
-                            Product Status: 
+                            <asd><span style="color:rgb(13, 109, 19); margin-left:730px;"><i class="fas fa-history custom-icon"></i>
+                              &nbsp;&nbsp;&nbsp;Order History...</span></asd>
                           </div>
             
                           <div style="margin-bottom: 20px;"> 

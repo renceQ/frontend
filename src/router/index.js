@@ -29,6 +29,9 @@ import cancel_main from '../views/cancel_main.vue'
 import orderproducts from '../views/orderproducts.vue'
 import orderhistory from '../views/orderhistory.vue'
 import pending_main from '../views/pending_main.vue'
+import addtocart from '../views/addtocart.vue'
+
+
 
 
 
@@ -155,7 +158,10 @@ const routes = [
     path: '/pending_main',
     component: pending_main
   },
-
+  {
+    path: '/addtocart',
+    component: addtocart
+  },
 ]
 
 const router = createRouter({

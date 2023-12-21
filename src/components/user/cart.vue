@@ -5,8 +5,8 @@
       <span v-if="info.length > 0">
         <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ info[0].username }}</a><br>
         <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="#"><i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;&nbsp; Edit Profile</a><br>
-        <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="/orderhistory"><i class="fas fa-history custom-icon"></i>&nbsp;&nbsp;&nbsp; Order History</a><br>
-        <a style="position:absolute; margin-top:30px; text-decoration: none; color:darkorange;" href="/toship_main"> <i class="fas fa-shopping-bag"></i>&nbsp;&nbsp;&nbsp; My Purchase</a>
+        <a style="position:absolute; margin-top:30px; text-decoration: none; color:darkorange;" href="/orderhistory"><i class="fas fa-history custom-icon"></i>&nbsp;&nbsp;&nbsp; Order History</a><br>
+        <a style="position:absolute; margin-top:30px; text-decoration: none; color: black;" href="/toship_main"> <i class="fas fa-shopping-bag"></i>&nbsp;&nbsp;&nbsp; My Purchase</a>
       </span>
     </div>
     <div>
@@ -16,6 +16,11 @@
             <button style="position:absolute; margin-left:602px; width:49px; height: 49px; " class="search-button">
                 <i class="fas fa-search"></i>
               </button>
+              <button style="position:absolute; margin-left:680px; width:49px; height: 49px;" href="#" class="search-button">
+              <i class="fas fa-shopping-cart custom-icon"></i>
+              </button>
+             
+             
           </div>
              
                
@@ -23,24 +28,19 @@
     
         <nav class="neumorphic-navbars" style="margin-top: 20px; width: 950px; height: 60px; margin-left: 315px; z-index: 10;">
           <!-- Replace these router-links or hrefs with methods that filter based on status -->
-          
          
+
           <span class="nav-item">
-            <a href="toship_main" class="nav-link" >To Ship</a>
+            <a href="/pending_main" class="nav-link" style="font-weight:700; color:darkorange;" >Pending</a>
           </span>
           <span class="nav-item">
-            <a href="torecieve_main" class="nav-link">To Receive</a>
+            <a href="/orderhistory" class="nav-link" style="font-weight:400; color:rgb(0, 0, 0); margin-right:350px;" >Order History</a>
           </span>
-          <span class="nav-item">
-            <a href="completed_main" class="nav-link">Recieved</a>
-          </span>
-          <span class="nav-item">
-            <a href="cancel_main" class="nav-link" style="font-weight:700; color:darkorange">Returns and Cancellation</a>
-          </span>
+
           <a style="margin-left: 190px; margin-right: 20px;" class="navbar-brand">Product | <span>Status.</span></a>
         </nav>
       
-                </div>
+    </div>
 
 
 
@@ -53,8 +53,8 @@
                         <li>
                           <br>
                           <div>
-                            <asd><span style="color:rgb(13, 109, 19); margin-left:640px;"><i class="fas fa-ban custom-icon"></i>
-                              &nbsp;&nbsp;&nbsp;Order Canceled successfully...</span></asd>
+                            <asd><span style="color:rgb(13, 109, 19); margin-left:580px;"><i class="fas fa-box custom-icon"></i>
+                              &nbsp;&nbsp;&nbsp;We will be packing your parcel soon...</span></asd>
                           </div>
             
                           <div style="margin-bottom: 20px;"> 
@@ -67,12 +67,12 @@
                               <span v-if="!hideToken" class="product-info">{{ token }}</span>
                             </an>
                             <div>
-                              <button @click="openModal" class="neumorphic-button" style="margin-left:470px;width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
-                              <button @click="undo(filteredInfo.id)" class="neumorphic-button" style="width: 200px; "><i class="fas fa-undo custom-icon"></i>&nbsp;&nbsp;
-                                Undo</button> &nbsp;&nbsp;
-                                <!-- <v-btn @click="denyEvent(item.id)" color="error" small>
-                                    Deny
-                                  </v-btn> -->
+                              <!-- <button @click="undo(filteredInfo.id)" class="neumorphic-button" style="width: 200px; "><i class="fas fa-undo custom-icon"></i>&nbsp;&nbsp;
+                                Undo</button> &nbsp;&nbsp; -->
+                              <button @click="openModal" class="neumorphic-button" style="margin-left:450px; width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
+                              <!-- <button @click="buyagain(filteredInfo.id)" class="neumorphic-button" style="margin-left:450px; width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Buy Again</button> &nbsp;&nbsp; -->
+                              <button  @click="openDialog(filteredInfo)"  class="neumorphic-button" style="width: 200px; background-color:rgb(248, 53, 53); color:white;">
+                                Cancel Order</button>
                             </div>
                           </div>
                         </li>
@@ -84,21 +84,25 @@
 
 
                 <!--cancel modal-->
-                <!-- <v-dialog v-model="dialogs" max-width="500px">
-                  <v-card>
-                    <v-card-title class="headline" style="margin-left: 99px;">Reasons for Order Cancellation</v-card-title>
-                    <v-card-text>
-                      <v-radio-group v-model="selectedReason">
-                        <v-radio v-for="(reason, index) in cancellationReasons" :key="index" :label="reason" :value="reason"></v-radio>
-                      </v-radio-group>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-btn @click="closeDialog" color="primary">Cancel</v-btn>
-                      <v-btn @click="submitReason" color="primary">Submit</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-               -->
+                <v-dialog v-model="dialogs" max-width="500px">
+                    <v-card>
+                      <v-card-title class="headline" style="margin-left: 99px;">Reasons for Order Cancellation</v-card-title>
+                      <v-card-text>
+                        <v-radio-group v-model="selectedReason">
+                          <v-radio v-for="(reason, index) in cancellationReasons" :key="index" :label="reason" :value="reason"></v-radio>
+                        </v-radio-group>
+                        <!-- Add a hidden input to store the order ID -->
+                        <input type="hidden" v-model="selectedInfo.id" ref="orderId">
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-btn @click="closeDialog" color="primary">Cancel</v-btn>
+                        <v-btn @click="submitReason" color="primary" small>
+                          Submit
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+              
 </template>
 <script>
 import axios from 'axios';
@@ -124,6 +128,7 @@ export default {
         // Add more reasons if needed
       ],
       hideStatus: false,
+      selectedReason: null,
       selectedInfo: null,
       
     };
@@ -147,12 +152,11 @@ computed: {
 
   filteredInfos() {
     // Filter the 'infos' array based on the token in session storage and status equals 'Approved'
-    return this.infos.filter(info => info.token === this.token && info.status === 'cancelled');
+    return this.infos.filter(info => info.token === this.token && info.status === 'pending');
   }
 },
   methods: {
-
-   async undo(id) {
+    async buyagain(id) {
   try {
     const confirmed = window.confirm('Are you sure you want to discard this change?');
 
@@ -182,16 +186,35 @@ computed: {
 
 
 
+    async submitReason() {
+      try {
+        if (this.selectedReason && this.selectedInfo) {
+          const response = await axios.post(`/updateOrderStatus/${this.selectedInfo.id}`, {
+            status: 'cancelled',
+            reason: this.selectedReason,
+          });
 
-
-
-    // openDialog() {
-    //   this.dialogs = true;
-    // },
-    // closeDialog() {
-    //   this.dialogs = false;
-    //   this.selectedReason = null; // Reset selected reason
-    // },
+          if (response.status === 200) {
+            this.getOrder(); // Refresh orders after status update
+            this.closeDialog(); // Close the dialog after submitting reason
+          } else {
+            console.error('Error updating order status');
+          }
+        } else {
+          console.error('Please select an order and a reason.'); // Inform the user to select an order and a reason
+        }
+      } catch (error) {
+        console.error('Error updating order status:', error);
+      }
+    },
+  
+    openDialog(selectedInfo) {
+  this.selectedInfo = selectedInfo; // Store the selected order info
+  this.dialogs = true; // Open the dialog
+},
+    closeDialog() {
+      this.dialogs = false; // Close the dialog
+    },
     async getOrder() {
   try {
     const response = await axios.get('getOrder');
@@ -325,5 +348,5 @@ a[href="#"] {
     margin-bottom: 12px;
     width: 40px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-  }  
+  }
 </style>

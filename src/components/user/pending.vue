@@ -16,6 +16,9 @@
             <button style="position:absolute; margin-left:602px; width:49px; height: 49px; " class="search-button">
                 <i class="fas fa-search"></i>
               </button>
+              <a href="/addtocart" style="position:absolute; margin-left:680px; width:49px; height: 49px; color: black;"  class="search-button">
+              <i style="margin-left:7px; margin-top:8px;" class="fas fa-shopping-cart custom-icon"></i>
+              </a>      
           </div>
              
                
@@ -48,7 +51,8 @@
                         <li>
                           <br>
                           <div>
-                            Product Status: 
+                            <asd><span style="color:rgb(13, 109, 19); margin-left:580px;"><i class="fas fa-box custom-icon"></i>
+                              &nbsp;&nbsp;&nbsp;We will be packing your parcel soon...</span></asd>
                           </div>
             
                           <div style="margin-bottom: 20px;"> 
@@ -61,7 +65,10 @@
                               <span v-if="!hideToken" class="product-info">{{ token }}</span>
                             </an>
                             <div>
+                              <!-- <button @click="undo(filteredInfo.id)" class="neumorphic-button" style="width: 200px; "><i class="fas fa-undo custom-icon"></i>&nbsp;&nbsp;
+                                Undo</button> &nbsp;&nbsp; -->
                               <button @click="openModal" class="neumorphic-button" style="margin-left:450px; width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Contact Seller</button> &nbsp;&nbsp;
+                              <!-- <button @click="buyagain(filteredInfo.id)" class="neumorphic-button" style="margin-left:450px; width: 200px;"><i class="fas fa-phone custom-icon"></i> &nbsp;&nbsp;Buy Again</button> &nbsp;&nbsp; -->
                               <button  @click="openDialog(filteredInfo)"  class="neumorphic-button" style="width: 200px; background-color:rgb(248, 53, 53); color:white;">
                                 Cancel Order</button>
                             </div>
@@ -147,6 +154,35 @@ computed: {
   }
 },
   methods: {
+    async buyagain(id) {
+  try {
+    const confirmed = window.confirm('Are you sure you want to discard this change?');
+
+    if (confirmed) {
+      const userInput = prompt('Type "okay" to confirm:');
+      if (userInput && userInput.trim().toLowerCase() === 'okay') {
+        const response = await axios.post(`/updateOrderStatus/${id}`, {
+          status: 'pending',
+          reason: 'no valid reason',
+        });
+
+        if (response.status === 200) {
+          this.getOrder(); // Refresh orders after status update
+        } else {
+          console.error('Error updating order status');
+        }
+      } else {
+        console.log('No changes were made.');
+      }
+    } else {
+      console.log('No changes were made.');
+    }
+  } catch (error) {
+    console.error('Error updating order status:', error);
+  }
+},
+
+
 
     async submitReason() {
       try {
