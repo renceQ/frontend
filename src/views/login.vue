@@ -7,7 +7,7 @@ User
     
       <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
         <div style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%;margin-left: 500px; margin-bottom: 20px;">
-          <img :src="require('../assets/images/logo2.jpg')" alt="Description of the image" style="border-radius: 50%;max-width: 100%; height: 100%; object-fit: cover;">
+          <img :src="require('../assets/images/logo.jpg')" alt="Description of the image" style="border-radius: 50%;max-width: 100%; height: 100%; object-fit: cover;">
         </div>
         
         <h2 style="margin-left: 500px; ">Welcome to QMJEnt!</h2>
